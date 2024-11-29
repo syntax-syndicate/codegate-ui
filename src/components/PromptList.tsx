@@ -1,7 +1,6 @@
 import { isToday, isYesterday, format } from "date-fns";
 import { match } from "ts-pattern";
 import { Prompt } from "../types";
-import { MOCKED_PROMPTS } from "../mock/prompts";
 
 type GroupKeys =
   | "Today"
