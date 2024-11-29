@@ -4,6 +4,8 @@ import { Header } from "./components/Header";
 import { PromptList } from "./components/PromptList";
 import { useState } from "react";
 import { ListIcon } from "./components/Icons";
+import { MOCKED_PROMPTS } from "./mock/prompts";
+import { Dashboard } from "./components/Dashboard";
 
 function App() {
   const [isOpen, setIsOpen] = useState(true);
@@ -15,7 +17,7 @@ function App() {
         <Header />
         <div className="flex">
           <Drawer isOpen={isOpen}>
-            {isOpen && <PromptList />}
+            {isOpen && <PromptList prompts={MOCKED_PROMPTS} />}
             <div className="flex absolute bottom-4">
               <button
                 className="p-1 text-white rounded-sm bg-gray-400 hover:bg-gray-200"
@@ -25,9 +27,12 @@ function App() {
               </button>
             </div>
           </Drawer>
-          <div className="p-4">
+          <div className="w-full p-6">
             <Routes>
-              <Route path="/" element={<div>Home</div>} />
+              <Route
+                path="/"
+                element={<Dashboard prompts={MOCKED_PROMPTS} />}
+              />
               <Route path="/settings" element={<div>Settings</div>} />
             </Routes>
           </div>
