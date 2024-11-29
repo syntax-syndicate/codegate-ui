@@ -3,7 +3,7 @@ import { HomeIcon, SettingsIcon, StacklokLogo } from "./Icons";
 import { tv } from "tailwind-variants";
 
 const linkStyles = tv({
-  base: "text-lg flex gap-2 items-center font-medium hover:text-gray-300 transition-all",
+  base: "text-base flex gap-2 items-center font-medium hover:text-gray-300 transition-all",
   variants: {
     isActive: {
       true: "text-brand hover:text-brand-dark",
