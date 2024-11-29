@@ -1,7 +1,7 @@
 import { Drawer } from "./components/Drawer";
 import { Route, Routes } from "react-router-dom";
 import { Header } from "./components/Header";
-import { ListPrompt } from "./components/ListPrompt";
+import { PromptList } from "./components/PromptList";
 import { useState } from "react";
 import { ListIcon } from "./components/Icons";
 
@@ -15,7 +15,7 @@ function App() {
         <Header />
         <div className="flex">
           <Drawer isOpen={isOpen}>
-            {isOpen && <ListPrompt />}
+            {isOpen && <PromptList />}
             <div className="flex absolute bottom-4">
               <button
                 className="p-1 text-white rounded-sm bg-gray-400 hover:bg-gray-200"
