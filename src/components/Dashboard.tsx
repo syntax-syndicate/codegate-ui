@@ -1,23 +1,6 @@
-import { format, formatDistance } from "date-fns";
+import { generateRandomDate, generateRandomUptime } from "../mock/dashboard";
 import { Prompt } from "../types";
 import { PieChart } from "../viz/PieChart";
-
-function generateRandomUptime() {
-  const now = new Date();
-  const randomPastTime = new Date(
-    now.getTime() - Math.random() * 48 * 60 * 60 * 1000
-  );
-
-  return formatDistance(randomPastTime, now, { includeSeconds: true });
-}
-
-function generateRandomDate(): string {
-  const randomPastDate = new Date(
-    Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000
-  );
-
-  return format(randomPastDate, "MM/dd/yyyy");
-}
 
 export function Dashboard({ prompts }: { prompts: Prompt[] }) {
   const tagCounts = prompts.reduce<Record<string, number>>((acc, prompt) => {
