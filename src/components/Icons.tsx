@@ -70,32 +70,6 @@ export function SettingsIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export function StacklokLogo(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 35 26"
-      fill="none"
-      width="26px"
-      height="35px"
-      {...props}
-    >
-      <path
-        fill="var(--logo-green, #59CFA8)"
-        d="M17.331 25.833 34.56 8.604v11.012l-6.216 6.217zM17.227 0 0 17.227V6.216L6.216 0z"
-      />
-      <path
-        fill="var(--logo-teal, #00BBBE)"
-        d="M34.558 8.604 34.55 0h-8.605L17.34 8.604zM0 17.227l.01 8.605h8.604l8.605-8.605z"
-      />
-      <path
-        fill="var(--logo-gray, #002A3E)"
-        d="M25.945 17.218V8.604h8.613zM8.614 8.614v8.614H0z"
-      />
-    </svg>
-  );
-}
-
 export function ClockIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg

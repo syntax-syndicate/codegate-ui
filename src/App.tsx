@@ -1,5 +1,4 @@
 import { Drawer } from "./components/Drawer";
-import { Route, Routes } from "react-router-dom";
 import { Header } from "./components/Header";
 import { PromptList } from "./components/PromptList";
 import { useState } from "react";
@@ -28,12 +27,7 @@ function App() {
             </div>
           </Drawer>
           <div className="w-full p-6">
-            <Routes>
-              <Route
-                path="/"
-                element={<Dashboard prompts={MOCKED_PROMPTS} />}
-              />
-            </Routes>
+            <Dashboard prompts={MOCKED_PROMPTS} />
           </div>
         </div>
       </div>
