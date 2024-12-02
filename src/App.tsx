@@ -33,7 +33,6 @@ function App() {
                 path="/"
                 element={<Dashboard prompts={MOCKED_PROMPTS} />}
               />
-              <Route path="/settings" element={<div>Settings</div>} />
             </Routes>
           </div>
         </div>
