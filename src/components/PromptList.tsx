@@ -82,10 +82,10 @@ function groupPromptsByRelativeDate(prompts: Prompt[]) {
 export function PromptList({ prompts }: { prompts: Prompt[] }) {
   const groupedPrompts = groupPromptsByRelativeDate(prompts);
   return (
-    <div className="p-2 rounded-lg h-[calc(100%-40px)] overflow-y-auto">
+    <div className="mx-2">
       {Object.entries(groupedPrompts).map(([group, prompts]) => (
         <div key={group} className="mb-3">
-          <h2 className="font-bold text-sm text-gray-700 mt-1 mb-2">{group}</h2>
+          <h2 className="font-bold text-sm text-gray-700 mb-2">{group}</h2>
           <ul className="space-y-2">
             {prompts.map((prompt) => (
               <li
@@ -97,25 +97,6 @@ export function PromptList({ prompts }: { prompts: Prompt[] }) {
                     {prompt.text}
                   </p>
                 </Link>
-
-                {/* <div className="flex flex-wrap gap-1">
-                  {prompt.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="inline-block bg-yellow-100 text-yellow-700 text-[10px] font-medium px-1 py-0.5 rounded-full"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                  {prompt.packages.map((pkg) => (
-                    <span
-                      key={pkg}
-                      className="inline-block bg-blue-100 text-blue-700 text-[10px] font-medium px-1 py-0.5 rounded-full"
-                    >
-                      {pkg}
-                    </span>
-                  ))}
-                </div> */}
               </li>
             ))}
           </ul>

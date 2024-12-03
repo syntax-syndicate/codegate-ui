@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
+import { SidebarTrigger } from "./ui/sidebar";
+import { Separator } from "./ui/separator";
 
 export function Header() {
   return (
-    <header className="h-16 gap-4 flex w-full bg-teal-25 opacity-1 border-b-blue-200 border-b ">
-      <nav className="flex p-4 gap-4">
+    <header className="h-16 px-3 items-center flex w-full bg-teal-25 opacity-1 border-b-blue-200 border-b ">
+      <SidebarTrigger />
+      <Separator orientation="vertical" className="h-8 mx-3" />
+      <nav className="mx-1 flex">
         <Link to="/">
           <h1 className="text-2xl w-max flex font-semibold">
             CodeGate UI Dashboard
