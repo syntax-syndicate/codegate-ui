@@ -14,7 +14,7 @@ import {
   BreadcrumbPage,
 } from "./ui/breadcrumb";
 
-export function ChatMsgList({ chats }: { chats: Chat[] }) {
+export function Chat({ chats }: { chats: Chat[] }) {
   return (
     <div className="h-screen">
       <div className="flex ">

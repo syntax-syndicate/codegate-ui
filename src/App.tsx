@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { Dashboard } from "./components/Dashboard";
 import { MOCKED_CHATS } from "./mock/chat";
 import { Routes, Route } from "react-router-dom";
-import { ChatMsgList } from "./components/ChatMsgList";
+import { Chat } from "./components/Chat";
 import { usePromptsStore } from "./hooks/usePromptsStore";
 import { Sidebar } from "./components/Sidebar";
 
@@ -30,7 +30,7 @@ function App() {
                 <Route path="/" element={<Dashboard prompts={prompts} />} />
                 <Route
                   path="/prompt/:id"
-                  element={<ChatMsgList chats={MOCKED_CHATS} />}
+                  element={<Chat chats={MOCKED_CHATS} />}
                 />
               </Routes>
             </div>
