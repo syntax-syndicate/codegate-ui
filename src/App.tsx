@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ListIcon } from "./components/Icons";
 import { MOCKED_PROMPTS } from "./mock/prompts";
 import { Dashboard } from "./components/Dashboard";
+import { MOCKED_CHATS } from "./mock/chat";
 
 function App() {
   const [isOpen, setIsOpen] = useState(true);
@@ -27,7 +28,7 @@ function App() {
             </div>
           </Drawer>
           <div className="w-full p-6">
-            <Dashboard prompts={MOCKED_PROMPTS} />
+            <Dashboard prompts={MOCKED_PROMPTS} chats={MOCKED_CHATS} />
           </div>
         </div>
       </div>

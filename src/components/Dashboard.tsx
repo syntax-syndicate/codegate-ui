@@ -1,10 +1,15 @@
 import { generateRandomDate, generateRandomUptime } from "../mock/dashboard";
-import { Prompt } from "../types";
+import { Chat, Prompt } from "../types";
 import { PieChart } from "../viz/PieChart";
-import { ChatBubble, ChatBubbleAvatar, ChatBubbleMessage } from "./ui/chat/chat-bubble";
-import { ChatMessageList } from "./ui/chat/chat-message-list";
+import { ChatMsgList } from "./ChatMsgList";
 
-export function Dashboard({ prompts }: { prompts: Prompt[] }) {
+export function Dashboard({
+  prompts,
+  chats,
+}: {
+  chats: Chat[];
+  prompts: Prompt[];
+}) {
   const tagCounts = prompts.reduce<Record<string, number>>((acc, prompt) => {
     prompt.tags.forEach((tag) => {
       acc[tag] = (acc[tag] || 0) + 1;
@@ -58,7 +63,7 @@ export function Dashboard({ prompts }: { prompts: Prompt[] }) {
           <p className="text-sm text-gray-600">{generateRandomDate()}</p>
         </div>
       </div>
-      <div className="flex justify-around">
+      <div className="flex py-8 justify-around border-b border-b-gray-200 w-full">
         <div className="w-[450px] h-[350px]">
           <div className="p-4 border h-[350px] border-gray-200 rounded-sm">
             <h2 className="text-lg font-semibold mb-4">
@@ -119,28 +124,8 @@ export function Dashboard({ prompts }: { prompts: Prompt[] }) {
         </div>
       </div>
 
-      <div>
-        // Wrap with ChatMessageList
-        <ChatMessageList>
-          // You can map over messages here
-          <ChatBubble variant="sent">
-            <ChatBubbleAvatar fallback="US" />
-            <ChatBubbleMessage variant="sent">
-              Hello, how has your day been? I hope you are doing well.
-            </ChatBubbleMessage>
-          </ChatBubble>
-          <ChatBubble variant="received">
-            <ChatBubbleAvatar fallback="AI" />
-            <ChatBubbleMessage variant="received">
-              Hi, I am doing well, thank you for asking. How can I help you
-              today?
-            </ChatBubbleMessage>
-          </ChatBubble>
-          <ChatBubble variant="received">
-            <ChatBubbleAvatar fallback="AI" />
-            <ChatBubbleMessage isLoading />
-          </ChatBubble>
-        </ChatMessageList>
+      <div className="w-full">
+        <ChatMsgList chats={chats} />
       </div>
     </div>
   );
