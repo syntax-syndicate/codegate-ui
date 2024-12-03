@@ -13,7 +13,7 @@ export function ChatMsgList({ chats }: { chats: Chat[] }) {
         {chats.map(({ id, message_llm, message_user }) => (
           <div key={id} className="flex flex-col w-full h-full p-4 gap-6">
             <ChatBubble variant="sent">
-              <ChatBubbleAvatar fallback="US" />
+              <ChatBubbleAvatar fallback="User" className="w-14" />
               <ChatBubbleMessage variant="sent">
                 {message_user}
               </ChatBubbleMessage>
