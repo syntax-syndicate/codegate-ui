@@ -1,4 +1,4 @@
-import { Chat } from "@/types";
+import { Chat as ChatType } from "@/types";
 import {
   ChatBubble,
   ChatBubbleAvatar,
@@ -14,7 +14,7 @@ import {
   BreadcrumbPage,
 } from "./ui/breadcrumb";
 
-export function Chat({ chats }: { chats: Chat[] }) {
+export function Chat({ chats }: { chats: ChatType[] }) {
   return (
     <div className="h-screen">
       <div className="flex ">

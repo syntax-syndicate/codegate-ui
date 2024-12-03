@@ -1,7 +1,6 @@
 import { generateRandomDate, generateRandomUptime } from "../mock/dashboard";
-import { Chat, Prompt } from "../types";
+import { Prompt } from "../types";
 import { PieChart } from "../viz/PieChart";
-import { ChatMsgList } from "./Chat";
 
 export function Dashboard({ prompts }: { prompts: Prompt[] }) {
   const tagCounts = prompts.reduce<Record<string, number>>((acc, prompt) => {

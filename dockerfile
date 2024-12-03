@@ -2,7 +2,7 @@ FROM node:20.18.0-alpine AS builder
 
 WORKDIR /usr/src/app
 
-COPY package*.json tailwind.config.ts postcss.config.js tsconfig*.json vite.config.ts index.html favicon.ico ./
+COPY package*.json tailwind.config.ts postcss.config.js tsconfig*.json components*.json vite.config.ts index.html ./
 
 RUN npm install
 
