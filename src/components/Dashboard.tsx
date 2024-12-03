@@ -3,13 +3,7 @@ import { Chat, Prompt } from "../types";
 import { PieChart } from "../viz/PieChart";
 import { ChatMsgList } from "./ChatMsgList";
 
-export function Dashboard({
-  prompts,
-  chats,
-}: {
-  chats: Chat[];
-  prompts: Prompt[];
-}) {
+export function Dashboard({ prompts }: { prompts: Prompt[] }) {
   const tagCounts = prompts.reduce<Record<string, number>>((acc, prompt) => {
     prompt.tags.forEach((tag) => {
       acc[tag] = (acc[tag] || 0) + 1;
@@ -122,10 +116,6 @@ export function Dashboard({
             />
           </div>
         </div>
-      </div>
-
-      <div className="w-full">
-        <ChatMsgList chats={chats} />
       </div>
     </div>
   );

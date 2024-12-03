@@ -6,6 +6,8 @@ import { ListIcon } from "./components/Icons";
 import { MOCKED_PROMPTS } from "./mock/prompts";
 import { Dashboard } from "./components/Dashboard";
 import { MOCKED_CHATS } from "./mock/chat";
+import { Routes, Route } from "react-router-dom";
+import { ChatMsgList } from "./components/ChatMsgList";
 
 function App() {
   const [isOpen, setIsOpen] = useState(true);
@@ -27,8 +29,18 @@ function App() {
               </button>
             </div>
           </Drawer>
+
           <div className="w-full p-6">
-            <Dashboard prompts={MOCKED_PROMPTS} chats={MOCKED_CHATS} />
+            <Routes>
+              <Route
+                path="/"
+                element={<Dashboard prompts={MOCKED_PROMPTS} />}
+              />
+              <Route
+                path="/prompt/:id"
+                element={<ChatMsgList chats={MOCKED_CHATS} />}
+              />
+            </Routes>
           </div>
         </div>
       </div>

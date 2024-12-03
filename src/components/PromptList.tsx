@@ -1,6 +1,7 @@
 import { isToday, isYesterday, format } from "date-fns";
 import { match } from "ts-pattern";
 import { Prompt } from "../types";
+import { Link } from "react-router-dom";
 
 type GroupKeys =
   | "Today"
@@ -89,12 +90,15 @@ export function PromptList({ prompts }: { prompts: Prompt[] }) {
             {prompts.map((prompt) => (
               <li
                 key={prompt.id}
-                className="p-2 bg-white rounded-md shadow-sm border border-gray-200"
+                className="flex items-center p-2 bg-white rounded-md shadow-sm border border-gray-200"
               >
-                <h3 className="font-medium text-gray-800 mb-1 text-sm line-clamp-1">
-                  {prompt.text}
-                </h3>
-                <div className="flex flex-wrap gap-1">
+                <Link to={`/prompt/${prompt.id}`}>
+                  <p className="font-medium text-gray-800 text-sm line-clamp-1">
+                    {prompt.text}
+                  </p>
+                </Link>
+
+                {/* <div className="flex flex-wrap gap-1">
                   {prompt.tags.map((tag) => (
                     <span
                       key={tag}
@@ -111,7 +115,7 @@ export function PromptList({ prompts }: { prompts: Prompt[] }) {
                       {pkg}
                     </span>
                   ))}
-                </div>
+                </div> */}
               </li>
             ))}
           </ul>
