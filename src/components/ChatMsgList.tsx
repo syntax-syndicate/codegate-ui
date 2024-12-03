@@ -30,7 +30,7 @@ export function ChatMsgList({ chats }: { chats: Chat[] }) {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <ChatMessageList>
+      <ChatMessageList className="h-[88%]">
         {chats.map(({ id, message_llm, message_user }) => (
           <div key={id} className="flex flex-col w-full h-full p-4 gap-6">
             <ChatBubble variant="sent">
