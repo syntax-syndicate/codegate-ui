@@ -1,6 +1,8 @@
 import { generateRandomDate, generateRandomUptime } from "../mock/dashboard";
 import { Prompt } from "../types";
 import { PieChart } from "../viz/PieChart";
+import { ChatBubble, ChatBubbleAvatar, ChatBubbleMessage } from "./ui/chat/chat-bubble";
+import { ChatMessageList } from "./ui/chat/chat-message-list";
 
 export function Dashboard({ prompts }: { prompts: Prompt[] }) {
   const tagCounts = prompts.reduce<Record<string, number>>((acc, prompt) => {
@@ -115,6 +117,30 @@ export function Dashboard({ prompts }: { prompts: Prompt[] }) {
             />
           </div>
         </div>
+      </div>
+
+      <div>
+        // Wrap with ChatMessageList
+        <ChatMessageList>
+          // You can map over messages here
+          <ChatBubble variant="sent">
+            <ChatBubbleAvatar fallback="US" />
+            <ChatBubbleMessage variant="sent">
+              Hello, how has your day been? I hope you are doing well.
+            </ChatBubbleMessage>
+          </ChatBubble>
+          <ChatBubble variant="received">
+            <ChatBubbleAvatar fallback="AI" />
+            <ChatBubbleMessage variant="received">
+              Hi, I am doing well, thank you for asking. How can I help you
+              today?
+            </ChatBubbleMessage>
+          </ChatBubble>
+          <ChatBubble variant="received">
+            <ChatBubbleAvatar fallback="AI" />
+            <ChatBubbleMessage isLoading />
+          </ChatBubble>
+        </ChatMessageList>
       </div>
     </div>
   );
