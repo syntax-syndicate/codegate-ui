@@ -99,7 +99,7 @@ export function Dashboard({}: { prompts: Prompt[] }) {
           <TableHeader>
             <TableRow>
               <TableHead>Trigger Type</TableHead>
-              <TableHead>Trigger String</TableHead>
+              <TableHead>Trigger Token</TableHead>
               <TableHead>File</TableHead>
               <TableHead>Code</TableHead>
               <TableHead>Timestamp</TableHead>
