@@ -19,7 +19,7 @@ const markdown = tv({
 });
 
 const preStyle = tv({
-  base: "overflow-x-auto max-h-40 p-2 bg-zinc-200 text-gray-700",
+  base: "overflow-x-auto max-h-80 p-2 bg-zinc-200 text-gray-700",
   variants: {
     dark: { true: "bg-zinc-800 text-gray-300" },
   },

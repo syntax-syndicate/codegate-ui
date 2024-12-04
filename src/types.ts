@@ -31,3 +31,10 @@ export type Chat = {
   message_user: string;
   message_llm: string;
 };
+
+export type PromptGroupDateKeys =
+  | "Today"
+  | "Yesterday"
+  | "Previous 7 days"
+  | "Previous 14 days"
+  | "Previous 30 days";

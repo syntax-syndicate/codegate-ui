@@ -14,12 +14,14 @@ import {
 } from "./ui/breadcrumb";
 import { usePromptsStore } from "@/hooks/usePromptsStore";
 import { Markdown } from "./Markdown";
+import { extractTitleFromMessage } from "@/lib/utils";
 
 export function Chat() {
   const { id } = useParams();
   const chat = usePromptsStore((state) =>
     state.prompts.find((prompt) => prompt.chat_id === id)
   );
+  const title = chat?.question_answers?.[0].question.message;
 
   return (
     <div className="h-screen mb-40">
@@ -31,7 +33,7 @@ export function Chat() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>{chat?.text}</BreadcrumbPage>
+              <BreadcrumbPage>{extractTitleFromMessage(title)}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
