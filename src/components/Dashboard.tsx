@@ -14,6 +14,7 @@ import { format } from "date-fns";
 import { Badge } from "./ui/badge";
 import { Input } from "./ui/input";
 import { useState } from "react";
+import { BarChart } from "@/viz/BarChart";
 
 export function Dashboard({}: { prompts: Prompt[] }) {
   const { maxCount, sortedTagCounts } = getAllIssues(MOCKED_ALERTS);
@@ -38,26 +39,7 @@ export function Dashboard({}: { prompts: Prompt[] }) {
         <div className="w-[650px] max-h-[350px]">
           <div className="p-4 border max-h-[350px] border-gray-200 rounded-sm">
             <h2 className="text-lg font-semibold mb-4">Alerts type detected</h2>
-            <div className="space-y-3 max-h-[270px] overflow-y-auto px-4 pb-2">
-              {sortedTagCounts.map(([tag, count]) => (
-                <div key={tag} className="flex items-center space-x-4">
-                  <span className="w-1/3 text-sm font-medium text-gray-700 truncate">
-                    {tag}
-                  </span>
-                  <div className="flex-1 h-4 bg-gray-200 rounded-lg overflow-hidden">
-                    <div
-                      className="h-full bg-blue-500 rounded-lg"
-                      style={{
-                        width: `${(count / maxCount) * 100}%`,
-                      }}
-                    ></div>
-                  </div>
-                  <span className="text-sm font-medium text-gray-700">
-                    {count}
-                  </span>
-                </div>
-              ))}
-            </div>
+            <BarChart data={sortedTagCounts} maxCount={maxCount} />
           </div>
         </div>
       </div>
