@@ -8,7 +8,6 @@ export type Prompt = {
   type: string;
   chat_id: string;
   // ---- temp
-  text?: string;
   packages?: string[];
   tags?: string[];
   // -----

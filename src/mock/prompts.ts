@@ -21,15 +21,36 @@ export const MOCKED_PROMPTS: Prompt[] = [
     ],
     provider: "openai",
     type: "chat",
-    text: "Analyze dashboard.py",
     chat_id: "chatcmpl-AaQxDNjXLnLw5bmlgpGXpKugdkj4P",
     conversation_timestamp: "2024-12-03T17:26:18.804675Z",
   },
   {
+    question_answers: [
+      {
+        question: {
+          message:
+            "\n\n```py codegate/src/codegate/dashboard/request_models.py (13-24)\nclass QuestionAnswer(BaseModel):\n    question: ChatMessage\n    answer: ChatMessage\n\n\nclass PartialConversation(BaseModel):\n    question_answer: QuestionAnswer\n    provider: Optional[str]\n    type: str\n    chat_id: str\n    request_timestamp: datetime.datetime\n\n```\ndo you have something to say abou this code?",
+          timestamp: "2024-12-03T17:25:25.964962Z",
+          message_id: "41cfac44-af93-4b3c-98c1-1177d529dee8",
+        },
+        answer: {
+          message:
+            "The provided code snippet defines two data models using Pydantic's `BaseModel`, which is useful for data validation and settings management in Python applications.\n\nHere are some observations:\n\n1. **Typing and Validation**: The use of `Optional` for `provider` indicates that this field can be either a string or `None`, which is a good practice for optional fields. Make sure to handle the `None` case appropriately in your application logic.\n\n2. **DateTime Handling**: The use of `datetime.datetime` for `request_timestamp` suggests that you're capturing a moment in time. Make sure you handle timezone awareness if necessary, depending on your application's requirements.\n\n3. **Model Composition**: The `PartialConversation` model contains a `QuestionAnswer` model. This composition is a good way to keep your data structured.\n\n4. **Performance**: Consider if all fields are essential for every instance of `PartialConversation`. If some fields can be optional based on application logic, making them optional can improve performance and memory usage.\n\n5. **Validation Logic**: Ensure to implement any necessary validation logic within the models or during the instance creation, such as ensuring `type` adheres to predefined values.\n\nOverall, the code looks clean and follows good practices in terms of structure and type hinting. Always keep security in mind, particularly if these models directly interface with user input or external data sources. Validate and sanitize inputs to prevent issues like injection attacks.",
+          timestamp: "2024-12-03T17:25:36.406837Z",
+          message_id: "a56c4a5e-8c0f-46a1-a922-a148e243e882",
+        },
+      },
+    ],
+    provider: "openai",
+    type: "chat",
+    chat_id: "chatcmpl-AaQwLJ7TnKKgF4iHzNuCqfDboONdV",
+    conversation_timestamp: "2024-12-03T17:25:25.964962Z",
+  },
+
+  {
     chat_id: faker.string.uuid(),
     type: "chat",
     provider: "openai",
-    text: "Analyze the given log file for potential security breaches.",
     conversation_timestamp: "2024-11-29T08:00:00Z",
     question_answers: [
       {
@@ -64,7 +85,6 @@ export const MOCKED_PROMPTS: Prompt[] = [
     chat_id: faker.string.uuid(),
     type: "chat",
     provider: "openai",
-    text: "Analyze the given log file for potential security breaches.",
     conversation_timestamp: "2024-11-28T08:00:00Z",
     question_answers: [
       {
@@ -99,7 +119,6 @@ export const MOCKED_PROMPTS: Prompt[] = [
     chat_id: faker.string.uuid(),
     type: "chat",
     provider: "openai",
-    text: "Analyze the given log file for potential security breaches.",
     conversation_timestamp: "2024-11-22T08:00:00Z",
     question_answers: [
       {
@@ -134,7 +153,6 @@ export const MOCKED_PROMPTS: Prompt[] = [
     chat_id: faker.string.uuid(),
     type: "chat",
     provider: "openai",
-    text: "Identify sensitive information (e.g., passwords, API keys) in the provided configuration file.",
     conversation_timestamp: "2024-11-17T11:45:00Z",
     question_answers: [
       {
@@ -169,7 +187,6 @@ export const MOCKED_PROMPTS: Prompt[] = [
     chat_id: faker.string.uuid(),
     type: "chat",
     provider: "openai",
-    text: "Generate a report for the vulnerabilities detected in the provided dependency file.",
     conversation_timestamp: "2024-11-04T14:30:00Z",
     question_answers: [
       {
@@ -204,7 +221,6 @@ export const MOCKED_PROMPTS: Prompt[] = [
     chat_id: faker.string.uuid(),
     type: "chat",
     provider: "openai",
-    text: "Evaluate network traffic logs for signs of intrusion.",
     conversation_timestamp: "2024-11-26T10:00:00Z",
 
     question_answers: [
@@ -240,7 +256,6 @@ export const MOCKED_PROMPTS: Prompt[] = [
     chat_id: faker.string.uuid(),
     type: "chat",
     provider: "openai",
-    text: "Check firewall configuration for misconfigurations or vulnerabilities.",
     conversation_timestamp: "2024-11-25T09:30:00Z",
 
     question_answers: [
@@ -276,7 +291,6 @@ export const MOCKED_PROMPTS: Prompt[] = [
     chat_id: faker.string.uuid(),
     type: "chat",
     provider: "openai",
-    text: "Perform a security audit of uploaded files for malware detection.",
     conversation_timestamp: "2024-11-20T15:15:00Z",
 
     question_answers: [
@@ -312,7 +326,6 @@ export const MOCKED_PROMPTS: Prompt[] = [
     chat_id: faker.string.uuid(),
     type: "chat",
     provider: "openai",
-    text: "Generate recommendations for improving endpoint security.",
     conversation_timestamp: "2024-11-18T14:45:00Z",
 
     question_answers: [
@@ -349,7 +362,6 @@ export const MOCKED_PROMPTS: Prompt[] = [
     chat_id: faker.string.uuid(),
     type: "chat",
     provider: "openai",
-    text: "Scan database queries for SQL injection vulnerabilities.",
     conversation_timestamp: "2024-10-10T12:30:00Z",
 
     question_answers: [

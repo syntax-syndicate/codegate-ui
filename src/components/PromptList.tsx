@@ -18,6 +18,21 @@ const groupToDate: Record<GroupKeys, Date> = {
   "Previous 30 days": new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
 };
 
+function extractTitleFromMessage(message: string) {
+  const regex = /^(.*)```[\s\S]*?```(.*)$/s;
+  const match = message.match(regex);
+
+  if (match) {
+    const beforeMarkdown = match[1].trim();
+    const afterMarkdown = match[2].trim();
+
+    const title = beforeMarkdown || afterMarkdown;
+    return title;
+  }
+
+  return message.trim();
+}
+
 function groupPromptsByRelativeDate(prompts: Prompt[]) {
   const grouped = prompts.reduce((groups, prompt) => {
     const promptDate = new Date(prompt.conversation_timestamp);
@@ -94,7 +109,9 @@ export function PromptList({ prompts }: { prompts: Prompt[] }) {
               >
                 <Link to={`/prompt/${prompt.chat_id}`}>
                   <p className="font-medium text-gray-800 text-sm line-clamp-1">
-                    {prompt.text}
+                    {extractTitleFromMessage(
+                      prompt.question_answers?.[0].question.message ?? ""
+                    )}
                   </p>
                 </Link>
               </li>
