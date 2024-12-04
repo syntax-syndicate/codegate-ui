@@ -1,10 +1,30 @@
+export type PromptState = {
+  prompts: Prompt[];
+  fetchPrompts: () => void;
+};
+
 export type Prompt = {
-  id: string;
-  text: string;
-  date: string;
-  tags: string[];
-  packages: string[];
-  conversations?: { q: string; a: string }[];
+  provider: string;
+  type: string;
+  chat_id: string;
+  // ---- temp
+  text?: string;
+  packages?: string[];
+  tags?: string[];
+  // -----
+  conversation_timestamp: string;
+  question_answers?: {
+    question: {
+      message: string;
+      timestamp: string;
+      message_id: string;
+    };
+    answer: {
+      message: string;
+      timestamp: string;
+      message_id: string;
+    };
+  }[];
 };
 
 export type Chat = {

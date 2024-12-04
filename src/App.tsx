@@ -2,7 +2,6 @@ import { Header } from "./components/Header";
 import { PromptList } from "./components/PromptList";
 import { useEffect } from "react";
 import { Dashboard } from "./components/Dashboard";
-import { MOCKED_CHATS } from "./mock/chat";
 import { Routes, Route } from "react-router-dom";
 import { Chat } from "./components/Chat";
 import { usePromptsStore } from "./hooks/usePromptsStore";
@@ -28,10 +27,7 @@ function App() {
             <div className="w-full p-6">
               <Routes>
                 <Route path="/" element={<Dashboard prompts={prompts} />} />
-                <Route
-                  path="/prompt/:id"
-                  element={<Chat chats={MOCKED_CHATS} />}
-                />
+                <Route path="/prompt/:id" element={<Chat />} />
               </Routes>
             </div>
           </div>

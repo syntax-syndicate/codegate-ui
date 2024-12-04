@@ -20,7 +20,7 @@ const groupToDate: Record<GroupKeys, Date> = {
 
 function groupPromptsByRelativeDate(prompts: Prompt[]) {
   const grouped = prompts.reduce((groups, prompt) => {
-    const promptDate = new Date(prompt.date);
+    const promptDate = new Date(prompt.conversation_timestamp);
 
     const now = new Date();
     const differenceInMs = now.getTime() - promptDate.getTime();
@@ -89,10 +89,10 @@ export function PromptList({ prompts }: { prompts: Prompt[] }) {
           <ul className="space-y-2">
             {prompts.map((prompt) => (
               <li
-                key={prompt.id}
+                key={prompt.chat_id}
                 className="flex items-center p-2 bg-white rounded-md shadow-sm border border-gray-200"
               >
-                <Link to={`/prompt/${prompt.id}`}>
+                <Link to={`/prompt/${prompt.chat_id}`}>
                   <p className="font-medium text-gray-800 text-sm line-clamp-1">
                     {prompt.text}
                   </p>

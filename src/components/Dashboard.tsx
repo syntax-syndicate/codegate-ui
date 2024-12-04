@@ -4,7 +4,7 @@ import { PieChart } from "../viz/PieChart";
 
 export function Dashboard({ prompts }: { prompts: Prompt[] }) {
   const tagCounts = prompts.reduce<Record<string, number>>((acc, prompt) => {
-    prompt.tags.forEach((tag) => {
+    (prompt?.tags ?? []).forEach((tag) => {
       acc[tag] = (acc[tag] || 0) + 1;
     });
     return acc;
@@ -18,7 +18,7 @@ export function Dashboard({ prompts }: { prompts: Prompt[] }) {
 
   const packageCounts = prompts.reduce<Record<string, number>>(
     (acc, prompt) => {
-      prompt.packages.forEach((pkg) => {
+      (prompt?.packages ?? []).forEach((pkg) => {
         acc[pkg] = (acc[pkg] || 0) + 1;
       });
       return acc;
