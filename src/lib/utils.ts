@@ -1,4 +1,4 @@
-import { Prompt, PromptGroupDateKeys } from "@/types";
+import { Alert, Prompt, PromptGroupDateKeys } from "@/types";
 import { clsx, type ClassValue } from "clsx";
 import { isToday, isYesterday, format } from "date-fns";
 import { twMerge } from "tailwind-merge";
@@ -92,4 +92,42 @@ export function groupPromptsByRelativeDate(prompts: Prompt[]) {
   });
 
   return Object.fromEntries(sortedGroups);
+}
+
+export function getAllIssues(alerts: Alert[]) {
+  const groupedTriggerCounts = alerts
+    .filter((alert) => alert.trigger_category === "critical")
+    .reduce<Record<string, number>>((acc, alert) => {
+      const triggerType = alert.trigger_type;
+      if (triggerType) {
+        acc[triggerType] = (acc[triggerType] || 0) + 1;
+      }
+      return acc;
+    }, {});
+
+  const maxCount = Math.max(...Object.values(groupedTriggerCounts));
+
+  const sortedTagCounts = Object.entries(groupedTriggerCounts).sort(
+    ([, countA], [, countB]) => countB - countA
+  );
+  return { maxCount, sortedTagCounts };
+}
+
+export function getMaliciousPackages() {
+  const packageCounts = ([] as { packages: [] }[]).reduce<
+    Record<string, number>
+  >((acc, prompt) => {
+    (prompt?.packages ?? []).forEach((pkg) => {
+      acc[pkg] = (acc[pkg] || 0) + 1;
+    });
+    return acc;
+  }, {});
+
+  const chartData = Object.entries(packageCounts).map(([pkg, count]) => ({
+    id: pkg,
+    label: pkg,
+    value: count,
+  }));
+
+  return chartData;
 }

@@ -3,33 +3,63 @@ export type PromptState = {
   fetchPrompts: () => void;
 };
 
-export type Prompt = {
+export type AlertState = {
+  alerts: Alert[];
+  fetchAlerts: () => void;
+};
+
+export type TriggerType =
+  | "codegate-version"
+  | "codegate-context-retriever"
+  | "codegate-system-prompt"
+  | "code-snippet-extractor"
+  | "codegate-secrets"
+  | string;
+
+export type SystemType = {
   provider: string;
   type: string;
   chat_id: string;
+  conversation_timestamp: string;
+};
+
+export type CodeSnippet = {
+  language: string | null;
+  filepath: string;
+  code: string;
+};
+
+export type Prompt = SystemType & {
   // ---- temp
   packages?: string[];
   tags?: string[];
   // -----
-  conversation_timestamp: string;
-  question_answers?: {
-    question: {
-      message: string;
-      timestamp: string;
-      message_id: string;
-    };
-    answer: {
-      message: string;
-      timestamp: string;
-      message_id: string;
-    };
-  }[];
+  question_answers?: Chat[];
+};
+
+export type Alert = {
+  conversation: {
+    question_answers: Chat[];
+  } & SystemType;
+  alert_id: string;
+  code_snippet: CodeSnippet | null;
+  trigger_string: string | null;
+  trigger_type: TriggerType;
+  trigger_category: "info" | "critical";
+  timestamp: string;
 };
 
 export type Chat = {
-  id: string;
-  message_user: string;
-  message_llm: string;
+  question: {
+    message: string;
+    timestamp: string;
+    message_id: string;
+  };
+  answer: {
+    message: string;
+    timestamp: string;
+    message_id: string;
+  };
 };
 
 export type PromptGroupDateKeys =

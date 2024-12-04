@@ -38,7 +38,7 @@ export function Chat() {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <ChatMessageList className="h-[calc(100vh-9rem)] ">
+      <ChatMessageList className="h-[calc(100vh-9rem)]">
         {(chat?.question_answers ?? []).map(({ question, answer }, index) => (
           <div key={index} className="flex flex-col w-full h-full p-4 gap-6">
             <ChatBubble variant="sent">
