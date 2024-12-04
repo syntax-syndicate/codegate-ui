@@ -21,7 +21,7 @@ export function PromptList({ prompts }: { prompts: Prompt[] }) {
                 <Link to={`/prompt/${prompt.chat_id}`}>
                   <p className="font-medium text-gray-800 text-sm line-clamp-1">
                     {extractTitleFromMessage(
-                      prompt.question_answers?.[0].question.message ?? ""
+                      prompt.question_answers?.[0].question.message ?? `Prompt ${prompt.conversation_timestamp}`
                     )}
                   </p>
                 </Link>
