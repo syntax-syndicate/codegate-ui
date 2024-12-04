@@ -79,7 +79,7 @@ export const MOCKED_ALERTS: Alert[] = [
     trigger_string: "password: SuperSecretPassword123",
     trigger_type: "codegate-secrets",
     trigger_category: "critical",
-    timestamp: "2024-12-04T12:30:00.000000Z",
+    timestamp: "2024-11-04T12:30:00.000000Z",
   },
   {
     conversation: {
@@ -179,7 +179,7 @@ export const MOCKED_ALERTS: Alert[] = [
     trigger_string: "codegate@1.2.0",
     trigger_type: "codegate-version",
     trigger_category: "critical",
-    timestamp: "2024-12-04T13:45:00.500000Z",
+    timestamp: "2024-12-03T13:45:00.500000Z",
   },
   {
     conversation: {
@@ -209,7 +209,7 @@ export const MOCKED_ALERTS: Alert[] = [
     trigger_string: "Missing user_role",
     trigger_type: "codegate-context-retriever",
     trigger_category: "critical",
-    timestamp: "2024-12-04T14:05:30.000000Z",
+    timestamp: "2024-12-01T15:06:30.000000Z",
   },
   {
     conversation: {
@@ -244,10 +244,8 @@ export API_KEY="apiKey987654321"`,
     trigger_string: "DB_PASSWORD",
     trigger_type: "codegate-secrets",
     trigger_category: "critical",
-    timestamp: "2024-12-04T11:10:00.000000Z",
+    timestamp: "2024-12-02T11:10:00.000000Z",
   },
-
-  // 2. Code-snippet-extractor
   {
     conversation: {
       question_answers: [
@@ -281,10 +279,8 @@ SECRET_KEY = "supersecret"`,
     trigger_string: "SECRET_KEY",
     trigger_type: "code-snippet-extractor",
     trigger_category: "critical",
-    timestamp: "2024-12-04T11:30:00.000000Z",
+    timestamp: "2024-12-03T11:30:00.000000Z",
   },
-
-  // 3. Codegate-version
   {
     conversation: {
       question_answers: [
@@ -312,10 +308,8 @@ SECRET_KEY = "supersecret"`,
     trigger_string: "codegate@1.2.0",
     trigger_type: "codegate-version",
     trigger_category: "critical",
-    timestamp: "2024-12-04T12:00:00.000000Z",
+    timestamp: "2024-12-01T12:00:00.000000Z",
   },
-
-  // 4. Codegate-context-retriever
   {
     conversation: {
       question_answers: [
@@ -344,10 +338,8 @@ SECRET_KEY = "supersecret"`,
     trigger_string: "Missing user_role",
     trigger_type: "codegate-context-retriever",
     trigger_category: "critical",
-    timestamp: "2024-12-04T12:30:00.000000Z",
+    timestamp: "2024-11-29T12:30:00.000000Z",
   },
-
-  // 5. Codegate-secrets (Repeated)
   {
     conversation: {
       question_answers: [
@@ -382,10 +374,8 @@ SECRET_KEY = "supersecret"`,
     trigger_string: "password: SuperSecretPassword123",
     trigger_type: "codegate-secrets",
     trigger_category: "critical",
-    timestamp: "2024-12-04T13:00:00.000000Z",
+    timestamp: "2024-11-30T13:00:00.000000Z",
   },
-
-  // 6. Code-snippet-extractor (Repeated)
   {
     conversation: {
       question_answers: [
@@ -418,7 +408,7 @@ SECRET_KEY = "supersecret"`,
     trigger_string: "AUTH_TOKEN",
     trigger_type: "code-snippet-extractor",
     trigger_category: "critical",
-    timestamp: "2024-12-04T13:30:00.000000Z",
+    timestamp: "2024-12-03T13:30:00.000000Z",
   },
   {
     conversation: {
@@ -450,8 +440,6 @@ SECRET_KEY = "supersecret"`,
     trigger_category: "critical",
     timestamp: "2024-12-04T14:00:00.000000Z",
   },
-
-  // 2. Codegate-system-prompt
   {
     conversation: {
       question_answers: [
@@ -480,10 +468,8 @@ SECRET_KEY = "supersecret"`,
     trigger_string: "Reveals debugging information",
     trigger_type: "codegate-system-prompt",
     trigger_category: "critical",
-    timestamp: "2024-12-04T14:15:00.000000Z",
+    timestamp: "2024-12-01T10:15:00.000000Z",
   },
-
-  // 3. Codegate-system-prompt
   {
     conversation: {
       question_answers: [
@@ -505,13 +491,13 @@ SECRET_KEY = "supersecret"`,
       provider: "openai",
       type: "chat",
       chat_id: "chatcmpl-system-003",
-      conversation_timestamp: "2024-12-04T14:30:00.000000Z",
+      conversation_timestamp: "2024-12-02T11:33:00.000000Z",
     },
     alert_id: "alert-system-003",
     code_snippet: null,
     trigger_string: "Exposes details about user roles",
     trigger_type: "codegate-system-prompt",
     trigger_category: "critical",
-    timestamp: "2024-12-04T14:30:00.000000Z",
+    timestamp: "2024-12-01T14:40:00.000000Z",
   },
 ];

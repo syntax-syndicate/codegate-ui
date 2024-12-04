@@ -11,9 +11,26 @@ import {
   Table,
 } from "./ui/table";
 import { format } from "date-fns";
+import { Badge } from "./ui/badge";
+import { Input } from "./ui/input";
+import { useState } from "react";
 
 export function Dashboard({}: { prompts: Prompt[] }) {
   const { maxCount, sortedTagCounts } = getAllIssues(MOCKED_ALERTS);
+  const [search, setSearch] = useState("");
+  const alerts = search
+    ? MOCKED_ALERTS.filter(
+        (alert) =>
+          alert.trigger_string?.toLowerCase().includes(search) ||
+          alert.trigger_type?.toLowerCase().includes(search)
+      ).sort(
+        (a, b) =>
+          new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+      )
+    : MOCKED_ALERTS.sort(
+        (a, b) =>
+          new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+      );
 
   return (
     <div className="w-full flex-col">
@@ -47,7 +64,36 @@ export function Dashboard({}: { prompts: Prompt[] }) {
 
       <Separator className="my-8" />
 
-      <h2 className="font-bold font-lg mb-2">All alerts</h2>
+      <div className="flex mb-2 mx-2 justify-between">
+        <div className="flex gap-2 items-center">
+          <h2 className="font-bold font-lg">All alerts</h2>
+          <Badge>{alerts.length}</Badge>
+        </div>
+        <Input
+          icon={
+            <svg
+              width="20px"
+              height="20px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M21 21L17.5001 17.5M20 11.5C20 16.1944 16.1944 20 11.5 20C6.80558 20 3 16.1944 3 11.5C3 6.80558 6.80558 3 11.5 3C16.1944 3 20 6.80558 20 11.5Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          }
+          type="text"
+          placeholder="Search..."
+          onChange={(e) => {
+            setSearch(e.target.value.toLowerCase());
+          }}
+        />
+      </div>
       <div className="w-[calc(100vw-20rem)] h-[500px] px-4 overflow-auto">
         <Table>
           <TableHeader>
@@ -60,7 +106,7 @@ export function Dashboard({}: { prompts: Prompt[] }) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {MOCKED_ALERTS.map((alert) => (
+            {alerts.map((alert) => (
               <TableRow key={alert.alert_id}>
                 <TableCell>{alert.trigger_type}</TableCell>
                 <TableCell>{alert.trigger_string || "N/A"}</TableCell>
