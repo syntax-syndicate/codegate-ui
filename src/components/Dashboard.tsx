@@ -1,4 +1,3 @@
-import { MOCKED_ALERTS } from "@/mock/alerts";
 import { Separator } from "./ui/separator";
 import { getAllIssues } from "@/lib/utils";
 import {
@@ -12,23 +11,32 @@ import {
 import { format } from "date-fns";
 import { Badge } from "./ui/badge";
 import { Input } from "./ui/input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BarChart } from "@/viz/BarChart";
 import { LineChart } from "@/viz/LineChart";
+import { useAlertsStore } from "@/hooks/useAlertsStore";
 
 export function Dashboard() {
-  const { maxCount, sortedTagCounts } = getAllIssues(MOCKED_ALERTS);
+  const { alerts, loading, fetchAlerts } = useAlertsStore();
+
+  useEffect(() => {
+    fetchAlerts();
+  }, [fetchAlerts]);
+
+  const { maxCount, sortedTagCounts } = getAllIssues(alerts);
   const [search, setSearch] = useState("");
-  const alerts = search
-    ? MOCKED_ALERTS.filter(
-        (alert) =>
-          alert.trigger_string?.toLowerCase().includes(search) ||
-          alert.trigger_type?.toLowerCase().includes(search)
-      ).sort(
-        (a, b) =>
-          new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-      )
-    : MOCKED_ALERTS.sort(
+  const filteredAlerts = search
+    ? alerts
+        .filter(
+          (alert) =>
+            alert.trigger_string?.toLowerCase().includes(search) ||
+            alert.trigger_type?.toLowerCase().includes(search)
+        )
+        .sort(
+          (a, b) =>
+            new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+        )
+    : alerts.sort(
         (a, b) =>
           new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
       );
@@ -37,10 +45,14 @@ export function Dashboard() {
     <div className="flex-col h-[calc(100vh-6rem)] my-auto overflow-auto">
       <div className="flex flex-wrap items-center gap-4 w-full">
         <div className="w-[450px] h-[240px]">
-          <BarChart data={sortedTagCounts} maxCount={maxCount} />
+          <BarChart
+            data={sortedTagCounts}
+            maxCount={maxCount}
+            loading={loading}
+          />
         </div>
         <div className="relative w-[350px] h-[240px]">
-          <LineChart alerts={MOCKED_ALERTS} />
+          <LineChart alerts={alerts} loading={loading}/>
         </div>
       </div>
 
@@ -49,7 +61,7 @@ export function Dashboard() {
       <div className="flex mb-2 mx-2 justify-between w-[calc(100vw-20rem)]">
         <div className="flex gap-2 items-center">
           <h2 className="font-bold font-lg">All Alerts</h2>
-          <Badge>{alerts.length}</Badge>
+          <Badge>{filteredAlerts.length}</Badge>
         </div>
         <Input
           icon={
@@ -88,7 +100,7 @@ export function Dashboard() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {alerts.map((alert) => (
+            {filteredAlerts.map((alert) => (
               <TableRow key={alert.alert_id}>
                 <TableCell>{alert.trigger_type}</TableCell>
                 <TableCell>{alert.trigger_string || "N/A"}</TableCell>

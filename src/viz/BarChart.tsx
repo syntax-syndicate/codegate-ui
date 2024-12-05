@@ -1,12 +1,32 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function BarChart({
   data,
   maxCount,
+  loading,
 }: {
   maxCount: number;
+  loading: boolean;
   data: [string, number][];
 }) {
+  if (loading) {
+    return (
+      <Card className="h-full">
+        <CardHeader>
+          <CardTitle>Security issues blocked</CardTitle>
+        </CardHeader>
+        <CardContent>
+        {Array.from({ length: 6 }).map((_, index) => (
+            <div className="flex w-full items-center justify-around mb-4">
+              <Skeleton key={index} className="w-full h-3" />
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+    );
+  }
+
   if (data.length === 0) {
     return (
       <Card className="h-full">

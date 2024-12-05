@@ -8,12 +8,7 @@ import {
   XAxis,
 } from "recharts";
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
@@ -22,6 +17,7 @@ import {
 } from "@/components/ui/chart";
 
 import { Alert } from "@/types";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const aggregateAlertsByDate = (alerts: { timestamp: string }[]) => {
   const dateMap: Record<string, { date: string; alerts: number }> = {};
@@ -53,8 +49,32 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function LineChart({ alerts }: { alerts: Alert[] }) {
+export function LineChart({
+  alerts,
+  loading,
+}: {
+  alerts: Alert[];
+  loading: boolean;
+}) {
   const chartData = aggregateAlertsByDate(alerts);
+
+  if (loading) {
+    return (
+      <Card className="h-full">
+        <CardHeader>
+          <CardTitle>Alerts by date</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div className="flex w-full items-center justify-around mb-4">
+              <Skeleton key={index} className="w-full h-3" />
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card className="h-full">
       <CardHeader>

@@ -4,7 +4,11 @@ import { MOCKED_ALERTS } from "@/mock/alerts";
 
 export const useAlertsStore = create<AlertState>((set) => ({
   alerts: [],
+  loading: false,
   fetchAlerts: () => {
-    set({ alerts: MOCKED_ALERTS });
+    set({ loading: true });
+    setTimeout(() => {
+      set({ alerts: MOCKED_ALERTS, loading: false });
+    }, 2000);
   },
 }));
