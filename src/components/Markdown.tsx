@@ -36,12 +36,12 @@ export function Markdown({ children, fontSize, dark, className = "" }: Props) {
   return (
     <ReactMarkdown
       components={{
-        pre: ({ node, children, ...props }) => (
+        pre: ({ children, ...props }) => (
           <pre {...props} className={preStyle({ dark, className })}>
             {children}
           </pre>
         ),
-        a({ node, children, ...props }) {
+        a({ children, ...props }) {
           return (
             <a {...props} target="_blank">
               {children}

@@ -10,6 +10,24 @@ export default defineConfig({
     outDir: "dist",
     rollupOptions: {
       input: "./index.html",
+      // output: {
+      //   manualChunks: (id) => {
+      //     if (id.includes("components/Chat.tsx")) {
+      //       return "chat";
+      //     }
+      //     if (id.includes("nivo")) {
+      //       return "nivo";
+      //     }
+
+      //     if (id.includes("lodash")) {
+      //       return "lodash";
+      //     }
+
+      //     if (id.includes("recharts")) {
+      //       return "recharts";
+      //     }
+      //   },
+      // },
     },
   },
   resolve: {

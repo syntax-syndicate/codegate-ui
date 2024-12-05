@@ -1,5 +1,4 @@
 import { MOCKED_ALERTS } from "@/mock/alerts";
-import { Prompt } from "../types";
 import { Separator } from "./ui/separator";
 import { getAllIssues } from "@/lib/utils";
 import {
@@ -17,7 +16,7 @@ import { useState } from "react";
 import { BarChart } from "@/viz/BarChart";
 import { LineChart } from "@/viz/LineChart";
 
-export function Dashboard({}: { prompts: Prompt[] }) {
+export function Dashboard() {
   const { maxCount, sortedTagCounts } = getAllIssues(MOCKED_ALERTS);
   const [search, setSearch] = useState("");
   const alerts = search

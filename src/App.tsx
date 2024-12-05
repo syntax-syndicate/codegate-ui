@@ -26,7 +26,7 @@ function App() {
 
             <div className="w-full p-6">
               <Routes>
-                <Route path="/" element={<Dashboard prompts={prompts} />} />
+                <Route path="/" element={<Dashboard />} />
                 <Route path="/prompt/:id" element={<Chat />} />
               </Routes>
             </div>
