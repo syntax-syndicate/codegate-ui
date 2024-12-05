@@ -24,7 +24,7 @@ export function Chat() {
   const title = chat?.question_answers?.[0].question.message ?? "Prompt";
 
   return (
-    <div className="h-screen mb-40">
+    <div className="h-screen mb-40 w-[calc(100vw-18rem)]">
       <div className="flex mb-3">
         <Breadcrumb>
           <BreadcrumbList>

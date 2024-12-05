@@ -76,7 +76,7 @@ export function Dashboard() {
           }}
         />
       </div>
-      <div className="px-4 overflow-auto">
+      <div className="w-[calc(100vw-18rem)] px-4 overflow-auto">
         <Table>
           <TableHeader>
             <TableRow>
