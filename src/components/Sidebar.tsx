@@ -8,7 +8,7 @@ import {
 
 export function Sidebar({ children }: { children: React.ReactNode }) {
   return (
-    <SidebarUI side="left">
+    <SidebarUI side="left" className="border-r-blue-200">
       <SidebarHeader className="bg-teal-25 py-6 pb-3 text-sm font-bold px-4">
         History Prompts
       </SidebarHeader>
