@@ -15,6 +15,20 @@ import { useEffect, useState } from "react";
 import { BarChart } from "@/viz/BarChart";
 import { LineChart } from "@/viz/LineChart";
 import { useAlertsStore } from "@/hooks/useAlertsStore";
+import { Markdown } from "./Markdown";
+
+const wrapObjectOutput = (input: string) => {
+  const isObject = /\{"/.test(input);
+
+  if (isObject) {
+    return (
+      <pre className="w-full h-40 overflow-auto whitespace-pre-wrap bg-gray-100 p-2">
+        <code>{input}</code>
+      </pre>
+    );
+  }
+  return <Markdown className="overflow-x-hidden">{input || "N/A"}</Markdown>;
+};
 
 export function Dashboard() {
   const { alerts, loading, fetchAlerts } = useAlertsStore();
@@ -52,7 +66,7 @@ export function Dashboard() {
           />
         </div>
         <div className="relative w-[350px] h-[240px]">
-          <LineChart alerts={alerts} loading={loading}/>
+          <LineChart alerts={alerts} loading={loading} />
         </div>
       </div>
 
@@ -92,29 +106,39 @@ export function Dashboard() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Trigger Type</TableHead>
-              <TableHead>Trigger Token</TableHead>
-              <TableHead>File</TableHead>
-              <TableHead>Code</TableHead>
-              <TableHead>Timestamp</TableHead>
+              <TableHead className="max-w-[100px]">Trigger Type</TableHead>
+              <TableHead className="w-[30%] max-w-[300px]">
+                Trigger Token
+              </TableHead>
+              <TableHead className="max-w-[100px]">File</TableHead>
+              <TableHead className="w-[30%] max-w-[300px]">Code</TableHead>
+              <TableHead className="max-w-[100px]">Timestamp</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {filteredAlerts.map((alert) => (
               <TableRow key={alert.alert_id}>
-                <TableCell>{alert.trigger_type}</TableCell>
-                <TableCell>{alert.trigger_string || "N/A"}</TableCell>
-                <TableCell>{alert.code_snippet?.filepath || "N/A"}</TableCell>
-                <TableCell>
+                <TableCell className="max-w-[100px] truncate">
+                  {alert.trigger_type}
+                </TableCell>
+                <TableCell className="w-[30%] max-w-[300px]">
+                  <div className="max-h-40 p-4 rounded overflow-y-auto whitespace-pre-wrap">
+                    {wrapObjectOutput(alert.trigger_string ?? "")}
+                  </div>
+                </TableCell>
+                <TableCell className="max-w-[100px] truncate">
+                  {alert.code_snippet?.filepath || "N/A"}
+                </TableCell>
+                <TableCell className="w-[30%] max-w-[300px]">
                   {alert.code_snippet?.code ? (
-                    <pre className="whitespace-pre-wrap bg-gray-100 p-2 h-20 overflow-auto text-sm">
-                      {alert.code_snippet?.code}
+                    <pre className="w-full h-40 overflow-auto whitespace-pre-wrap bg-gray-100 p-2">
+                      <code>{alert.code_snippet?.code}</code>
                     </pre>
                   ) : (
                     "N/A"
                   )}
                 </TableCell>
-                <TableCell>
+                <TableCell className="max-w-[100px] truncate">
                   <div>{format(new Date(alert.timestamp), "y/MM/dd")}</div>
                   <div>{format(new Date(alert.timestamp), "HH:mm a")}</div>
                 </TableCell>

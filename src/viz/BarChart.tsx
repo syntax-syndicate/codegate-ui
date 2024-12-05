@@ -17,9 +17,9 @@ export function BarChart({
           <CardTitle>Security issues blocked</CardTitle>
         </CardHeader>
         <CardContent>
-        {Array.from({ length: 6 }).map((_, index) => (
+          {Array.from({ length: 6 }).map((_, index) => (
             <div className="flex w-full items-center justify-around mb-4">
-              <Skeleton key={index} className="w-full h-3" />
+              <Skeleton key={index} className="w-1/3 h-3" />
             </div>
           ))}
         </CardContent>

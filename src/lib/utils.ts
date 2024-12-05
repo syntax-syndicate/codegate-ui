@@ -96,7 +96,11 @@ export function groupPromptsByRelativeDate(prompts: Prompt[]) {
 
 export function getAllIssues(alerts: Alert[]) {
   const groupedTriggerCounts = alerts
-    .filter((alert) => alert.trigger_category === "critical")
+    .filter(
+      (alert) =>
+        alert.trigger_category === "critical" ||
+        alert.trigger_category === "info"
+    )
     .reduce<Record<string, number>>((acc, alert) => {
       const triggerType = alert.trigger_type;
       if (triggerType) {
