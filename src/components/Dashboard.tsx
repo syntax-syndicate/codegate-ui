@@ -19,7 +19,7 @@ import { Markdown } from "./Markdown";
 
 const wrapObjectOutput = (input: string) => {
   const isObject = /\{"/.test(input);
-
+  console.log("input", input);
   if (isObject) {
     return (
       <pre className="max-h-40 h-40 overflow-y-auto whitespace-pre-wrap bg-gray-100 p-2">
@@ -27,7 +27,7 @@ const wrapObjectOutput = (input: string) => {
       </pre>
     );
   }
-  return <Markdown className="overflow-x-hidden">{input || "N/A"}</Markdown>;
+  return <Markdown className="max-w-80">{input || "N/A"}</Markdown>;
 };
 
 export function Dashboard() {
@@ -107,11 +107,9 @@ export function Dashboard() {
           <TableHeader>
             <TableRow>
               <TableHead className="max-w-[100px]">Trigger Type</TableHead>
-              <TableHead className="w-[30%] max-w-[300px]">
-                Trigger Token
-              </TableHead>
+              <TableHead className="w-1/3 max-w-80">Trigger Token</TableHead>
               <TableHead className="max-w-[100px]">File</TableHead>
-              <TableHead className="w-[30%] max-w-[300px]">Code</TableHead>
+              <TableHead className="w-1/3 max-w-80">Code</TableHead>
               <TableHead className="max-w-[100px]">Timestamp</TableHead>
             </TableRow>
           </TableHeader>
@@ -121,13 +119,13 @@ export function Dashboard() {
                 <TableCell className="max-w-[100px] truncate">
                   {alert.trigger_type}
                 </TableCell>
-                <TableCell className="w-[30%] max-w-[300px]">
+                <TableCell className="w-1/3 max-w-80">
                   {wrapObjectOutput(alert.trigger_string ?? "")}
                 </TableCell>
                 <TableCell className="max-w-[100px] truncate">
                   {alert.code_snippet?.filepath || "N/A"}
                 </TableCell>
-                <TableCell className="w-[30%] max-w-[300px]">
+                <TableCell className="w-1/3 max-w-80">
                   {alert.code_snippet?.code ? (
                     <pre className="max-h-40 overflow-y-auto bg-gray-100 p-2 whitespace-pre-wrap">
                       <code>{alert.code_snippet?.code}</code>
@@ -137,8 +135,12 @@ export function Dashboard() {
                   )}
                 </TableCell>
                 <TableCell className="max-w-[100px] truncate">
-                  <div>{format(new Date(alert.timestamp), "y/MM/dd")}</div>
-                  <div>{format(new Date(alert.timestamp), "HH:mm a")}</div>
+                  <div>
+                    {format(new Date(alert.timestamp ?? ""), "y/MM/dd")}
+                  </div>
+                  <div>
+                    {format(new Date(alert.timestamp ?? ""), "HH:mm a")}
+                  </div>
                 </TableCell>
               </TableRow>
             ))}
