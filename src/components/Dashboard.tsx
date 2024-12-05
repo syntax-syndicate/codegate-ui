@@ -39,7 +39,7 @@ export function Dashboard() {
         <div className="w-[450px] h-[240px]">
           <BarChart data={sortedTagCounts} maxCount={maxCount} />
         </div>
-        <div className="relative w-[300px] h-[240px]">
+        <div className="relative w-[350px] h-[240px]">
           <LineChart alerts={MOCKED_ALERTS} />
         </div>
       </div>

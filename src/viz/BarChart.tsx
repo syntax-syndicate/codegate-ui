@@ -1,7 +1,6 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -24,11 +23,10 @@ export function BarChart({
   return (
     <Card className="h-full">
       <CardHeader>
-        <CardTitle>Alerts Type Detected</CardTitle>
-        <CardDescription>Security issues blocked</CardDescription>
+        <CardTitle>Security issues blocked</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="space-y-2 max-h-[270px] overflow-y-auto">
+        <div className="space-y-3 max-h-[270px] overflow-y-auto">
           {data.map(([tag, count]) => (
             <div key={tag} className="flex items-center space-x-4">
               <span className="w-2/4 text-sm font-medium text-gray-700 truncate">

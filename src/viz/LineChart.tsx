@@ -11,7 +11,6 @@ import {
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -59,8 +58,7 @@ export function LineChart({ alerts }: { alerts: Alert[] }) {
   return (
     <Card className="h-full">
       <CardHeader>
-        <CardTitle>Daily Security Alerts</CardTitle>
-        <CardDescription>Distribution of alerts by date</CardDescription>
+        <CardTitle>Alerts by date</CardTitle>
       </CardHeader>
       <CardContent className="h-full">
         <ChartContainer config={chartConfig}>
