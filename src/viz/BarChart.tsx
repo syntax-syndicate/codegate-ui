@@ -1,9 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function BarChart({
   data,
@@ -14,9 +9,16 @@ export function BarChart({
 }) {
   if (data.length === 0) {
     return (
-      <div className="bg-gray-200 flex items-center justify-center h-20 font-bold text-lg">
-        N/A
-      </div>
+      <Card className="h-full">
+        <CardHeader>
+          <CardTitle>Security issues blocked</CardTitle>
+        </CardHeader>
+        <CardContent className="flex items-center h-2/3">
+          <div className="bg-gray-100 w-full flex items-center justify-center h-full font-bold text-lg">
+            N/A
+          </div>
+        </CardContent>
+      </Card>
     );
   }
 
