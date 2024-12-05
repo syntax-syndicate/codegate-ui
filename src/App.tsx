@@ -21,10 +21,10 @@ function App() {
           <Sidebar>
             <PromptList prompts={prompts} />
           </Sidebar>
-          <div className="w-full">
+          <div className="w-screen h-screen">
             <Header />
 
-            <div className="w-full p-6">
+            <div className="p-6">
               <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/prompt/:id" element={<Chat />} />

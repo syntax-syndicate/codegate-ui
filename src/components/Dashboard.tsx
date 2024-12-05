@@ -34,8 +34,8 @@ export function Dashboard() {
       );
 
   return (
-    <div className="w-full flex-col h-screen overflow-auto">
-      <div className="flex justify-around items-center w-full">
+    <div className="flex-col h-[calc(100vh-6rem)] my-auto overflow-auto">
+      <div className="flex flex-wrap items-center gap-4 w-full">
         <div className="w-[450px] h-[240px]">
           <BarChart data={sortedTagCounts} maxCount={maxCount} />
         </div>
@@ -46,7 +46,7 @@ export function Dashboard() {
 
       <Separator className="my-8" />
 
-      <div className="flex mb-2 mx-2 justify-between">
+      <div className="flex mb-2 mx-2 justify-between w-[calc(100vw-20rem)]">
         <div className="flex gap-2 items-center">
           <h2 className="font-bold font-lg">All alerts</h2>
           <Badge>{alerts.length}</Badge>
@@ -76,7 +76,7 @@ export function Dashboard() {
           }}
         />
       </div>
-      <div className="px-4 ">
+      <div className="px-4 overflow-auto">
         <Table>
           <TableHeader>
             <TableRow>
