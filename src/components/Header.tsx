@@ -10,7 +10,7 @@ export function Header() {
       <nav className="mx-1 flex">
         <Link to="/">
           <h1 className="text-2xl w-max flex font-semibold">
-            CodeGate UI Dashboard
+            CodeGate Dashboard
           </h1>
         </Link>
       </nav>

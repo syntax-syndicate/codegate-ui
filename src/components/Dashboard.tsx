@@ -48,7 +48,7 @@ export function Dashboard() {
 
       <div className="flex mb-2 mx-2 justify-between w-[calc(100vw-20rem)]">
         <div className="flex gap-2 items-center">
-          <h2 className="font-bold font-lg">All alerts</h2>
+          <h2 className="font-bold font-lg">All Alerts</h2>
           <Badge>{alerts.length}</Badge>
         </div>
         <Input
