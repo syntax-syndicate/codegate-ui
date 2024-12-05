@@ -15,6 +15,7 @@ import { Badge } from "./ui/badge";
 import { Input } from "./ui/input";
 import { useState } from "react";
 import { BarChart } from "@/viz/BarChart";
+import { LineChart } from "@/viz/LineChart";
 
 export function Dashboard({}: { prompts: Prompt[] }) {
   const { maxCount, sortedTagCounts } = getAllIssues(MOCKED_ALERTS);
@@ -34,13 +35,13 @@ export function Dashboard({}: { prompts: Prompt[] }) {
       );
 
   return (
-    <div className="w-full flex-col">
-      <div className="flex justify-around w-full">
-        <div className="w-[650px] max-h-[350px]">
-          <div className="p-4 border max-h-[350px] border-gray-200 rounded-sm">
-            <h2 className="text-lg font-semibold mb-4">Alerts type detected</h2>
-            <BarChart data={sortedTagCounts} maxCount={maxCount} />
-          </div>
+    <div className="w-full flex-col h-screen overflow-auto">
+      <div className="flex justify-around items-center w-full">
+        <div className="w-[450px] h-[240px]">
+          <BarChart data={sortedTagCounts} maxCount={maxCount} />
+        </div>
+        <div className="relative w-[300px] h-[240px]">
+          <LineChart alerts={MOCKED_ALERTS} />
         </div>
       </div>
 
@@ -76,7 +77,7 @@ export function Dashboard({}: { prompts: Prompt[] }) {
           }}
         />
       </div>
-      <div className="w-[calc(100vw-20rem)] h-[500px] px-4 overflow-auto">
+      <div className="px-4 ">
         <Table>
           <TableHeader>
             <TableRow>
@@ -103,7 +104,7 @@ export function Dashboard({}: { prompts: Prompt[] }) {
                   )}
                 </TableCell>
                 <TableCell>
-                  <div>{format(new Date(alert.timestamp), "MM/dd/yyyy")}</div>
+                  <div>{format(new Date(alert.timestamp), "y/MM/dd")}</div>
                   <div>{format(new Date(alert.timestamp), "HH:mm a")}</div>
                 </TableCell>
               </TableRow>

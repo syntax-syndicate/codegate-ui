@@ -11,17 +11,15 @@ export function PromptList({ prompts }: { prompts: Prompt[] }) {
     <div className="mx-2">
       {Object.entries(groupedPrompts).map(([group, prompts]) => (
         <div key={group} className="mb-3">
-          <h2 className="font-bold text-sm text-gray-700 mb-2">{group}</h2>
+          <h2 className="font-bold text-sm text-gray-700 mb-2 mt-6">{group}</h2>
           <ul className="space-y-2">
             {prompts.map((prompt) => (
-              <li
-                key={prompt.chat_id}
-                className="flex items-center p-2 bg-white rounded-md shadow-sm border border-gray-200"
-              >
+              <li key={prompt.chat_id} className="flex items-center p-1 ">
                 <Link to={`/prompt/${prompt.chat_id}`}>
-                  <p className="font-medium text-gray-800 text-sm line-clamp-1">
+                  <p className="text-gray-800 text-sm line-clamp-1 hover:text-gray-500">
                     {extractTitleFromMessage(
-                      prompt.question_answers?.[0].question.message ?? `Prompt ${prompt.conversation_timestamp}`
+                      prompt.question_answers?.[0].question.message ??
+                        `Prompt ${prompt.conversation_timestamp}`
                     )}
                   </p>
                 </Link>
