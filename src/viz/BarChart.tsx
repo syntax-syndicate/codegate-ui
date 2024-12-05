@@ -14,7 +14,7 @@ export function BarChart({
     return (
       <Card className="h-full">
         <CardHeader>
-          <CardTitle>Security issues blocked</CardTitle>
+          <CardTitle>Security issues detected</CardTitle>
         </CardHeader>
         <CardContent>
           {Array.from({ length: 6 }).map((_, index) => (
