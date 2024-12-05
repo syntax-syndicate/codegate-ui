@@ -22,7 +22,7 @@ const wrapObjectOutput = (input: string) => {
 
   if (isObject) {
     return (
-      <pre className="w-full h-40 overflow-auto whitespace-pre-wrap bg-gray-100 p-2">
+      <pre className="max-h-40 h-40 overflow-y-auto whitespace-pre-wrap bg-gray-100 p-2">
         <code>{input}</code>
       </pre>
     );
@@ -117,21 +117,19 @@ export function Dashboard() {
           </TableHeader>
           <TableBody>
             {filteredAlerts.map((alert) => (
-              <TableRow key={alert.alert_id}>
+              <TableRow key={alert.alert_id} className="max-h-20">
                 <TableCell className="max-w-[100px] truncate">
                   {alert.trigger_type}
                 </TableCell>
                 <TableCell className="w-[30%] max-w-[300px]">
-                  <div className="max-h-40 p-4 rounded overflow-y-auto whitespace-pre-wrap">
-                    {wrapObjectOutput(alert.trigger_string ?? "")}
-                  </div>
+                  {wrapObjectOutput(alert.trigger_string ?? "")}
                 </TableCell>
                 <TableCell className="max-w-[100px] truncate">
                   {alert.code_snippet?.filepath || "N/A"}
                 </TableCell>
                 <TableCell className="w-[30%] max-w-[300px]">
                   {alert.code_snippet?.code ? (
-                    <pre className="w-full h-40 overflow-auto whitespace-pre-wrap bg-gray-100 p-2">
+                    <pre className="max-h-40 overflow-y-auto bg-gray-100 p-2 whitespace-pre-wrap">
                       <code>{alert.code_snippet?.code}</code>
                     </pre>
                   ) : (
