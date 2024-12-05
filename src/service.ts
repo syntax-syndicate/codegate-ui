@@ -6,7 +6,6 @@ export async function getPrompts(): Promise<Prompt[]> {
   try {
     const res = await fetch(`${BASE_URL}/dashboard/messages`);
     const data = await res.json();
-    console.log("Prompts: ", data);
     return data;
   } catch {
     return [];
@@ -17,7 +16,6 @@ export async function getAlerts(): Promise<Alert[]> {
   try {
     const res = await fetch(`${BASE_URL}/dashboard/alerts`);
     const data = await res.json();
-    console.log("Alerts: ", data);
     return data;
   } catch {
     return [];
