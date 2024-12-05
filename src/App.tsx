@@ -8,7 +8,7 @@ import { usePromptsStore } from "./hooks/usePromptsStore";
 import { Sidebar } from "./components/Sidebar";
 
 function App() {
-  const { prompts, fetchPrompts } = usePromptsStore();
+  const { prompts, loading, fetchPrompts } = usePromptsStore();
 
   useEffect(() => {
     fetchPrompts();
@@ -18,7 +18,7 @@ function App() {
     <>
       <div className="w-full">
         <div className="flex">
-          <Sidebar>
+          <Sidebar loading={loading}>
             <PromptList prompts={prompts} />
           </Sidebar>
           <div className="w-screen h-screen">

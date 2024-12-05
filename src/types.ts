@@ -1,10 +1,12 @@
 export type PromptState = {
   prompts: Prompt[];
+  loading: boolean,
   fetchPrompts: () => void;
 };
 
 export type AlertState = {
   alerts: Alert[];
+  loading: boolean,
   fetchAlerts: () => void;
 };
 
