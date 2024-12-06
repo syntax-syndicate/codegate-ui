@@ -1,6 +1,6 @@
-import { Alert, Prompt, PromptGroupDateKeys } from "@/types";
+import { Alert, Prompt } from "@/types";
 import { clsx, type ClassValue } from "clsx";
-import { isToday, isYesterday, format } from "date-fns";
+import { isToday, isYesterday } from "date-fns";
 import { twMerge } from "tailwind-merge";
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;

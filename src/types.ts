@@ -1,12 +1,12 @@
 export type PromptState = {
   prompts: Prompt[];
-  loading: boolean,
+  loading: boolean;
   fetchPrompts: () => void;
 };
 
 export type AlertState = {
   alerts: Alert[];
-  loading: boolean,
+  loading: boolean;
   fetchAlerts: () => void;
 };
 
@@ -63,10 +63,3 @@ export type Chat = {
     message_id: string;
   };
 };
-
-export type PromptGroupDateKeys =
-  | "Today"
-  | "Yesterday"
-  | "Previous 7 days"
-  | "Previous 14 days"
-  | "Previous 30 days";
