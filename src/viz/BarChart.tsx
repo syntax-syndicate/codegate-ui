@@ -14,7 +14,7 @@ export function BarChart({
     return (
       <Card className="h-full">
         <CardHeader>
-          <CardTitle>Security issues detected 2</CardTitle>
+          <CardTitle>Security issues detected</CardTitle>
         </CardHeader>
         <CardContent>
           {Array.from({ length: 6 }).map((_, index) => (
@@ -34,7 +34,7 @@ export function BarChart({
     return (
       <Card className="h-full">
         <CardHeader>
-          <CardTitle>Security issues detected 2</CardTitle>
+          <CardTitle>Security issues detected</CardTitle>
         </CardHeader>
         <CardContent className="flex items-center h-2/3">
           <div className="bg-gray-100 w-full flex items-center justify-center h-full font-bold text-lg">
@@ -48,7 +48,7 @@ export function BarChart({
   return (
     <Card className="h-full">
       <CardHeader>
-        <CardTitle>Security issues detected 2</CardTitle>
+        <CardTitle>Security issues detected</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-3 max-h-[270px] overflow-y-auto">
