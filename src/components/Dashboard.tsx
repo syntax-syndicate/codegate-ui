@@ -61,14 +61,14 @@ export function Dashboard() {
   return (
     <div className="flex-col h-[calc(100vh-6rem)] my-auto overflow-auto">
       <div className="flex flex-wrap items-center gap-4 w-full">
-        <div className="w-1/4 h-[240px]">
+        <div className="w-1/4 h-60">
           <BarChart
             data={sortedTagCounts}
             maxCount={maxCount}
             loading={loading}
           />
         </div>
-        <div className="relative w-1/4 h-[240px]">
+        <div className="relative w-1/4 h-60">
           <LineChart alerts={alerts} loading={loading} />
         </div>
       </div>
