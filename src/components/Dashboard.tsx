@@ -68,7 +68,7 @@ export function Dashboard() {
             loading={loading}
           />
         </div>
-        <div className="relative w-1/4 h-60">
+        <div className="relative w-[370px] h-60">
           <LineChart alerts={alerts} loading={loading} />
         </div>
       </div>
