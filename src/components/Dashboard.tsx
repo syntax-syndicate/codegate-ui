@@ -19,7 +19,6 @@ import { Markdown } from "./Markdown";
 
 const wrapObjectOutput = (input: string) => {
   const isObject = /\{"/.test(input);
-  console.log("input", input);
   if (isObject) {
     return (
       <pre className="max-h-40 h-40 overflow-y-auto whitespace-pre-wrap bg-gray-100 p-2">

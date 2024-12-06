@@ -66,7 +66,7 @@ export function LineChart({
         </CardHeader>
         <CardContent>
           {Array.from({ length: 6 }).map((_, index) => (
-            <div className="flex w-full items-center justify-around mb-4">
+            <div key={index} className="flex w-full items-center justify-around mb-4">
               <Skeleton key={index} className="w-full h-3" />
             </div>
           ))}

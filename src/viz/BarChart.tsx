@@ -18,7 +18,10 @@ export function BarChart({
         </CardHeader>
         <CardContent>
           {Array.from({ length: 6 }).map((_, index) => (
-            <div className="flex w-full items-center justify-around mb-4">
+            <div
+              key={index}
+              className="flex w-full items-center justify-around mb-4"
+            >
               <Skeleton key={index} className="w-1/3 h-3" />
             </div>
           ))}
@@ -49,8 +52,8 @@ export function BarChart({
       </CardHeader>
       <CardContent>
         <div className="space-y-3 max-h-[270px] overflow-y-auto">
-          {data.map(([tag, count]) => (
-            <div key={tag} className="flex items-center space-x-4">
+          {data.map(([tag, count], index) => (
+            <div key={index} className="flex items-center space-x-4">
               <span className="w-2/4 text-sm font-medium text-gray-700 truncate">
                 {tag}
               </span>
