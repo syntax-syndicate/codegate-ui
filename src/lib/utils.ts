@@ -2,7 +2,11 @@ import { Alert, Prompt, PromptGroupDateKeys } from "@/types";
 import { clsx, type ClassValue } from "clsx";
 import { isToday, isYesterday, format } from "date-fns";
 import { twMerge } from "tailwind-merge";
-import { match } from "ts-pattern";
+
+const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+const SEVEN_DAYS_MS = 7 * ONE_DAY_MS;
+const TEEN_DAYS_MS = 14 * ONE_DAY_MS;
+const THTY_DAYS_MS = 30 * ONE_DAY_MS;
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -23,53 +27,31 @@ export function extractTitleFromMessage(message: string) {
   return message.trim();
 }
 
-const groupToDate: Record<PromptGroupDateKeys, Date> = {
-  Today: new Date(),
-  Yesterday: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
-  "Previous 7 days": new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
-  "Previous 14 days": new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),
-  "Previous 30 days": new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
-};
+function getGroup(differenceInMs: number, promptDate: Date): string {
+  if (isToday(promptDate)) {
+    return "Today";
+  }
+  if (isYesterday(promptDate)) {
+    return "Yesterday";
+  }
+  if (differenceInMs <= SEVEN_DAYS_MS) {
+    return "Previous 7 days";
+  }
+  if (differenceInMs <= TEEN_DAYS_MS) {
+    return "Previous 14 days";
+  }
+  if (differenceInMs <= THTY_DAYS_MS) {
+    return "Previous 30 days";
+  }
+  return "Beyond 30 days";
+}
 
 export function groupPromptsByRelativeDate(prompts: Prompt[]) {
   const grouped = prompts.reduce((groups, prompt) => {
     const promptDate = new Date(prompt.conversation_timestamp);
-
     const now = new Date();
     const differenceInMs = now.getTime() - promptDate.getTime();
-
-    const group = match(true)
-      .when(
-        () => isToday(promptDate),
-        () => "Today"
-      )
-      .when(
-        () => isYesterday(promptDate),
-        () => "Yesterday"
-      )
-      .when(
-        () =>
-          differenceInMs <= 7 * 24 * 60 * 60 * 1000 &&
-          differenceInMs > 1 * 24 * 60 * 60 * 1000,
-        () => "Previous 7 days"
-      )
-      .when(
-        () =>
-          differenceInMs <= 14 * 24 * 60 * 60 * 1000 &&
-          differenceInMs > 7 * 24 * 60 * 60 * 1000,
-        () => "Previous 14 days"
-      )
-      .when(
-        () =>
-          differenceInMs <= 30 * 24 * 60 * 60 * 1000 &&
-          differenceInMs > 14 * 24 * 60 * 60 * 1000,
-        () => "Previous 30 days"
-      )
-      .when(
-        () => differenceInMs > 30 * 24 * 60 * 60 * 1000,
-        () => "Beyond 30 days"
-      )
-      .otherwise(() => format(promptDate, "yyyy-MM-dd"));
+    const group = getGroup(differenceInMs, promptDate);
 
     if (!groups[group]) {
       groups[group] = [];
@@ -79,19 +61,7 @@ export function groupPromptsByRelativeDate(prompts: Prompt[]) {
     return groups;
   }, {} as Record<string, Prompt[]>);
 
-  const sortedGroups = Object.entries(grouped).sort(([groupA], [groupB]) => {
-    if (groupA === "Beyond 30 days") return 1;
-    if (groupB === "Beyond 30 days") return -1;
-
-    const dateA =
-      groupToDate[groupA as PromptGroupDateKeys] || new Date(groupA);
-    const dateB =
-      groupToDate[groupB as PromptGroupDateKeys] || new Date(groupB);
-
-    return dateB.getTime() - dateA.getTime();
-  });
-
-  return Object.fromEntries(sortedGroups);
+  return grouped;
 }
 
 export function getAllIssues(alerts: Alert[]) {
