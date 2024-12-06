@@ -21,13 +21,13 @@ const wrapObjectOutput = (input: string) => {
   const isObject = /\{"/.test(input);
   if (isObject) {
     return (
-      <pre className="max-h-40 h-40 overflow-y-auto whitespace-pre-wrap bg-gray-100 p-2">
+      <pre className="max-h-40 overflow-y-auto whitespace-pre-wrap bg-gray-100 p-2">
         <code>{input}</code>
       </pre>
     );
   }
   return input ? (
-    <Markdown className="max-w-80 bg-gray-100">{input}</Markdown>
+    <Markdown className="bg-gray-100 overflow-auto w-fit p-1">{input}</Markdown>
   ) : (
     "N/A"
   );
@@ -61,7 +61,7 @@ export function Dashboard() {
   return (
     <div className="flex-col h-[calc(100vh-6rem)] my-auto overflow-auto">
       <div className="flex flex-wrap items-center gap-4 w-full">
-        <div className="w-1/4 h-60">
+        <div className="min-w-80 w-1/4 h-60">
           <BarChart
             data={sortedTagCounts}
             maxCount={maxCount}
@@ -105,39 +105,37 @@ export function Dashboard() {
           }}
         />
       </div>
-      <div className="w-[calc(100vw-18rem)] px-4 overflow-auto">
+      <div className="overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="max-w-[100px]">Trigger Type</TableHead>
-              <TableHead className="w-1/3 max-w-80">Trigger Token</TableHead>
-              <TableHead className="max-w-[100px]">File</TableHead>
-              <TableHead className="w-1/3 max-w-80">Code</TableHead>
-              <TableHead className="max-w-[100px]">Timestamp</TableHead>
+              <TableHead className="w-[150px]">Trigger Type</TableHead>
+              <TableHead className="w-[300px]">Trigger Token</TableHead>
+              <TableHead className="w-[150px]">File</TableHead>
+              <TableHead className="w-[300px]">Code</TableHead>
+              <TableHead className="w-[150px]">Timestamp</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {filteredAlerts.map((alert) => (
-              <TableRow key={alert.alert_id} className="max-h-20">
-                <TableCell className="max-w-[100px] truncate">
-                  {alert.trigger_type}
-                </TableCell>
-                <TableCell className="w-1/3 max-w-80">
+              <TableRow key={alert.alert_id} className="h-20">
+                <TableCell className="truncate">{alert.trigger_type}</TableCell>
+                <TableCell className="overflow-auto whitespace-nowrap">
                   {wrapObjectOutput(alert.trigger_string ?? "")}
                 </TableCell>
-                <TableCell className="max-w-[100px] truncate">
+                <TableCell className="truncate">
                   {alert.code_snippet?.filepath || "N/A"}
                 </TableCell>
-                <TableCell className="w-1/3 max-w-80">
+                <TableCell className="overflow-auto whitespace-nowrap">
                   {alert.code_snippet?.code ? (
-                    <pre className="max-h-40 overflow-y-auto bg-gray-100 p-2 whitespace-pre-wrap">
-                      <code>{alert.code_snippet?.code}</code>
+                    <pre className="max-h-40 overflow-auto bg-gray-100 p-2 whitespace-pre-wrap">
+                      <code>{alert.code_snippet.code}</code>
                     </pre>
                   ) : (
                     "N/A"
                   )}
                 </TableCell>
-                <TableCell className="max-w-[100px] truncate">
+                <TableCell className="truncate">
                   <div>
                     {format(new Date(alert.timestamp ?? ""), "y/MM/dd")}
                   </div>
