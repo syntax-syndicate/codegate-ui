@@ -26,7 +26,7 @@ const wrapObjectOutput = (input: string) => {
       </pre>
     );
   }
-  return <Markdown className="max-w-80">{input || "N/A"}</Markdown>;
+  return <Markdown className="max-w-80 bg-gray-100">{input || "N/A"}</Markdown>;
 };
 
 export function Dashboard() {
