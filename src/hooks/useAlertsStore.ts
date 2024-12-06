@@ -8,6 +8,9 @@ export const useAlertsStore = create<AlertState>((set) => ({
   fetchAlerts: async () => {
     set({ loading: true });
     const alerts = await getAlerts();
-    set({ alerts, loading: false });
+    set({
+      alerts: alerts.filter((alert) => alert.trigger_category === "critical"),
+      loading: false,
+    });
   },
 }));
