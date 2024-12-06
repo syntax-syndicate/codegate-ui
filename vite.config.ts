@@ -10,21 +10,21 @@ export default defineConfig({
     outDir: "dist",
     rollupOptions: {
       input: "./index.html",
-      // output: {
-      //   manualChunks: (id) => {
-      //     if (id.includes("components/Chat.tsx")) {
-      //       return "chat";
-      //     }
+      output: {
+        manualChunks: (id) => {
+          if (id.includes("components/Chat.tsx")) {
+            return "chat";
+          }
 
-      //     if (id.includes("lodash")) {
-      //       return "lodash";
-      //     }
+          if (id.includes("lodash")) {
+            return "lodash";
+          }
 
-      //     if (id.includes("recharts")) {
-      //       return "recharts";
-      //     }
-      //   },
-      // },
+          if (id.includes("recharts")) {
+            return "recharts";
+          }
+        },
+      },
     },
   },
   resolve: {
