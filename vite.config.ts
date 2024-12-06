@@ -15,9 +15,6 @@ export default defineConfig({
       //     if (id.includes("components/Chat.tsx")) {
       //       return "chat";
       //     }
-      //     if (id.includes("nivo")) {
-      //       return "nivo";
-      //     }
 
       //     if (id.includes("lodash")) {
       //       return "lodash";
