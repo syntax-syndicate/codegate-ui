@@ -14,7 +14,9 @@ function App() {
   const { prompts, loading, fetchPrompts } = usePromptsStore();
   const { sendNotification } = useBrowserNotification();
 
-  const eventSource = new EventSource(`${BASE_URL}/alerts_notification`);
+  const eventSource = new EventSource(
+    `${BASE_URL}/dashboard/alerts_notification`
+  );
 
   eventSource.onmessage = function (event) {
     if (event.data.toLowerCase().includes("new alert detected")) {
