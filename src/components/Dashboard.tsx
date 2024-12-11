@@ -200,7 +200,7 @@ export function Dashboard() {
             type="text"
             value={search}
             placeholder="Search..."
-            onChange={(e) => handleSearch(e.target.value.toLowerCase())}
+            onChange={(e) => handleSearch(e.target.value.toLowerCase().trim())}
           />
         </div>
       </div>
