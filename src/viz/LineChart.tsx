@@ -50,13 +50,13 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function LineChart({
-  alerts,
+  data,
   loading,
 }: {
-  alerts: Alert[];
+  data: Alert[];
   loading: boolean;
 }) {
-  const chartData = aggregateAlertsByDate(alerts);
+  const chartData = aggregateAlertsByDate(data);
 
   if (loading) {
     return (

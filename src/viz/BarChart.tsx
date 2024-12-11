@@ -1,15 +1,17 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getAllIssues } from "@/lib/utils";
+import { Alert } from "@/types";
 
 export function BarChart({
   data,
-  maxCount,
   loading,
 }: {
-  maxCount: number;
   loading: boolean;
-  data: [string, number][];
+  data: Alert[];
 }) {
+  const { maxCount, sortedTagCounts } = getAllIssues(data);
+
   if (loading) {
     return (
       <Card className="h-full">
@@ -22,7 +24,7 @@ export function BarChart({
               key={index}
               className="flex w-full items-center justify-around mb-4"
             >
-              <Skeleton key={index} className="w-1/3 h-3" />
+              <Skeleton key={index} className="w-full h-3" />
             </div>
           ))}
         </CardContent>
@@ -30,7 +32,7 @@ export function BarChart({
     );
   }
 
-  if (data.length === 0) {
+  if (sortedTagCounts.length === 0) {
     return (
       <Card className="h-full">
         <CardHeader>
@@ -52,7 +54,7 @@ export function BarChart({
       </CardHeader>
       <CardContent>
         <div className="space-y-3 max-h-[270px] overflow-y-auto">
-          {data.map(([tag, count], index) => (
+          {sortedTagCounts.map(([tag, count], index) => (
             <div key={index} className="flex items-center space-x-4">
               <span className="w-2/4 text-sm font-medium text-gray-700 truncate">
                 {tag}
