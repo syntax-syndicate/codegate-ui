@@ -1,5 +1,4 @@
 import { Separator } from "./ui/separator";
-import { getAllIssues, getFilteredAlerts } from "@/lib/utils";
 import {
   TableHeader,
   TableRow,
@@ -11,12 +10,20 @@ import {
 import { format } from "date-fns";
 import { Badge } from "./ui/badge";
 import { Input } from "./ui/input";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { BarChart } from "@/viz/BarChart";
 import { LineChart } from "@/viz/LineChart";
 import { useAlertsStore } from "@/hooks/useAlertsStore";
 import { Markdown } from "./Markdown";
 import { MaliciousPkgType } from "@/types";
+import { PieChart } from "@/viz/PieChart";
+import { Switch } from "./ui/switch";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
 
 const wrapObjectOutput = (input: string | MaliciousPkgType | null) => {
   if (typeof input === "object" && input !== null) {
@@ -48,28 +55,34 @@ const wrapObjectOutput = (input: string | MaliciousPkgType | null) => {
 };
 
 export function Dashboard() {
-  const { alerts, loading, fetchAlerts } = useAlertsStore();
+  const {
+    alerts,
+    loading,
+    fetchAlerts,
+    filteredAlerts,
+    getMaliciousPackagesChart,
+    isMaliciousFilterActive,
+    toggleMaliciousFilter,
+    setSearch,
+  } = useAlertsStore();
 
   useEffect(() => {
     fetchAlerts();
   }, [fetchAlerts]);
 
-  const { maxCount, sortedTagCounts } = getAllIssues(alerts);
-  const [search, setSearch] = useState("");
-  const filteredAlerts = getFilteredAlerts({ search, alerts });
+  const maliciousPackages = getMaliciousPackagesChart();
 
   return (
     <div className="flex-col h-[calc(100vh-6rem)] my-auto overflow-auto">
       <div className="flex flex-wrap items-center gap-4 w-full">
         <div className="min-w-80 w-1/4 h-60">
-          <BarChart
-            data={sortedTagCounts}
-            maxCount={maxCount}
-            loading={loading}
-          />
+          <BarChart data={alerts} loading={loading} />
+        </div>
+        <div className="min-w-80 w-1/4 h-60">
+          <PieChart data={maliciousPackages} loading={loading} />
         </div>
         <div className="relative w-[370px] h-60">
-          <LineChart alerts={alerts} loading={loading} />
+          <LineChart data={alerts} loading={loading} />
         </div>
       </div>
 
@@ -80,30 +93,52 @@ export function Dashboard() {
           <h2 className="font-bold font-lg">All Alerts</h2>
           <Badge>{filteredAlerts.length}</Badge>
         </div>
-        <Input
-          icon={
-            <svg
-              width="20px"
-              height="20px"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M21 21L17.5001 17.5M20 11.5C20 16.1944 16.1944 20 11.5 20C6.80558 20 3 16.1944 3 11.5C3 6.80558 6.80558 3 11.5 3C16.1944 3 20 6.80558 20 11.5Z"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          }
-          type="text"
-          placeholder="Search..."
-          onChange={(e) => {
-            setSearch(e.target.value.toLowerCase());
-          }}
-        />
+
+        <div className="flex items-center gap-8">
+          <div className="flex items-center space-x-2">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="flex items-center space-x-2">
+                    <Switch
+                      id="airplane-mode"
+                      checked={isMaliciousFilterActive}
+                      onCheckedChange={toggleMaliciousFilter}
+                    />
+                    <label htmlFor="airplane-mode" className="text-sm">
+                      Malicious Packages
+                    </label>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Filter by malicious packages</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
+          <Input
+            icon={
+              <svg
+                width="20px"
+                height="20px"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M21 21L17.5001 17.5M20 11.5C20 16.1944 16.1944 20 11.5 20C6.80558 20 3 16.1944 3 11.5C3 6.80558 6.80558 3 11.5 3C16.1944 3 20 6.80558 20 11.5Z"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            }
+            type="text"
+            placeholder="Search..."
+            onChange={(e) => setSearch(e.target.value.toLowerCase())}
+          />
+        </div>
       </div>
       <div className="overflow-x-auto">
         <Table>

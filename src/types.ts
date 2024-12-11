@@ -6,7 +6,14 @@ export type PromptState = {
 
 export type AlertState = {
   alerts: Alert[];
+  filteredAlerts: Alert[];
   loading: boolean;
+  isMaliciousFilterActive: boolean;
+  search: string;
+  setSearch: (search: string) => void;
+  getMaliciousPackagesChart: () => MaliciousPkgType[];
+  updateFilteredAlerts: () => void;
+  toggleMaliciousFilter: () => void;
   fetchAlerts: () => void;
 };
 
