@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { useBrowserNotification } from "./useBrowserNotification";
+import { useLocation } from "react-router-dom";
 
 const BASE_URL = import.meta.env.VITE_BASE_API_URL;
 
 export function useSse() {
+  const location = useLocation();
   const { sendNotification } = useBrowserNotification();
 
   useEffect(() => {
@@ -24,7 +26,9 @@ export function useSse() {
     };
 
     return () => {
-      eventSource.close();
+      if (location.pathname.includes("/prompt")) {
+        eventSource.close();
+      }
     };
   }, [BASE_URL]);
 }
