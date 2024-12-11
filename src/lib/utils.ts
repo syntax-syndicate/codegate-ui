@@ -102,3 +102,33 @@ export function getMaliciousPackages() {
 
   return chartData;
 }
+
+export function getFilteredAlerts({
+  search,
+  alerts,
+}: {
+  search: string;
+  alerts: Alert[];
+}) {
+  return search
+    ? alerts
+        .filter((alert) => {
+          const triggerString =
+            typeof alert.trigger_string === "object"
+              ? alert.trigger_string?.name
+              : alert.trigger_string;
+
+          return (
+            triggerString?.toLowerCase().includes(search) ||
+            alert.trigger_type?.toLowerCase().includes(search)
+          );
+        })
+        .sort(
+          (a, b) =>
+            new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+        )
+    : alerts.sort(
+        (a, b) =>
+          new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+      );
+}

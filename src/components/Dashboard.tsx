@@ -1,5 +1,5 @@
 import { Separator } from "./ui/separator";
-import { getAllIssues } from "@/lib/utils";
+import { getAllIssues, getFilteredAlerts } from "@/lib/utils";
 import {
   TableHeader,
   TableRow,
@@ -16,8 +16,24 @@ import { BarChart } from "@/viz/BarChart";
 import { LineChart } from "@/viz/LineChart";
 import { useAlertsStore } from "@/hooks/useAlertsStore";
 import { Markdown } from "./Markdown";
+import { MaliciousPkgType } from "@/types";
 
-const wrapObjectOutput = (input: string) => {
+const wrapObjectOutput = (input: string | MaliciousPkgType | null) => {
+  if (typeof input === "object" && input !== null) {
+    return (
+      <div className="max-h-40 w-fit overflow-y-auto whitespace-pre-wrap  p-2">
+        <label className="font-medium">Package:</label> {input.type}/
+        {input.name}
+        <br />
+        <label className="font-medium">Description:</label> {input.description}
+      </div>
+    );
+  }
+
+  if (input === null) {
+    return "N/A";
+  }
+
   const isObject = /\{"/.test(input);
   if (isObject) {
     return (
@@ -26,10 +42,8 @@ const wrapObjectOutput = (input: string) => {
       </pre>
     );
   }
-  return input ? (
+  return (
     <Markdown className="bg-gray-100 overflow-auto w-fit p-1">{input}</Markdown>
-  ) : (
-    "N/A"
   );
 };
 
@@ -42,21 +56,7 @@ export function Dashboard() {
 
   const { maxCount, sortedTagCounts } = getAllIssues(alerts);
   const [search, setSearch] = useState("");
-  const filteredAlerts = search
-    ? alerts
-        .filter(
-          (alert) =>
-            alert.trigger_string?.toLowerCase().includes(search) ||
-            alert.trigger_type?.toLowerCase().includes(search)
-        )
-        .sort(
-          (a, b) =>
-            new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-        )
-    : alerts.sort(
-        (a, b) =>
-          new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-      );
+  const filteredAlerts = getFilteredAlerts({ search, alerts });
 
   return (
     <div className="flex-col h-[calc(100vh-6rem)] my-auto overflow-auto">
@@ -121,7 +121,7 @@ export function Dashboard() {
               <TableRow key={alert.alert_id} className="h-20">
                 <TableCell className="truncate">{alert.trigger_type}</TableCell>
                 <TableCell className="overflow-auto whitespace-nowrap">
-                  {wrapObjectOutput(alert.trigger_string ?? "")}
+                  {wrapObjectOutput(alert.trigger_string)}
                 </TableCell>
                 <TableCell className="truncate">
                   {alert.code_snippet?.filepath || "N/A"}

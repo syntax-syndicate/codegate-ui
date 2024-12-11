@@ -13,7 +13,7 @@ export type AlertState = {
 export type TriggerType =
   | "codegate-version"
   | "codegate-context-retriever"
-  | "codegate-system-prompt"
+  | "system-prompt"
   | "code-snippet-extractor"
   | "codegate-secrets"
   | string;
@@ -32,11 +32,14 @@ export type CodeSnippet = {
 };
 
 export type Prompt = SystemType & {
-  // ---- temp
-  packages?: string[];
-  tags?: string[];
-  // -----
   question_answers?: Chat[];
+};
+
+export type MaliciousPkgType = {
+  name: string;
+  type: string;
+  status: string;
+  description: string;
 };
 
 export type Alert = {
@@ -45,7 +48,7 @@ export type Alert = {
   } & SystemType;
   alert_id: string;
   code_snippet: CodeSnippet | null;
-  trigger_string: string | null;
+  trigger_string: string | MaliciousPkgType | null;
   trigger_type: TriggerType;
   trigger_category: "info" | "critical";
   timestamp: string;
