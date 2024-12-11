@@ -27,12 +27,32 @@ import {
 
 const wrapObjectOutput = (input: string | MaliciousPkgType | null) => {
   if (typeof input === "object" && input !== null) {
+    if (!input.type || !input.name) return null;
     return (
       <div className="max-h-40 w-fit overflow-y-auto whitespace-pre-wrap  p-2">
-        <label className="font-medium">Package:</label> {input.type}/
-        {input.name}
-        <br />
-        <label className="font-medium">Description:</label> {input.description}
+        <label className="font-medium">Package:</label>
+        &nbsp;
+        <a
+          href={`https://www.insight.stacklok.com/report/${input.type}/${input.name}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-500 hover:underline"
+        >
+          {input.type}/{input.name}
+        </a>
+        {input.status && (
+          <>
+            <br />
+            <label className="font-medium">Status:</label> {input.status}
+          </>
+        )}
+        {input.description && (
+          <>
+            <br />
+            <label className="font-medium">Description:</label>{" "}
+            {input.description}
+          </>
+        )}
       </div>
     );
   }
