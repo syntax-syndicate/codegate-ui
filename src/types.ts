@@ -13,7 +13,7 @@ export type AlertState = {
   setSearch: (search: string) => void;
   getMaliciousPackagesChart: () => MaliciousPkgType[];
   updateFilteredAlerts: () => void;
-  toggleMaliciousFilter: () => void;
+  toggleMaliciousFilter: (isChecked: boolean) => void;
   fetchAlerts: () => void;
 };
 

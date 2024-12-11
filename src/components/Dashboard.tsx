@@ -10,7 +10,7 @@ import {
 import { format } from "date-fns";
 import { Badge } from "./ui/badge";
 import { Input } from "./ui/input";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { BarChart } from "@/viz/BarChart";
 import { LineChart } from "@/viz/LineChart";
 import { useAlertsStore } from "@/hooks/useAlertsStore";
@@ -24,6 +24,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
+import { useSearchParams } from "react-router-dom";
 
 const wrapObjectOutput = (input: string | MaliciousPkgType | null) => {
   if (typeof input === "object" && input !== null) {
@@ -75,6 +76,8 @@ const wrapObjectOutput = (input: string | MaliciousPkgType | null) => {
 };
 
 export function Dashboard() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const {
     alerts,
     loading,
@@ -84,13 +87,53 @@ export function Dashboard() {
     isMaliciousFilterActive,
     toggleMaliciousFilter,
     setSearch,
+    search,
   } = useAlertsStore();
 
   useEffect(() => {
     fetchAlerts();
   }, [fetchAlerts]);
 
+  useEffect(() => {
+    const isMaliciousFilterActive = searchParams.get("maliciousPkg") === "true";
+    const searchFilterParam = searchParams.get("search");
+    if (isMaliciousFilterActive && alerts.length > 0) {
+      toggleMaliciousFilter(true);
+    }
+    if (searchFilterParam && alerts.length > 0) {
+      setSearch(searchFilterParam);
+    }
+  }, [searchParams, alerts]);
+
   const maliciousPackages = getMaliciousPackagesChart();
+
+  const handleToggleFilter = useCallback(
+    (isChecked: boolean) => {
+      if (isChecked) {
+        searchParams.set("maliciousPkg", "true");
+        searchParams.delete("search");
+        setSearch("");
+      } else {
+        searchParams.delete("maliciousPkg");
+      }
+      setSearchParams(searchParams);
+      toggleMaliciousFilter(isChecked);
+    },
+    [setSearchParams, searchParams, toggleMaliciousFilter]
+  );
+
+  const handleSearch = useCallback((value: string) => {
+    if (value) {
+      searchParams.set("search", value);
+      searchParams.delete("maliciousPkg");
+      setSearch(value);
+      toggleMaliciousFilter(false);
+    } else {
+      searchParams.delete("search");
+      setSearch("");
+    }
+    setSearchParams(searchParams);
+  }, []);
 
   return (
     <div className="flex-col h-[calc(100vh-6rem)] my-auto overflow-auto">
@@ -123,7 +166,7 @@ export function Dashboard() {
                     <Switch
                       id="airplane-mode"
                       checked={isMaliciousFilterActive}
-                      onCheckedChange={toggleMaliciousFilter}
+                      onCheckedChange={handleToggleFilter}
                     />
                     <label htmlFor="airplane-mode" className="text-sm">
                       Malicious Packages
@@ -155,8 +198,9 @@ export function Dashboard() {
               </svg>
             }
             type="text"
+            value={search}
             placeholder="Search..."
-            onChange={(e) => setSearch(e.target.value.toLowerCase())}
+            onChange={(e) => handleSearch(e.target.value.toLowerCase())}
           />
         </div>
       </div>

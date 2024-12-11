@@ -6,29 +6,11 @@ import { Routes, Route } from "react-router-dom";
 import { Chat } from "./components/Chat";
 import { usePromptsStore } from "./hooks/usePromptsStore";
 import { Sidebar } from "./components/Sidebar";
-import { useBrowserNotification } from "./hooks/useBrowserNotification";
-
-const BASE_URL = import.meta.env.VITE_BASE_API_URL;
+import { useSse } from "./hooks/useSse";
 
 function App() {
   const { prompts, loading, fetchPrompts } = usePromptsStore();
-  const { sendNotification } = useBrowserNotification();
-
-  const eventSource = new EventSource(
-    `${BASE_URL}/dashboard/alerts_notification`
-  );
-
-  eventSource.onmessage = function (event) {
-    if (event.data.toLowerCase().includes("new alert detected")) {
-      sendNotification("CodeGate Dashboard", {
-        body: "New Alert detected!",
-      });
-
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
-    }
-  };
+  useSse();
 
   useEffect(() => {
     fetchPrompts();

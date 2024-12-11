@@ -21,13 +21,13 @@ export const useAlertsStore = create<AlertState>((set, get) => ({
     set({ search });
     get().updateFilteredAlerts();
   },
-  toggleMaliciousFilter: () => {
-    const { alerts, isMaliciousFilterActive } = get();
-    set((state) => ({
-      isMaliciousFilterActive: !state.isMaliciousFilterActive,
-    }));
+  toggleMaliciousFilter: (isActive: boolean) => {
+    const { alerts } = get();
+    set({
+      isMaliciousFilterActive: isActive,
+    });
 
-    const filteredAlerts = !isMaliciousFilterActive
+    const filteredAlerts = isActive
       ? alerts
           .filter((item) => typeof item.trigger_string === "object")
           .filter((item) => item.trigger_type === "codegate-context-retriever")
