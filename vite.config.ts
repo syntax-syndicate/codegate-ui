@@ -5,26 +5,11 @@ import react from "@vitejs/plugin-react-swc";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: "./",
+  base: "/",
   build: {
     outDir: "dist",
     rollupOptions: {
       input: "./index.html",
-      output: {
-        manualChunks: (id) => {
-          if (id.includes("components/Chat.tsx")) {
-            return "chat";
-          }
-
-          if (id.includes("lodash")) {
-            return "lodash";
-          }
-
-          if (id.includes("recharts")) {
-            return "recharts";
-          }
-        },
-      },
     },
   },
   resolve: {
