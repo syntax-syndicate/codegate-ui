@@ -1,75 +1,76 @@
-# CoPilot Setup Guide
+# 🤖 CoPilot Setup Guide
 
-This guide will help you set up and configure CoPilot integration with CodeGate.
+Welcome to the setup guide for configuring CoPilot integration with **CodeGate**. 
 
-## Prerequisites
 
-Before proceeding, ensure you have:
-- Active GitHub account
-- GitHub CoPilot subscription
-- CodeGate account
+---
 
-## Setup Instructions
+## 📋 Prerequisites
 
-### 1. Enable GitHub CoPilot
+Before you begin, make sure you have the following:
+- ✅ An active GitHub account
+- ✅ A GitHub CoPilot subscription
+- ✅ A CodeGate account
 
-First, activate CoPilot in your GitHub account:
+---
 
-```javascript
-// Example of CoPilot suggestions in your code
-function calculateRisk(dependencies) {
-  // CoPilot will suggest security checks
-  return dependencies.map(dep => {
-    return {
-      name: dep.name,
-      version: dep.version,
-      riskScore: analyzeRisk(dep)
-    }
-  });
-}
+## 🛠️ Setup Instructions
+
+### Install the CodeGate CA
+
+To enable CodeGate, you’ll need to install its Certificate Authority (CA) into your operating system’s trust store.
+
+> **Why is this needed?**  
+> The CodeGate CA allows your machine to securely intercept and modify traffic between GitHub CoPilot and your IDE.  
+> ✨ **Don’t worry!** The decrypted traffic stays on your local machine and never leaves.
+
+
+#### 🍎 **For MacOS Users**
+
+Run the following command in your terminal to install the CA:
+
+```bash
+sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain codegate_volume/certs/ca.crt
 ```
 
-### 2. Configure CoPilot Settings
+#### 🖥️ For Windows Users
 
-Add CoPilot configuration to your project:
+Use this PowerShell command:
+
+```Powershell
+Import-Certificate -FilePath "certs\\ca.crt" -CertStoreLocation Cert:\\LocalMachine\\Root
+```
+
+#### 🐧 For Linux Users
+
+Run these commands to install the CA:
+
+```bash
+sudo cp certs/ca.crt /usr/local/share/ca-certificates/codegate.crt
+sudo update-ca-certificates
+```
+
+    Note: You might need to restart your IDE after adding the certicates
+
+### Configure CoPilot Settings to Use CodeGate
+
+Update your CoPilot configuration to use CodeGate as a proxy. Add the following to your project configuration:
 
 ```json
 {
-  "copilot": {
-    "enabled": true,
-    "suggestions": {
-      "security": true,
-      "dependencies": true,
-      "codeReview": true
-    }
+  "http.proxy": "https://localhost:8990",
+  "http.proxyStrictSSL": true,
+  "http.proxySupport": "on",
+  "github.copilot.advanced": {
+    "debug.useNodeFetcher": true,
+    "debug.useElectronFetcher": true,
+    "debug.testOverrideProxyUrl": "https://localhost:8990",
+    "debug.overrideProxyUrl": "https://localhost:8990
   }
-}
 ```
 
-### 3. Link GitHub Account
+### Start Coding with the Privacy Protections and Security of CodeGate in place
 
-Connect your GitHub account using the following:
+That’s it—you’re all set! 
 
-```bash
-# Initialize CodeGate CoPilot integration
-codegate copilot init
-
-# Link your GitHub account
-codegate copilot link --github
-```
-
-### 4. Verify Integration
-
-Test the integration with:
-
-```python
-# Python example of CoPilot integration
-def verify_copilot():
-    status = check_connection()
-    if status.ok:
-        print("CoPilot integration successful!")
-    else:
-        raise Exception("Integration failed")
-```
-
-For more detailed information, please consult our documentation.
+Go forth and build something amazing! 🚀✨
