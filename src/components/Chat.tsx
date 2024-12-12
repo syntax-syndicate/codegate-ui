@@ -21,7 +21,7 @@ export function Chat() {
   const chat = usePromptsStore((state) =>
     state.prompts.find((prompt) => prompt.chat_id === id)
   );
-  const title = chat?.question_answers?.[0].question.message ?? "Prompt";
+  const title = chat?.question_answers?.[0].question.message ?? "";
 
   return (
     <div className="h-screen mb-40 w-[calc(100vw-18rem)]">
