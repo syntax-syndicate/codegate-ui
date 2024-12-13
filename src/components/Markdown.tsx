@@ -120,8 +120,12 @@ export function Markdown({ children, fontSize, className = "" }: Props) {
         h3({ children }) {
           return <h3 className="text-xl font-medium mt-6 mb-3">{children}</h3>;
         },
-        p({ children }) {
-          return <p className="text-gray-600 leading-relaxed mb-4">{children}</p>;
+      p({ children }) {
+          return (
+            <p className={cn("text-gray-600 leading-relaxed mb-4", className)}>
+              {children}
+            </p>
+          );
         },
         ul({ children }) {
           return <ul className="list-disc list-inside mb-4 space-y-2">{children}</ul>;
