@@ -131,7 +131,7 @@ export function Markdown({ children, fontSize, className = "" }: Props) {
         },
         a({ children, ...props }) {
           return (
-            <a className="text-blue-600 hover:text-blue-800 underline" {...props}>
+            <a className="text-blue-600 hover:text-blue-800 underline" target="_blank" {...props}>
               {children}
             </a>
           );
