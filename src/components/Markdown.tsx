@@ -1,10 +1,11 @@
 import remarkGfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
 import { tv } from "tailwind-variants";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { ClipboardCopy } from 'lucide-react';
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { ClipboardCopy } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const markdown = tv({
   base: "prose max-w-full",
@@ -32,17 +33,16 @@ const customStyle = {
   ...oneDark,
   'pre[class*="language-"]': {
     ...oneDark['pre[class*="language-"]'],
-    whiteSpace: 'pre-wrap',
-    background: '#1a1b26',
-    padding: '1.5rem',
-    borderRadius: '0.5rem',
-    margin: '1.5rem 0',
-    fontSize: '10px',
-    width: '80%', // Ensure the block takes full width
-    position: 'relative', 
+    whiteSpace: "pre-wrap",
+    background: "#1a1b26",
+    padding: "1.5rem",
+    borderRadius: "0.5rem",
+    margin: "1.5rem 0",
+    fontSize: "10px",
+    width: "80%", // Ensure the block takes full width
+    position: "relative",
   },
 };
-
 
 export function Markdown({ children, fontSize, className = "" }: Props) {
   return (
@@ -50,31 +50,24 @@ export function Markdown({ children, fontSize, className = "" }: Props) {
       components={{
         /* eslint-disable @typescript-eslint/no-explicit-any */
         code({ className, children, ...props }: any) {
-          const match = /language-(\w+)/.exec(className || '');
+          const match = /language-(\w+)/.exec(className || "");
           const inline = !match;
           return !inline ? (
-            <div className="relative group" 
-              style={{
-                maxWidth: '80%', // Adjust this percentage to reduce the width
-                marginLeft: '0', // Align the box to the left
-                paddingLeft: '1rem',
-                paddingRight: '1rem',
-              }}
-            >
+            <div className="relative group w-full ml-0 px-4">
               <SyntaxHighlighter
                 style={{
                   ...customStyle,
                   'pre[class*="language-"]': {
                     ...oneDark['pre[class*="language-"]'],
-                    background: '#1a1b26',
-                    fontSize: '10x',
-                    whiteSpace: 'pre-wrap',
-                    padding: '1.5rem',
-                    borderRadius: '0.5rem',
-                    margin: '1.5rem 0',
-                    position: 'relative', // Critical for clipboard positioning
-                    width: '100%', // Ensure full width of parent container
-                    boxSizing: 'border-box', // Prevent padding overflow
+                    background: "#1a1b26",
+                    fontSize: "10x",
+                    whiteSpace: "pre-wrap",
+                    padding: "1.5rem",
+                    borderRadius: "0.5rem",
+                    margin: "1.5rem 0",
+                    position: "relative", // Critical for clipboard positioning
+                    width: "100%", // Ensure full width of parent container
+                    boxSizing: "border-box", // Prevent padding overflow
                   },
                 }}
                 language={match[1]}
@@ -84,9 +77,9 @@ export function Markdown({ children, fontSize, className = "" }: Props) {
                 wrapLines={true}
                 {...props}
               >
-                {String(children).replace(/\n$/, '')}
+                {String(children).replace(/\n$/, "")}
               </SyntaxHighlighter>
-              <CopyToClipboard text={String(children).replace(/\n$/, '')}>
+              <CopyToClipboard text={String(children).replace(/\n$/, "")}>
                 <button
                   className="
                     absolute top-4 right-8 p-2 rounded-md 
@@ -99,13 +92,30 @@ export function Markdown({ children, fontSize, className = "" }: Props) {
                 </button>
               </CopyToClipboard>
             </div>
-
-
-
           ) : (
-            <code className="px-1.5 py-0.5 rounded-md bg-gray-100 text-gray-800 text-sm" {...props}>
+            <SyntaxHighlighter
+              style={{
+                ...customStyle,
+                'pre[class*="language-"]': {
+                  ...oneDark['pre[class*="language-"]'],
+                  fontSize: "10x",
+                  whiteSpace: "pre-wrap",
+                  padding: "1.5rem",
+                  borderRadius: "0.5rem",
+                  margin: "1.5rem 0",
+                  position: "relative", // Critical for clipboard positioning
+                  width: "100%", // Ensure full width of parent container
+                  boxSizing: "border-box", // Prevent padding overflow
+                },
+              }}
+              PreTag="div"
+              className="rounded-lg overflow-hidden shadow-lg text-sm"
+              showLineNumbers={false}
+              wrapLines={true}
+              {...props}
+            >
               {children}
-            </code>
+            </SyntaxHighlighter>
           );
         },
         pre({ children }) {
@@ -115,12 +125,14 @@ export function Markdown({ children, fontSize, className = "" }: Props) {
           return <h1 className="text-3xl font-bold mb-6">{children}</h1>;
         },
         h2({ children }) {
-          return <h2 className="text-2xl font-semibold mt-8 mb-4">{children}</h2>;
+          return (
+            <h2 className="text-2xl font-semibold mt-8 mb-4">{children}</h2>
+          );
         },
         h3({ children }) {
           return <h3 className="text-xl font-medium mt-6 mb-3">{children}</h3>;
         },
-      p({ children }) {
+        p({ children }) {
           return (
             <p className={cn("text-gray-600 leading-relaxed mb-4", className)}>
               {children}
@@ -128,14 +140,20 @@ export function Markdown({ children, fontSize, className = "" }: Props) {
           );
         },
         ul({ children }) {
-          return <ul className="list-disc list-inside mb-4 space-y-2">{children}</ul>;
+          return (
+            <ul className="list-disc list-inside mb-4 space-y-2">{children}</ul>
+          );
         },
         li({ children }) {
           return <li className="text-gray-600">{children}</li>;
         },
         a({ children, ...props }) {
           return (
-            <a className="text-blue-600 hover:text-blue-800 underline" target="_blank" {...props}>
+            <a
+              className="text-blue-600 hover:text-blue-800 underline"
+              target="_blank"
+              {...props}
+            >
               {children}
             </a>
           );

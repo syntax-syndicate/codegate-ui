@@ -33,9 +33,7 @@ export function Chat() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="truncate w-96">
-                {extractTitleFromMessage(title)}
-              </BreadcrumbPage>
+              <BreadcrumbPage>{extractTitleFromMessage(title)}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -46,7 +44,9 @@ export function Chat() {
             <ChatBubble variant="sent">
               <ChatBubbleAvatar fallback="User" className="w-14" />
               <ChatBubbleMessage variant="sent" className="bg-zinc-700">
-                <Markdown dark>{question.message}</Markdown>
+                <Markdown className="text-gray-300">
+                  {question.message}
+                </Markdown>
               </ChatBubbleMessage>
             </ChatBubble>
             <ChatBubble variant="received">
