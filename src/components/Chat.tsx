@@ -33,7 +33,9 @@ export function Chat() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>{extractTitleFromMessage(title)}</BreadcrumbPage>
+              <BreadcrumbPage className="truncate w-96">
+                {extractTitleFromMessage(title)}
+              </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
