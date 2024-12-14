@@ -8,6 +8,8 @@ import { usePromptsStore } from "./hooks/usePromptsStore";
 import { Sidebar } from "./components/Sidebar";
 import { useSse } from "./hooks/useSse";
 import { Help } from "./components/Help";
+import { Certificates } from "./components/Certificates";
+import { CertificateSecurity } from "./components/CertificateSecurity";
 
 function App() {
   const { prompts, loading, fetchPrompts } = usePromptsStore();
@@ -31,6 +33,8 @@ function App() {
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/prompt/:id" element={<Chat />} />
                 <Route path="/help/:section" element={<Help />} />
+                <Route path="/certificates" element={<Certificates />} />
+                <Route path="/certificates/security" element={<CertificateSecurity />} />
               </Routes>
             </div>
           </div>
