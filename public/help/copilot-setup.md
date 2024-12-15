@@ -54,7 +54,8 @@ sudo update-ca-certificates
 
 ### Configure CoPilot Settings to Use CodeGate
 
-Update your CoPilot configuration to use CodeGate as a proxy. Add the following to your project configuration:
+Update your CoPilot configuration to use CodeGate as a proxy. Add the following
+settings (Ctrl+Shift+P) + "Preferences: Open User Settings (JSON)":
 
 ```json
 {
@@ -65,9 +66,11 @@ Update your CoPilot configuration to use CodeGate as a proxy. Add the following 
     "debug.useNodeFetcher": true,
     "debug.useElectronFetcher": true,
     "debug.testOverrideProxyUrl": "https://localhost:8990",
-    "debug.overrideProxyUrl": "https://localhost:8990
+    "debug.overrideProxyUrl": "https://localhost:8990",
   }
 ```
+
+> **_NOTE:_**  CoPilot may need a refresh after creating the proxy config. Restart VS-Code or open the command palate (Ctrl+Shift+P) and select "Developer: Reload Window".
 
 ### Start Coding with the Privacy Protections and Security of CodeGate in place
 
