@@ -30,7 +30,7 @@ const wrapObjectOutput = (input: string | MaliciousPkgType | null) => {
   if (typeof input === "object" && input !== null) {
     if (!input.type || !input.name) return null;
     return (
-      <div className="max-h-40 w-fit overflow-y-auto whitespace-pre-wrap  p-2">
+      <div className="max-h-40 w-fit overflow-y-auto whitespace-pre-wrap p-2">
         <label className="font-medium">Package:</label>
         &nbsp;
         <a
@@ -219,13 +219,13 @@ export function Dashboard() {
             {filteredAlerts.map((alert) => (
               <TableRow key={alert.alert_id} className="h-20">
                 <TableCell className="truncate">{alert.trigger_type}</TableCell>
-                <TableCell className="overflow-auto whitespace-nowrap">
+                <TableCell className="overflow-auto whitespace-nowrap max-w-80">
                   {wrapObjectOutput(alert.trigger_string)}
                 </TableCell>
                 <TableCell className="truncate">
                   {alert.code_snippet?.filepath || "N/A"}
                 </TableCell>
-                <TableCell className="overflow-auto whitespace-nowrap">
+                <TableCell className="overflow-auto whitespace-nowrap max-w-80">
                   {alert.code_snippet?.code ? (
                     <pre className="max-h-40 overflow-auto bg-gray-100 p-2 whitespace-pre-wrap">
                       <code>{alert.code_snippet.code}</code>
