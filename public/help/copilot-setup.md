@@ -37,6 +37,7 @@ settings (Ctrl+Shift+P) + "Preferences: Open User Settings (JSON)":
     "debug.testOverrideProxyUrl": "https://localhost:8990",
     "debug.overrideProxyUrl": "https://localhost:8990",
   }
+}
 ```
 
 > **_NOTE:_**  CoPilot may need a refresh after creating the proxy config. Restart VS-Code or open the command palate (Ctrl+Shift+P) and select "Developer: Reload Window".
@@ -54,4 +55,3 @@ If there is any sort of failure, you will see the following:
 
 If you experience a failure, click on the CoPilot avatar and select "Show Diagnostics"
 , copy the text and post it to the CoPilot [CodeGate Discussions](https://github.com/stacklok/codegate/discussions/categories/copilot)
-

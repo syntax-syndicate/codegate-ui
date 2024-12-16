@@ -136,7 +136,7 @@ export function Dashboard() {
   }, []);
 
   return (
-    <div className="flex-col h-[calc(100vh-6rem)] my-auto overflow-auto">
+    <div className="flex-col">
       <div className="flex flex-wrap items-center gap-4 w-full">
         <div className="min-w-80 w-1/4 h-60">
           <BarChart data={alerts} loading={loading} />
