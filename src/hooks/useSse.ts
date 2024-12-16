@@ -26,9 +26,7 @@ export function useSse() {
     };
 
     return () => {
-      if (location.pathname.includes("/prompt")) {
-        eventSource.close();
-      }
+      eventSource.close();
     };
   }, [location.pathname, sendNotification]);
 }
