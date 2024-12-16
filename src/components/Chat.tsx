@@ -15,7 +15,7 @@ export function Chat() {
   );
 
   return (
-    <div className="h-screen w-[calc(100vw-18rem)]">
+    <div className="w-[calc(100vw-18rem)]">
       <ChatMessageList>
         {(chat?.question_answers ?? []).map(({ question, answer }, index) => (
           <div key={index} className="flex flex-col w-full h-full p-4 gap-6">
