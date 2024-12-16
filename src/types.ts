@@ -1,6 +1,8 @@
 export type PromptState = {
   prompts: Prompt[];
   loading: boolean;
+  currentPromptId: string;
+  setCurrentPromptId: (id: string) => void;
   fetchPrompts: () => void;
 };
 

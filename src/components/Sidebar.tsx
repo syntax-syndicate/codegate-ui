@@ -44,7 +44,6 @@ export function Sidebar({
       <SidebarContent className="bg-teal-25">
         <SidebarGroup>{children}</SidebarGroup>
       </SidebarContent>
-      <SidebarFooter />
     </SidebarUI>
   );
 }

@@ -4,43 +4,27 @@ import {
   ChatBubbleMessage,
 } from "./ui/chat/chat-bubble";
 import { ChatMessageList } from "./ui/chat/chat-message-list";
-import { Link, useParams } from "react-router-dom";
-import {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbSeparator,
-  BreadcrumbPage,
-} from "./ui/breadcrumb";
+import { useParams } from "react-router-dom";
 import { usePromptsStore } from "@/hooks/usePromptsStore";
 import { Markdown } from "./Markdown";
-import { extractTitleFromMessage } from "@/lib/utils";
+import { useEffect } from "react";
 
 export function Chat() {
   const { id } = useParams();
-  const chat = usePromptsStore((state) =>
-    state.prompts.find((prompt) => prompt.chat_id === id)
-  );
-  const title = chat?.question_answers?.[0].question.message ?? "";
+  const { prompts, setCurrentPromptId } = usePromptsStore();
+  const chat = prompts.find((prompt) => prompt.chat_id === id);
+
+  useEffect(() => {
+    if (id) {
+      setCurrentPromptId(id);
+    }
+
+    return () => setCurrentPromptId("");
+  }, [prompts, id, setCurrentPromptId]);
 
   return (
-    <div className="h-screen mb-40 w-[calc(100vw-18rem)]">
-      <div className="flex mb-3">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <Link to="/">Dashboard</Link>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage className="w-96 truncate">
-                {extractTitleFromMessage(title)}
-              </BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-      </div>
-      <ChatMessageList className="h-[calc(100vh-9rem)]">
+    <div className="w-[calc(100vw-18rem)]">
+      <ChatMessageList>
         {(chat?.question_answers ?? []).map(({ question, answer }, index) => (
           <div key={index} className="flex flex-col w-full h-full p-4 gap-6">
             <ChatBubble variant="sent">

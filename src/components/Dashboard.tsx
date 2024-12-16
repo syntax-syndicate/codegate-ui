@@ -103,7 +103,7 @@ export function Dashboard() {
     if (searchFilterParam && alerts.length > 0) {
       setSearch(searchFilterParam);
     }
-  }, [searchParams, alerts]);
+  }, [searchParams, toggleMaliciousFilter, setSearch, alerts]);
 
   const maliciousPackages = getMaliciousPackagesChart();
 
@@ -119,26 +119,29 @@ export function Dashboard() {
       setSearchParams(searchParams);
       toggleMaliciousFilter(isChecked);
     },
-    [setSearchParams, searchParams, toggleMaliciousFilter]
+    [setSearchParams, setSearch, searchParams, toggleMaliciousFilter]
   );
 
-  const handleSearch = useCallback((value: string) => {
-    if (value) {
-      searchParams.set("search", value);
-      searchParams.delete("maliciousPkg");
-      setSearch(value);
-      toggleMaliciousFilter(false);
-    } else {
-      searchParams.delete("search");
-      setSearch("");
-    }
-    setSearchParams(searchParams);
-  }, []);
+  const handleSearch = useCallback(
+    (value: string) => {
+      if (value) {
+        searchParams.set("search", value);
+        searchParams.delete("maliciousPkg");
+        setSearch(value);
+        toggleMaliciousFilter(false);
+      } else {
+        searchParams.delete("search");
+        setSearch("");
+      }
+      setSearchParams(searchParams);
+    },
+    [searchParams, setSearch, setSearchParams, toggleMaliciousFilter]
+  );
 
   return (
-    <div className="flex-col h-[calc(100vh-6rem)] my-auto overflow-auto">
+    <div className="flex-col">
       <div className="flex flex-wrap items-center gap-4 w-full">
-        <div className="min-w-80 w-1/4 h-60">
+        <div className="min-w-80 w-1/3 h-60">
           <BarChart data={alerts} loading={loading} />
         </div>
         <div className="min-w-80 w-1/4 h-60">
