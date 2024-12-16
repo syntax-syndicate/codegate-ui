@@ -67,7 +67,7 @@ const OpenSourceIcon = () => (
 
 export function CertificateSecurity() {
   return (
-    <>
+    <div className="h-[calc(100vh-4rem)] overflow-y-auto">
       <div className="flex mb-3">
         <Breadcrumb>
           <BreadcrumbList>
@@ -83,7 +83,7 @@ export function CertificateSecurity() {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className="max-w-4xl mx-auto h-[calc(100vh-4rem)] overflow-y-auto px-4 pr-6 pb-12">
+      <div className="max-w-4xl mx-auto px-4 pr-6 pb-12">
         <h1 className="text-3xl font-bold mb-8">Certificate Security</h1>
 
         <Card className="p-6 mb-8 bg-white shadow-lg border-2 border-gray-100">
@@ -209,6 +209,6 @@ export function CertificateSecurity() {
           </div>
         </Card>
       </div>
-    </>
+    </div>
   );
 }
