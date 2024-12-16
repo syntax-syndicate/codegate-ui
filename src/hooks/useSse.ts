@@ -30,5 +30,5 @@ export function useSse() {
         eventSource.close();
       }
     };
-  }, [BASE_URL]);
+  }, [location.pathname, sendNotification]);
 }
