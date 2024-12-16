@@ -4,8 +4,12 @@ import {
   extractTitleFromMessage,
   groupPromptsByRelativeDate,
 } from "@/lib/utils";
+import { usePromptsStore } from "@/hooks/usePromptsStore";
+import clsx from "clsx";
 
 export function PromptList({ prompts }: { prompts: Prompt[] }) {
+  const { currentPromptId, setCurrentPromptId } = usePromptsStore();
+
   const groupedPrompts = groupPromptsByRelativeDate(prompts);
   return (
     <div className="mx-2">
@@ -16,8 +20,12 @@ export function PromptList({ prompts }: { prompts: Prompt[] }) {
             {prompts.map((prompt) => (
               <li key={prompt.chat_id} className="flex items-center p-1 w-full">
                 <Link
+                  onClick={() => setCurrentPromptId(prompt.chat_id)}
                   to={`/prompt/${prompt.chat_id}`}
-                  className="text-gray-800 text-sm truncate hover:text-gray-500"
+                  className={clsx(
+                    `text-gray-800 text-sm truncate hover:text-gray-500`,
+                    { "font-bold": currentPromptId === prompt.chat_id }
+                  )}
                 >
                   {extractTitleFromMessage(
                     prompt.question_answers?.[0].question.message ??

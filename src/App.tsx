@@ -22,7 +22,7 @@ import { useBreadcrumb } from "./hooks/useBreadcrumb";
 function App() {
   const { prompts, loading, fetchPrompts } = usePromptsStore();
   useSse();
-  const breadcrumb = useBreadcrumb(prompts);
+  const breadcrumb = useBreadcrumb();
 
   useEffect(() => {
     fetchPrompts();
