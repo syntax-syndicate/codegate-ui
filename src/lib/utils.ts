@@ -13,18 +13,22 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function extractTitleFromMessage(message: string) {
-  const regex = /^(.*)```[\s\S]*?```(.*)$/s;
-  const match = message.match(regex);
+  try {
+    const regex = /^(.*)```[\s\S]*?```(.*)$/s;
+    const match = message.match(regex);
 
-  if (match) {
-    const beforeMarkdown = match[1].trim();
-    const afterMarkdown = match[2].trim();
+    if (match) {
+      const beforeMarkdown = match[1].trim();
+      const afterMarkdown = match[2].trim();
 
-    const title = beforeMarkdown || afterMarkdown;
-    return title;
+      const title = beforeMarkdown || afterMarkdown;
+      return title;
+    }
+
+    return message.trim();
+  } catch {
+    return message.trim();
   }
-
-  return message.trim();
 }
 
 function getGroup(differenceInMs: number, promptDate: Date): string {
@@ -107,4 +111,22 @@ export function getMaliciousPackages() {
   }));
 
   return chartData;
+}
+
+export function sanitizeQuestionPrompt({
+  question,
+  answer,
+}: {
+  question: string;
+  answer: string;
+}) {
+  try {
+    if (answer) {
+      return question.split("Query:").pop() ?? "";
+    }
+
+    return question;
+  } catch {
+    return question;
+  }
 }

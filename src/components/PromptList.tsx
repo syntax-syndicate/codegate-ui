@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import {
   extractTitleFromMessage,
   groupPromptsByRelativeDate,
+  sanitizeQuestionPrompt,
 } from "@/lib/utils";
 import { usePromptsStore } from "@/hooks/usePromptsStore";
 import clsx from "clsx";
@@ -28,8 +29,14 @@ export function PromptList({ prompts }: { prompts: Prompt[] }) {
                   )}
                 >
                   {extractTitleFromMessage(
-                    prompt.question_answers?.[0].question.message ??
-                      `Prompt ${prompt.conversation_timestamp}`
+                    prompt.question_answers?.[0].question.message
+                      ? sanitizeQuestionPrompt({
+                          question:
+                            prompt.question_answers?.[0].question.message,
+                          answer:
+                            prompt.question_answers?.[0]?.answer?.message ?? "",
+                        })
+                      : `Prompt ${prompt.conversation_timestamp}`
                   )}
                 </Link>
               </li>

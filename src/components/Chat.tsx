@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { usePromptsStore } from "@/hooks/usePromptsStore";
 import { Markdown } from "./Markdown";
 import { useEffect } from "react";
+import { sanitizeQuestionPrompt } from "@/lib/utils";
 
 export function Chat() {
   const { id } = useParams();
@@ -31,7 +32,10 @@ export function Chat() {
               <ChatBubbleAvatar fallback="User" className="w-14" />
               <ChatBubbleMessage variant="sent" className="bg-zinc-700">
                 <Markdown className="text-gray-300">
-                  {question?.message}
+                  {sanitizeQuestionPrompt({
+                    question: question?.message,
+                    answer: answer?.message,
+                  })}
                 </Markdown>
               </ChatBubbleMessage>
             </ChatBubble>
