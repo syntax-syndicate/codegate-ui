@@ -47,7 +47,13 @@ function getGroup(differenceInMs: number, promptDate: Date): string {
 }
 
 export function groupPromptsByRelativeDate(prompts: Prompt[]) {
-  const grouped = prompts.reduce((groups, prompt) => {
+  const promptsSorted = prompts.sort(
+    (a, b) =>
+      new Date(b.conversation_timestamp).getTime() -
+      new Date(a.conversation_timestamp).getTime()
+  );
+
+  const grouped = promptsSorted.reduce((groups, prompt) => {
     const promptDate = new Date(prompt.conversation_timestamp);
     const now = new Date();
     const differenceInMs = now.getTime() - promptDate.getTime();
