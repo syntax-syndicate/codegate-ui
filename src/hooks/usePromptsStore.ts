@@ -10,6 +10,11 @@ export const usePromptsStore = create<PromptState>((set) => ({
   fetchPrompts: async () => {
     set({ loading: true });
     const prompts = await getPrompts();
-    set({ prompts, loading: false });
+    set({
+      prompts: prompts.filter((prompt) =>
+        prompt.question_answers?.every((item) => item.answer && item.question),
+      ),
+      loading: false,
+    });
   },
 }));

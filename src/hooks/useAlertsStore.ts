@@ -12,7 +12,13 @@ export const useAlertsStore = create<AlertState>((set, get) => ({
     set({ loading: true });
     const alerts = await getAlerts();
     set({
-      alerts: alerts.filter((alert) => alert.trigger_category === "critical"),
+      alerts: alerts
+        .filter((alert) => alert.trigger_category === "critical")
+        .filter((alert) =>
+          alert.conversation.question_answers.every(
+            (item) => item.answer && item.question,
+          ),
+        ),
       loading: false,
     });
     get().updateFilteredAlerts();
@@ -57,11 +63,11 @@ export const useAlertsStore = create<AlertState>((set, get) => ({
           })
           .sort(
             (a, b) =>
-              new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+              new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
           )
       : alerts.sort(
           (a, b) =>
-            new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+            new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
         );
 
     set({ filteredAlerts });
