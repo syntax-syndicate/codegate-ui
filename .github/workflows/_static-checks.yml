@@ -1,9 +1,6 @@
 name: Static Checks
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  workflow_call:
 jobs:
   lint:
     name: ESLint Check
