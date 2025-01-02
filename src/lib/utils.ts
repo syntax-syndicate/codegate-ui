@@ -13,10 +13,6 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function extractTitleFromMessage(message: string) {
-  if (message.includes("review codegate")) {
-    console.log("message is");
-    console.log(JSON.stringify(message, null, 2));
-  }
   try {
     const regex = /^(.*)```[\s\S]*?```(.*)$/s;
     const match = message.match(regex);
