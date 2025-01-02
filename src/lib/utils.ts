@@ -133,7 +133,7 @@ export function sanitizeQuestionPrompt({
       // Adding the length of "Query:" to the index to start after it
       return question.substring(index + "Query:".length).trim();
     }
-    return answer;
+    return question;
   } catch (error) {
     // Log the error and return the original question as a fallback
     console.error("Error processing the question:", error);
