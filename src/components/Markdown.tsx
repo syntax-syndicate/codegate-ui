@@ -2,9 +2,8 @@ import remarkGfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { ClipboardCopy } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { CopyToClipboard } from "./CopyToClipboard";
 
 interface Props {
   children: string;
@@ -61,18 +60,7 @@ export function Markdown({ children, className = "" }: Props) {
               >
                 {String(children).replace(/\n$/, "")}
               </SyntaxHighlighter>
-              <CopyToClipboard text={String(children).replace(/\n$/, "")}>
-                <button
-                  className="
-                    absolute top-4 right-8 p-2 rounded-md 
-                    bg-gray-700/50 hover:bg-gray-700/70 
-                    transition-opacity duration-200 
-                    opacity-0 group-hover:opacity-100
-                  "
-                >
-                  <ClipboardCopy className="w-5 h-5 text-gray-200" />
-                </button>
-              </CopyToClipboard>
+              <CopyToClipboard text={String(children).replace(/\n$/, "")} />
             </div>
           ) : (
             <SyntaxHighlighter
