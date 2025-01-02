@@ -26,18 +26,18 @@ export function PromptList({ prompts }: { prompts: Prompt[] }) {
                   to={`/prompt/${prompt.chat_id}`}
                   className={clsx(
                     `text-gray-800 text-sm truncate hover:text-gray-500`,
-                    { "font-bold": currentPromptId === prompt.chat_id }
+                    { "font-bold": currentPromptId === prompt.chat_id },
                   )}
                 >
                   {extractTitleFromMessage(
-                    prompt.question_answers?.[0].question.message
+                    prompt.question_answers?.[0].question?.message
                       ? sanitizeQuestionPrompt({
                           question:
                             prompt.question_answers?.[0].question.message,
                           answer:
                             prompt.question_answers?.[0]?.answer?.message ?? "",
                         })
-                      : `Prompt ${prompt.conversation_timestamp}`
+                      : `Prompt ${prompt.conversation_timestamp}`,
                   )}
                 </Link>
               </li>

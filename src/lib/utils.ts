@@ -53,22 +53,25 @@ export function groupPromptsByRelativeDate(prompts: Prompt[]) {
   const promptsSorted = prompts.sort(
     (a, b) =>
       new Date(b.conversation_timestamp).getTime() -
-      new Date(a.conversation_timestamp).getTime()
+      new Date(a.conversation_timestamp).getTime(),
   );
 
-  const grouped = promptsSorted.reduce((groups, prompt) => {
-    const promptDate = new Date(prompt.conversation_timestamp);
-    const now = new Date();
-    const differenceInMs = now.getTime() - promptDate.getTime();
-    const group = getGroup(differenceInMs, promptDate);
+  const grouped = promptsSorted.reduce(
+    (groups, prompt) => {
+      const promptDate = new Date(prompt.conversation_timestamp);
+      const now = new Date();
+      const differenceInMs = now.getTime() - promptDate.getTime();
+      const group = getGroup(differenceInMs, promptDate);
 
-    if (!groups[group]) {
-      groups[group] = [];
-    }
+      if (!groups[group]) {
+        groups[group] = [];
+      }
 
-    groups[group].push(prompt);
-    return groups;
-  }, {} as Record<string, Prompt[]>);
+      groups[group].push(prompt);
+      return groups;
+    },
+    {} as Record<string, Prompt[]>,
+  );
 
   return grouped;
 }
@@ -82,13 +85,13 @@ export function getAllIssues(alerts: Alert[]) {
       }
       return acc;
     },
-    {}
+    {},
   );
 
   const maxCount = Math.max(...Object.values(groupedTriggerCounts));
 
   const sortedTagCounts = Object.entries(groupedTriggerCounts).sort(
-    ([, countA], [, countB]) => countB - countA
+    ([, countA], [, countB]) => countB - countA,
   );
   return { maxCount, sortedTagCounts };
 }
@@ -120,22 +123,17 @@ export function sanitizeQuestionPrompt({
   answer: string;
 }) {
   try {
+    // it shouldn't be possible to receive the prompt answer without a question
+    if (!answer) return question;
+
     // Check if 'answer' is truthy; if so, try to find and return the text after "Query:"
-    if (answer) {
-      const index = question.indexOf("Query:");
-      if (index !== -1) {
-        // Return the substring starting right after the first occurrence of "Query:"
-        // Adding the length of "Query:" to the index to start after it
-        return question.substring(index + "Query:".length).trim();
-      } else {
-        // If there is no "Query:" in the string, log the condition and return an empty string
-        console.log("No 'Query:' found in the question.");
-        return "";
-      }
-    } else {
-      // If 'answer' is not provided or falsy, return the original question
-      return question;
+    const index = question.indexOf("Query:");
+    if (index !== -1) {
+      // Return the substring starting right after the first occurrence of "Query:"
+      // Adding the length of "Query:" to the index to start after it
+      return question.substring(index + "Query:".length).trim();
     }
+    return answer;
   } catch (error) {
     // Log the error and return the original question as a fallback
     console.error("Error processing the question:", error);

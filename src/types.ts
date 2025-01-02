@@ -68,10 +68,10 @@ export type Chat = {
     message: string;
     timestamp: string;
     message_id: string;
-  };
+  } | null;
   answer: {
     message: string;
     timestamp: string;
     message_id: string;
-  };
+  } | null;
 };

@@ -33,8 +33,8 @@ export function Chat() {
               <ChatBubbleMessage variant="sent" className="bg-zinc-700">
                 <Markdown className="text-gray-300">
                   {sanitizeQuestionPrompt({
-                    question: question?.message,
-                    answer: answer?.message,
+                    question: question?.message ?? "",
+                    answer: answer?.message ?? "",
                   })}
                 </Markdown>
               </ChatBubbleMessage>
@@ -42,7 +42,7 @@ export function Chat() {
             <ChatBubble variant="received">
               <ChatBubbleAvatar fallback="AI" />
               <ChatBubbleMessage variant="received">
-                <Markdown>{answer?.message}</Markdown>
+                <Markdown>{answer?.message ?? ""}</Markdown>
               </ChatBubbleMessage>
             </ChatBubble>
           </div>
