@@ -1,25 +1,25 @@
 
 
 :root {
-  --background: #ffffff;
-  --gray-100: #f0e6d0;
-  --gray-200: #ddcfb3;
-  --gray-300: #b9af97;
-  --gray-400: #999382;
-  --gray-500: #7c7a70;
-  --gray-600: #64645f;
-  --gray-700: #4e504f;
-  --gray-800: #393c3d;
-  --gray-900: #2f3435;
-  --teal-100: #c7ecff;
-  --teal-200: #b2d5ed;
-  --teal-300: #96b3c7;
-  --teal-400: #7f96a6;
-  --teal-500: #6b7d89;
-  --teal-600: #596670;
-  --teal-700: #485159;
-  --teal-800: #363d42;
-  --teal-900: #2e3437;
+  --background: 0deg, 0%, 100%;
+  --gray-100: 41deg, 52%, 88%;
+  --gray-200: 40deg, 38%, 78%;
+  --gray-300: 42deg, 20%, 66%;
+  --gray-400: 44deg, 10%, 55%;
+  --gray-500: 50deg, 5%, 46%;
+  --gray-600: 60deg, 3%, 38%;
+  --gray-700: 150deg, 1%, 31%;
+  --gray-800: 195deg, 3%, 23%;
+  --gray-900: 190deg, 6%, 20%;
+  --teal-100: 200deg, 100%, 89%;
+  --teal-200: 204deg, 62%, 81%;
+  --teal-300: 204deg, 30%, 68%;
+  --teal-400: 205deg, 18%, 57%;
+  --teal-500: 204deg, 12%, 48%;
+  --teal-600: 206deg, 11%, 39%;
+  --teal-700: 208deg, 11%, 32%;
+  --teal-800: 205deg, 10%, 24%;
+  --teal-900: 200deg, 9%, 20%;
   --background: var(--gray-100);
   --foreground: var(--gray-900);
 }
@@ -27,25 +27,25 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #000000;
-  --gray-100: #2e3234;
-  --gray-200: #3c4040;
-  --gray-300: #545654;
-  --gray-400: #6c6c65;
-  --gray-500: #878376;
-  --gray-600: #a39b88;
-  --gray-700: #c2b69d;
-  --gray-800: #e1d4b9;
-  --gray-900: #ede2cb;
-  --teal-100: #2d3236;
-  --teal-200: #394046;
-  --teal-300: #4d575f;
-  --teal-400: #5f6e78;
-  --teal-500: #728694;
-  --teal-600: #869fb1;
-  --teal-700: #9dbbd0;
-  --teal-800: #b7daf2;
-  --teal-900: #c4e8ff;
+    --background: 0deg, 0%, 0%;
+  --gray-100: 200deg, 6%, 19%;
+  --gray-200: 180deg, 3%, 24%;
+  --gray-300: 120deg, 1%, 33%;
+  --gray-400: 60deg, 3%, 41%;
+  --gray-500: 46deg, 7%, 50%;
+  --gray-600: 42deg, 13%, 59%;
+  --gray-700: 41deg, 23%, 69%;
+  --gray-800: 41deg, 40%, 80%;
+  --gray-900: 41deg, 49%, 86%;
+  --teal-100: 207deg, 9%, 19%;
+  --teal-200: 208deg, 10%, 25%;
+  --teal-300: 207deg, 10%, 34%;
+  --teal-400: 204deg, 12%, 42%;
+  --teal-500: 205deg, 14%, 51%;
+  --teal-600: 205deg, 22%, 61%;
+  --teal-700: 205deg, 35%, 72%;
+  --teal-800: 204deg, 69%, 83%;
+  --teal-900: 203deg, 100%, 88%;
   --background: var(--gray-100);
   --foreground: var(--gray-900);
   }

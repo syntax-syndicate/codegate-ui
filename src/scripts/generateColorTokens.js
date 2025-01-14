@@ -64,6 +64,7 @@ function generateColorScheme(baseColors, isLightMode, ratios) {
     name: "gray",
     colorKeys: [backgroundColor, textColor],
     colorspace: "CAM02",
+    output: "HSL",
     ratios,
     smooth: true,
   });
@@ -77,6 +78,7 @@ function generateColorScheme(baseColors, isLightMode, ratios) {
           name,
           colorKeys: [color],
           colorspace: "CAM02",
+          output: "HSL",
           ratios,
           smooth: true,
         }),
@@ -84,6 +86,7 @@ function generateColorScheme(baseColors, isLightMode, ratios) {
 
   const theme = new Theme({
     colors: [background, ...colorScales],
+    output: "HSL",
     backgroundColor: background,
     lightness: isLightMode ? 100 : 0,
     contrast: 1,
@@ -104,7 +107,7 @@ function generateColorVariables(colors) {
     .map(([key, value]) => {
       // Convert trailing digit to -digit, e.g. "red100" -> "red-100"
       const modifiedKey = key.replace(/(\d+)$/, "-$1");
-      return `--${modifiedKey}: ${value};`;
+      return `--${modifiedKey}: ${value.replace("hsl(", "").replace(")", "")};`;
     })
     .join("\n  ");
 

@@ -39,7 +39,7 @@ export function Help() {
   }, [section]);
 
   return (
-    <div className="max-w-5xl bg-white rounded-lg px-6 mx-auto">
+    <div className="max-w-5xl rounded-lg px-6 mx-auto">
       <Markdown
         className="prose dark:prose-invert prose-lg max-w-none
             prose-headings:text-gray-900 

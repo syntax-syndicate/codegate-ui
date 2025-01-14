@@ -8,7 +8,7 @@ Object.keys(baseColors).forEach((colorName) => {
   ["100", "200", "300", "400", "500", "600", "700", "800", "900"].forEach(
     (shade) => {
       const colorId = `${colorName}-${shade}`;
-      colors[colorId] = `var(--${colorId})`;
+      colors[colorId] = `hsl(var(--${colorId}))`;
     },
   );
 });
@@ -28,9 +28,9 @@ export default {
       },
       colors: {
         ...colors,
-        "blue-200": "#daedfd",
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        //"blue-200": "#daedfd",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
