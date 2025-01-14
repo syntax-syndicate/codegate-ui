@@ -28,8 +28,12 @@ function App() {
     fetchPrompts();
   }, [fetchPrompts]);
 
+  const prefersDarkMode = window.matchMedia(
+    "(prefers-color-scheme: dark)",
+  ).matches;
+
   return (
-    <div className="flex w-screen h-screen">
+    <div className={`flex w-screen h-screen ${prefersDarkMode ? "dark" : ""}`}>
       <Sidebar loading={loading}>
         <PromptList prompts={prompts} />
       </Sidebar>
