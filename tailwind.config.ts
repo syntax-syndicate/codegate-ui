@@ -1,5 +1,18 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 
+import baseColors from "./src/baseColors.json" with { type: "json" };
+
+const colors = {};
+
+Object.keys(baseColors).forEach((colorName) => {
+  ["100", "200", "300", "400", "500", "600", "700", "800", "900"].forEach(
+    (shade) => {
+      const colorId = `${colorName}-${shade}`;
+      colors[colorId] = `var(--${colorId})`;
+    },
+  );
+});
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ["class"],
@@ -14,6 +27,7 @@ export default {
         custom: "0px 0px 0px 1px #daedfd, 0px 4px 6px rgba(0, 0, 0, 0.1)",
       },
       colors: {
+        ...colors,
         "teal-25": "#f5fbff",
         "blue-200": "#daedfd",
         background: "hsl(var(--background))",
