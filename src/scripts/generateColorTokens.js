@@ -24,12 +24,6 @@ const baseColors = {
   yellow: "#dbbc7f",
 };
 
-const printBaseColors = {
-  ...baseColors,
-  background: "#ffffff",
-  foreground: "#000000",
-};
-
 // -------------------------------------
 // 2. Utility Functions
 // -------------------------------------
@@ -67,7 +61,6 @@ function smoothRatios(ratios, windowSize = 3) {
 // -------------------------------------
 const lightRatios = smoothRatios(generateRatios(1));
 const darkRatios = smoothRatios(generateRatios(1.3));
-const printRatios = smoothRatios(generateRatios(2));
 
 // -------------------------------------
 // 4. Generate the entire color scheme
@@ -113,7 +106,6 @@ function generateColorScheme(baseColors, isLightMode, ratios) {
 // Generate light, dark, and print color schemes
 const lightColors = generateColorScheme(baseColors, true, lightRatios);
 const darkColors = generateColorScheme(baseColors, false, darkRatios);
-const printColors = generateColorScheme(printBaseColors, true, printRatios);
 
 // -------------------------------------
 // 5. Utility to convert color objects into CSS variables
@@ -141,22 +133,15 @@ function generateColorVariables(colors, isPrint) {
 // -------------------------------------
 // 6. Generate final CSS (without prefers-color-scheme)
 // -------------------------------------
-function generateThemeVariables(lightVars, darkVars, printVars) {
+function generateThemeVariables(lightVars, darkVars) {
   return `
-:root[data-theme="dark"] {
-  ${darkVars}
-}
 
-:root[data-theme="light"] {
+:root {
   ${lightVars}
 }
 
-@media print {
-  :root,
-  :root[data-theme="light"],
-  :root[data-theme="dark"] {
-    ${printVars}
-  }
+:root.dark {
+  ${darkVars}
 }
 `;
 }
@@ -164,9 +149,8 @@ function generateThemeVariables(lightVars, darkVars, printVars) {
 function generateCssVariables() {
   const lightVariables = generateColorVariables(lightColors, false);
   const darkVariables = generateColorVariables(darkColors, false);
-  const printVariables = generateColorVariables(printColors, true);
 
-  return generateThemeVariables(lightVariables, darkVariables, printVariables);
+  return generateThemeVariables(lightVariables, darkVariables);
 }
 
 // -------------------------------------
@@ -174,7 +158,7 @@ function generateCssVariables() {
 // -------------------------------------
 function main() {
   const css = generateCssVariables();
-  writeFileSync(join(__dirname, "design-tokens.css"), css);
+  writeFileSync(join(__dirname, "..", "design-tokens.css"), css);
   console.log("Design tokens saved to design-tokens.css");
 }
 
