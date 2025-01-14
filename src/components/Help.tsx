@@ -30,7 +30,7 @@ export function Help() {
       } catch (error) {
         console.error("Error loading help content:", error);
         setContent(
-          "# Error\nFailed to load help content. Please try again later."
+          "# Error\nFailed to load help content. Please try again later.",
         );
       }
     };
@@ -41,7 +41,7 @@ export function Help() {
   return (
     <div className="max-w-5xl bg-white rounded-lg px-6 mx-auto">
       <Markdown
-        className="prose prose-lg max-w-none
+        className="prose dark:prose-invert prose-lg max-w-none
             prose-headings:text-gray-900 
             prose-h1:text-3xl prose-h1:font-bold prose-h1:mb-8
             prose-h2:text-2xl prose-h2:font-semibold prose-h2:mt-8 prose-h2:mb-4
