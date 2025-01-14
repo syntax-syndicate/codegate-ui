@@ -15,9 +15,11 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "type-check": "tsc --noEmit -p ./tsconfig.app.json"
+    "type-check": "tsc --noEmit -p ./tsconfig.app.json",
+    "generate-colors": "node ./src/scripts/generateColorTokens.js"
   },
   "dependencies": {
+    "@adobe/leonardo-contrast-colors": "^1.0.0",
     "@hey-api/client-fetch": "^0.6.0",
     "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.4",
