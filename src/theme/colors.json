@@ -1,0 +1,10 @@
+{
+  "background": "#fff",
+  "foreground": "#000",
+  "teal": "#80ccff",
+  "primary": "#2563eb",
+  "secondary": "#4f46e5",
+  "destructive": "#dc2626",
+  "muted": "#6b7280",
+  "accent": "#f59e0b"
+}

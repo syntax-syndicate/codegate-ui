@@ -6,23 +6,10 @@ import { join } from "path";
 import path from "path";
 import { fileURLToPath } from "url";
 import { Theme, Color, BackgroundColor } from "@adobe/leonardo-contrast-colors";
+import baseColors from "../baseColors.json" with { type: "json" };
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
-
-// ------------------------
-// 1. Define our base colors
-// ------------------------
-const baseColors = {
-  background: "#d3c6aa",
-  foreground: "#1e2326",
-  green: "#a7c080",
-  red: "#e67e80",
-  blue: "#7fbbb3",
-  purple: "#d699b6",
-  orange: "#ff5100",
-  yellow: "#dbbc7f",
-};
 
 // -------------------------------------
 // 2. Utility Functions
