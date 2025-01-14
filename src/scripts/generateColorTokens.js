@@ -48,7 +48,7 @@ function smoothRatios(ratios, windowSize = 3) {
 // -------------------------------------
 // 3. Generate Ratios for light, dark, and print modes
 // -------------------------------------
-const lightRatios = smoothRatios(generateRatios(1));
+const lightRatios = smoothRatios(generateRatios(0.8));
 const darkRatios = smoothRatios(generateRatios(1.3));
 
 // -------------------------------------

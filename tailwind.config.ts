@@ -4,7 +4,12 @@ import baseColors from "./src/baseColors.json" with { type: "json" };
 
 const colors = {};
 
-Object.keys(baseColors).forEach((colorName) => {
+[
+  ...Object.keys(baseColors).filter(
+    (key) => !["background", "foreground"].includes(key),
+  ),
+  "gray",
+].forEach((colorName) => {
   ["100", "200", "300", "400", "500", "600", "700", "800", "900"].forEach(
     (shade) => {
       const colorId = `${colorName}-${shade}`;
@@ -12,6 +17,8 @@ Object.keys(baseColors).forEach((colorName) => {
     },
   );
 });
+
+console.log(colors);
 
 /** @type {import('tailwindcss').Config} */
 export default {
