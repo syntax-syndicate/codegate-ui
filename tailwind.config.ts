@@ -31,6 +31,8 @@ export default {
   theme: {
     colors: {
       ...colors,
+      white: "hsl(var(--gray-100))",
+      black: "hsl(var(--gray-900))",
       //"blue-200": "#daedfd",
       background: "hsl(var(--background))",
       foreground: "hsl(var(--foreground))",
