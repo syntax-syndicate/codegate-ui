@@ -41,13 +41,11 @@ export function Help() {
   return (
     <div className="max-w-5xl rounded-lg px-6 mx-auto">
       <Markdown
-        className="prose dark:prose-invert prose-lg max-w-none
-            prose-headings:text-gray-900 
+        className="prose prose-lg max-w-none
             prose-h1:text-3xl prose-h1:font-bold prose-h1:mb-8
             prose-h2:text-2xl prose-h2:font-semibold prose-h2:mt-8 prose-h2:mb-4
             prose-h3:text-xl prose-h3:font-medium prose-h3:mt-6 prose-h3:mb-3
-            prose-p:text-gray-600 prose-p:leading-relaxed
-            prose-code:text-blue-600
+             prose-p:leading-relaxed
             prose-pre:bg-gray-900 prose-pre:rounded-lg prose-pre:p-4
             prose-pre:shadow-md
           "

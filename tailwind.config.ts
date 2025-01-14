@@ -23,6 +23,32 @@ export default {
   ],
   theme: {
     extend: {
+      typography: () => ({
+        DEFAULT: {
+          css: {
+            "--tw-prose-body": "var(--gray-900)",
+            "--tw-prose-headings": "var(--gray-900)",
+            "--tw-prose-lead": "var(--gray-600)",
+            "--tw-prose-links": "var(--gray-900)",
+            "--tw-prose-bold": "var(--gray-900)",
+            "--tw-prose-counters": "var(--gray-500)",
+            "--tw-prose-bullets": "var(--gray-300)",
+            "--tw-prose-hr": "var(--gray-200)",
+            "--tw-prose-quotes": "var(--gray-900)",
+            "--tw-prose-quote-borders": "var(--gray-200)",
+            "--tw-prose-captions": "var(--gray-500)",
+            "--tw-prose-code": "var(--gray-900)",
+            "--tw-prose-pre-code": "var(--gray-200)",
+            "--tw-prose-pre-bg": "var(--gray-800)",
+            "--tw-prose-th-borders": "var(--gray-300)",
+            "--tw-prose-td-borders": "var(--gray-200)",
+            "h1, h2, h3, h4, h5, h6": {
+              fontFamily: "var(--font-title)",
+              fontWeight: "600",
+            },
+          },
+        },
+      }),
       boxShadow: {
         custom: "0px 0px 0px 1px #daedfd, 0px 4px 6px rgba(0, 0, 0, 0.1)",
       },

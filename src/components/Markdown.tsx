@@ -2,7 +2,6 @@ import remarkGfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { cn } from "@/lib/utils";
 import { CopyToClipboard } from "./CopyToClipboard";
 import hljs from "highlight.js";
 
@@ -82,18 +81,6 @@ export function Markdown({ children, className = "" }: Props) {
                 <CopyToClipboard text={String(children).replace(/\n$/, "")} />
               )}
             </div>
-          );
-        },
-        p({ children }) {
-          return (
-            <p
-              className={cn(
-                "text-gray-600 leading-relaxed mt-6 mb-3",
-                className,
-              )}
-            >
-              {children}
-            </p>
           );
         },
         pre({ children }) {
