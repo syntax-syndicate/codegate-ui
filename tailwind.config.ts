@@ -28,10 +28,9 @@ export default {
       },
       colors: {
         ...colors,
-        "teal-25": "#f5fbff",
         "blue-200": "#daedfd",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        background: "var(--background)",
+        foreground: "var(--foreground)",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",

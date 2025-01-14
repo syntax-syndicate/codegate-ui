@@ -4,7 +4,7 @@ import { Separator } from "./ui/separator";
 
 export function Header() {
   return (
-    <header className="flex-shrink-0 h-16 px-3 items-center flex w-full bg-teal-25 opacity-1 border-b-blue-200 border-b">
+    <header className="flex-shrink-0 h-16 px-3 items-center flex w-full bg-teal-100 opacity-1 border-b-blue-200 border-b">
       <div className="flex items-center flex-1">
         <SidebarTrigger />
         <Separator orientation="vertical" className="h-8 mx-3" />

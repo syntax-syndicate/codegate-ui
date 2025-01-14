@@ -8,6 +8,8 @@ import { fileURLToPath } from "url";
 import { Theme, Color, BackgroundColor } from "@adobe/leonardo-contrast-colors";
 import baseColors from "../baseColors.json" with { type: "json" };
 
+console.log(baseColors);
+
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
 
@@ -97,7 +99,7 @@ const darkColors = generateColorScheme(baseColors, false, darkRatios);
 // -------------------------------------
 // 5. Utility to convert color objects into CSS variables
 // -------------------------------------
-function generateColorVariables(colors, isPrint) {
+function generateColorVariables(colors) {
   const variables = Object.entries(colors)
     .map(([key, value]) => {
       // Convert trailing digit to -digit, e.g. "red100" -> "red-100"
@@ -106,10 +108,8 @@ function generateColorVariables(colors, isPrint) {
     })
     .join("\n  ");
 
-  const backgroundAlias = isPrint
-    ? "var(--gray-100)"
-    : "color-mix(in srgb, var(--gray-100) 50%, var(--gray-200) 50%)";
-  const foregroundAlias = isPrint ? "var(--gray-900)" : "var(--gray-800)";
+  const backgroundAlias = "var(--gray-100)";
+  const foregroundAlias = "var(--gray-900)";
   const additionalVariables = `
   --background: ${backgroundAlias};
   --foreground: ${foregroundAlias};`;
@@ -127,15 +127,18 @@ function generateThemeVariables(lightVars, darkVars) {
   ${lightVars}
 }
 
-:root.dark {
-  ${darkVars}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    ${darkVars}
+  }
 }
 `;
 }
 
 function generateCssVariables() {
-  const lightVariables = generateColorVariables(lightColors, false);
-  const darkVariables = generateColorVariables(darkColors, false);
+  const lightVariables = generateColorVariables(lightColors);
+  const darkVariables = generateColorVariables(darkColors);
 
   return generateThemeVariables(lightVariables, darkVariables);
 }
