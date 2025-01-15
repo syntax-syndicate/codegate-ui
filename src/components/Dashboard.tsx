@@ -21,6 +21,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import { useSearchParams } from "react-router-dom";
 import { AlertConversation } from "@/api/generated";
 import { getMaliciousPackage } from "@/lib/utils";
+import { CardCodegateStatus } from "@/features/dashboard/components/card-codegate-status";
 
 const wrapObjectOutput = (input: AlertConversation["trigger_string"]) => {
   const data = getMaliciousPackage(input);
@@ -127,16 +128,11 @@ export function Dashboard() {
 
   return (
     <div className="flex-col">
-      <div className="flex flex-wrap items-center gap-4 w-full">
-        <div className="min-w-80 w-1/3 h-60">
-          <BarChart data={alerts} loading={loading} />
-        </div>
-        <div className="min-w-80 w-1/4 h-60">
-          <PieChart data={maliciousPackages} loading={loading} />
-        </div>
-        <div className="relative w-[370px] h-60">
-          <LineChart data={alerts} loading={loading} />
-        </div>
+      <div className="grid 2xl:grid-cols-4 sm:grid-cols-2 grid-cols-1 items-stretch gap-4 w-full">
+        <CardCodegateStatus />
+        <BarChart data={alerts} loading={loading} />
+        <PieChart data={maliciousPackages} loading={loading} />
+        <LineChart data={alerts} loading={loading} />
       </div>
 
       <Separator className="my-8" />
@@ -193,7 +189,7 @@ export function Dashboard() {
         </div>
       </div>
       <div className="overflow-x-auto">
-        <Table>
+        <Table data-testid="alerts-table">
           <TableHeader>
             <TableRow>
               <TableHead className="w-[150px]">Trigger Type</TableHead>
