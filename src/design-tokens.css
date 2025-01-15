@@ -2,15 +2,15 @@
 
 :root {
   --background: 0deg, 0%, 100%;
-  --gray-100: 60deg, 33%, 99%;
-  --gray-200: 40deg, 52%, 89%;
-  --gray-300: 42deg, 29%, 73%;
-  --gray-400: 42deg, 15%, 62%;
-  --gray-500: 48deg, 8%, 52%;
-  --gray-600: 60deg, 5%, 44%;
-  --gray-700: 75deg, 2%, 36%;
-  --gray-800: 160deg, 2%, 29%;
-  --gray-900: 195deg, 3%, 25%;
+  --gray-100: 0deg, 0%, 100%;
+  --gray-200: 0deg, 0%, 91%;
+  --gray-300: 0deg, 1%, 77%;
+  --gray-400: 0deg, 0%, 65%;
+  --gray-500: 0deg, 0%, 54%;
+  --gray-600: 0deg, 0%, 45%;
+  --gray-700: 0deg, 1%, 37%;
+  --gray-800: 0deg, 1%, 29%;
+  --gray-900: 0deg, 1%, 26%;
   --teal-100: 180deg, 100%, 98%;
   --teal-200: 199deg, 100%, 90%;
   --teal-300: 205deg, 46%, 77%;
@@ -46,15 +46,15 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: 0deg, 0%, 0%;
-  --gray-100: 200deg, 6%, 19%;
-  --gray-200: 180deg, 3%, 24%;
-  --gray-300: 120deg, 1%, 33%;
-  --gray-400: 60deg, 3%, 41%;
-  --gray-500: 46deg, 7%, 50%;
-  --gray-600: 42deg, 13%, 59%;
-  --gray-700: 41deg, 23%, 69%;
-  --gray-800: 41deg, 40%, 80%;
-  --gray-900: 41deg, 49%, 86%;
+  --gray-100: 0deg, 1%, 19%;
+  --gray-200: 0deg, 0%, 25%;
+  --gray-300: 0deg, 1%, 34%;
+  --gray-400: 0deg, 0%, 42%;
+  --gray-500: 0deg, 0%, 52%;
+  --gray-600: 0deg, 0%, 61%;
+  --gray-700: 0deg, 1%, 72%;
+  --gray-800: 0deg, 0%, 84%;
+  --gray-900: 0deg, 2%, 89%;
   --teal-100: 207deg, 9%, 19%;
   --teal-200: 208deg, 10%, 25%;
   --teal-300: 207deg, 10%, 34%;
