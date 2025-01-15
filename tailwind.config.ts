@@ -42,11 +42,11 @@ export default {
         foreground: "hsl(var(--gray-900))",
       },
       primary: {
-        DEFAULT: "hsl(var(--blue-200))",
+        DEFAULT: "hsl(var(--blue-500))",
         foreground: "hsl(var(--gray-900))",
       },
       secondary: {
-        DEFAULT: "hsl(var(--gray-200))",
+        DEFAULT: "hsl(var(--gray-500))",
         foreground: "hsl(var(--gray-900))",
       },
       muted: {
