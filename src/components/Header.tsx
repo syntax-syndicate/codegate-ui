@@ -18,6 +18,20 @@ function DropdownMenu({ children }: { children: React.ReactNode }) {
   );
 }
 
+function DropdownMenuItem({
+  children,
+  to,
+}: {
+  to: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link to={to} className="block px-5 py-3 text-gray-700 hover:bg-blue-50">
+      {children}
+    </Link>
+  );
+}
+
 export function Header({ hasError }: { hasError?: boolean }) {
   return (
     <header className="flex-shrink-0 h-16 px-3 items-center flex w-full bg-teal-25 opacity-1 border-b-blue-200 border-b">
@@ -41,36 +55,22 @@ export function Header({ hasError }: { hasError?: boolean }) {
         <div className="flex items-center relative group">
           <HeaderMenuItem>Certificates</HeaderMenuItem>
           <DropdownMenu>
-            <Link
-              to="/certificates"
-              className="block px-5 py-3 text-gray-700 hover:bg-blue-50"
-            >
-              Download
-            </Link>
-            <Link
-              to="/certificates/security"
-              className="block px-5 py-3 text-gray-700 hover:bg-blue-50"
-            >
+            <DropdownMenuItem to="/certificates">Download</DropdownMenuItem>
+            <DropdownMenuItem to="/certificates/security">
               Certificate Security
-            </Link>
+            </DropdownMenuItem>
           </DropdownMenu>
         </div>
         <div className="flex items-center relative group">
           <HeaderMenuItem>Help</HeaderMenuItem>
 
           <DropdownMenu>
-            <Link
-              to="/help/continue-setup"
-              className="block px-5 py-3 text-gray-700 hover:bg-blue-50"
-            >
+            <DropdownMenuItem to="/help/continue-setup">
               Continue Setup
-            </Link>
-            <Link
-              to="/help/copilot-setup"
-              className="block px-5 py-3 text-gray-700 hover:bg-blue-50"
-            >
+            </DropdownMenuItem>
+            <DropdownMenuItem to="/help/copilot-setup">
               Copilot Setup
-            </Link>
+            </DropdownMenuItem>
           </DropdownMenu>
         </div>
 
