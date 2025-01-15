@@ -2,6 +2,8 @@
   "background": "#fff",
   "foreground": "#000",
   "teal": "#c2e6ff",
-  "blue": "#0000FF",
-  "red": "#F00"
+  "blue": "#5058FF",
+  "red": "#ff5058",
+  "orange": "#ffa050",
+  "green": "#58ff50"
 }
