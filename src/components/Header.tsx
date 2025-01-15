@@ -61,9 +61,9 @@ export function Header({ hasError }: { hasError?: boolean }) {
             </DropdownMenuItem>
           </DropdownMenu>
         </div>
+
         <div className="flex items-center relative group">
           <HeaderMenuItem>Help</HeaderMenuItem>
-
           <DropdownMenu>
             <DropdownMenuItem to="/help/continue-setup">
               Continue Setup
