@@ -18,8 +18,6 @@ const colors = {};
   );
 });
 
-console.log(colors);
-
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ["class"],
@@ -33,11 +31,10 @@ export default {
       ...colors,
       white: "hsl(var(--gray-100))",
       black: "hsl(var(--gray-900))",
-      //"blue-200": "#daedfd",
       background: "hsl(var(--background))",
       foreground: "hsl(var(--foreground))",
       card: {
-        DEFAULT: "hsl(var(--gray-200))",
+        DEFAULT: "hsl(var(--gray-100))",
         foreground: "hsl(var(--gray-900))",
       },
       popover: {
