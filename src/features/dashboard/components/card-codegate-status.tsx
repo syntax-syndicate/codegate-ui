@@ -1,21 +1,24 @@
 import {
   Card,
-  CardContent,
+  CardBody,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { TableRow, TableBody, TableCell, Table } from "@/components/ui/table";
-import { cn } from "@/lib/utils";
+  Cell,
+  Column,
+  Label,
+  Row,
+  Select,
+  SelectButton,
+  Table,
+  TableBody,
+  TableHeader,
+  TDropdownItemOrSection,
+} from "@stacklok/ui-kit";
+
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
-import {
-  CheckCircle2,
-  LoaderCircle,
-  XCircle,
-  ChevronDown,
-  Check,
-} from "lucide-react";
+import { CheckCircle2, LoaderCircle, XCircle } from "lucide-react";
 import { Dispatch, SetStateAction, useState } from "react";
 
 const INTERVAL = {
@@ -27,6 +30,12 @@ const INTERVAL = {
   "5_MIN": { value: 300_000, name: "5 minutes" },
   "10_MIN": { value: 600_000, name: "10 minutes" },
 } as const;
+
+const INTERVAL_SELECT_ITEMS: TDropdownItemOrSection[] = Object.entries(
+  INTERVAL,
+).map(([key, { name }]) => {
+  return { textValue: name, id: key };
+});
 
 const DEFAULT_INTERVAL: Interval = "5_SEC";
 
@@ -74,7 +83,7 @@ const StatusText = ({
 }) => {
   if (isPending || status === null) {
     return (
-      <div className="flex gap-2 items-center text-gray-600 justify-end overflow-hidden">
+      <div className="flex gap-2 items-center text-secondary justify-end overflow-hidden">
         Checking <LoaderCircle className="size-4 animate-spin" />
       </div>
     );
@@ -83,13 +92,13 @@ const StatusText = ({
   switch (status) {
     case Status.HEALTHY:
       return (
-        <div className="flex gap-2 items-center text-green-600 justify-end">
+        <div className="flex gap-2 items-center text-primary justify-end">
           {Status.HEALTHY} <CheckCircle2 className="size-4" />
         </div>
       );
     case Status.UNHEALTHY:
       return (
-        <div className="flex gap-2 items-center text-red-600 justify-end overflow-hidden">
+        <div className="flex gap-2 items-center text-primary justify-end overflow-hidden">
           {Status.UNHEALTHY} <XCircle className="size-4" />
         </div>
       );
@@ -103,13 +112,13 @@ function ErrorUI() {
   return (
     <div className="flex flex-col items-center justify-center py-8">
       <XCircle className="text-red-600 mb-2 size-8" />
-      <div className="text-md font-semibold text-gray-600 text-center">
+      <div className="text-base font-semibold text-secondary text-center">
         An error occurred
       </div>
-      <div className="text-sm text-gray-600 text-center text-balance">
+      <div className="text-sm text-secondary text-center text-balance">
         If this issue persists, please reach out to us on{" "}
         <a
-          className="underline text-gray-700"
+          className="underline text-secondary"
           href="https://discord.gg/stacklok"
           rel="noopener noreferrer"
           target="_blank"
@@ -118,7 +127,7 @@ function ErrorUI() {
         </a>{" "}
         or open a new{" "}
         <a
-          className="underline text-gray-700"
+          className="underline text-secondary"
           href="https://github.com/stacklok/codegate/issues/new"
           rel="noopener noreferrer"
           target="_blank"
@@ -140,36 +149,20 @@ function PollIntervalControl({
   setPollingInterval: Dispatch<SetStateAction<Interval>>;
 }) {
   return (
-    <div className={cn("flex items-center relative group", className)}>
-      <div className="text-gray-600 hover:text-gray-800 font-normal cursor-pointer text-base px-2 py-1 rounded-md hover:bg-blue-50 transition-colors flex gap-1 items-center">
-        <div>
-          <div className="text-sm font-semibold text-gray-500 text-right">
-            Check for updates
-          </div>
-          <div className="text-sm text-gray-500 text-right">
-            every {INTERVAL[pollingInterval].name}
-          </div>
-        </div>
-        <ChevronDown className="size-4" />
-      </div>
-      <div className="p-1 absolute right-0 top-full mt-2 w-32 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border border-gray-100">
-        {Object.entries(INTERVAL).map(([key, { name }]) => {
-          const isActive = key === pollingInterval;
-
-          return (
-            <button
-              onClick={() => setPollingInterval(key as Interval)}
-              data-active={isActive}
-              className="text-right :not:last:mb-1 font-normal text-sm text-gray-600 hover:bg-gray-100 rounded px-2 py-0.5 hover:text-gray-800 &[data-active=true]:text-gray-800 flex items-center justify-between w-full"
-              key={key}
-            >
-              {name}
-              {isActive ? <Check className="size-3" /> : null}
-            </button>
-          );
-        })}
-      </div>
-    </div>
+    <Select
+      className={className}
+      onSelectionChange={(v) => setPollingInterval(v.toString() as Interval)}
+      items={INTERVAL_SELECT_ITEMS}
+      defaultSelectedKey={pollingInterval}
+    >
+      <Label className="w-full text-right font-semibold text-secondary pr-2 -mb-1">
+        Check for updates
+      </Label>
+      <SelectButton
+        isBorderless
+        className="h-7 max-w-36 [&>span>span]:text-right [&>span>span]:justify-end !gap-0 text-secondary"
+      />
+    </Select>
   );
 }
 
@@ -183,14 +176,18 @@ export function InnerContent({
   }
 
   return (
-    <Table className="h-max">
+    <Table className="h-max" aria-label="CodeGate status checks">
+      <TableHeader className="hidden">
+        <Column isRowHeader>Name</Column>
+        <Column>Value</Column>
+      </TableHeader>
       <TableBody>
-        <TableRow className="hover:bg-transparent">
-          <TableCell className="pl-0">CodeGate server</TableCell>
-          <TableCell className="pr-0 text-end">
+        <Row className="hover:bg-transparent">
+          <Cell className="pl-0">CodeGate server</Cell>
+          <Cell className="pr-0 text-end">
             <StatusText isPending={isPending} status={data ?? null} />
-          </TableCell>
-        </TableRow>
+          </Cell>
+        </Row>
       </TableBody>
     </Table>
   );
@@ -211,16 +208,16 @@ export function CardCodegateStatus() {
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="h-max">
+      <CardBody className="h-max">
         <InnerContent data={data} isPending={isPending} isError={isError} />
-      </CardContent>
+      </CardBody>
 
-      <CardFooter className="border-t border-gray-200 mt-auto py-2 pr-2">
+      <CardFooter className="items-start border-t border-gray-200 mt-auto py-2">
         <div>
-          <div className="text-sm font-semibold text-gray-500">
+          <div className="text-sm font-semibold text-secondary">
             Last checked
           </div>
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-secondary">
             {format(new Date(dataUpdatedAt), "pp")}
           </div>
         </div>

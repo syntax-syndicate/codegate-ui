@@ -27,11 +27,11 @@ export function Chat() {
     <div className="w-[calc(100vw-18rem)]">
       <ChatMessageList>
         {(chat?.question_answers ?? []).map(({ question, answer }, index) => (
-          <div key={index} className="flex flex-col w-full h-full gap-6">
+          <div key={index} className="flex flex-col size-full gap-6">
             <ChatBubble variant="sent">
-              <ChatBubbleAvatar fallback="User" className="w-14" />
-              <ChatBubbleMessage variant="sent" className="bg-zinc-700">
-                <Markdown isInverted>
+              <ChatBubbleAvatar data-testid="avatar-user" fallback="User" />
+              <ChatBubbleMessage variant="sent">
+                <Markdown>
                   {sanitizeQuestionPrompt({
                     question: question?.message ?? "",
                     answer: answer?.message ?? "",
@@ -40,7 +40,7 @@ export function Chat() {
               </ChatBubbleMessage>
             </ChatBubble>
             <ChatBubble variant="received">
-              <ChatBubbleAvatar fallback="AI" />
+              <ChatBubbleAvatar data-testid="avatar-ai" fallback="AI" />
               <ChatBubbleMessage variant="received">
                 <Markdown>{answer?.message ?? ""}</Markdown>
               </ChatBubbleMessage>

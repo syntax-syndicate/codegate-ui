@@ -1,34 +1,37 @@
 import { Separator } from "./ui/separator";
-import {
-  TableHeader,
-  TableRow,
-  TableHead,
-  TableBody,
-  TableCell,
-  Table,
-} from "./ui/table";
+
 import { format } from "date-fns";
-import { Badge } from "./ui/badge";
-import { Input } from "./ui/input";
+import {
+  Cell,
+  Column,
+  Input,
+  Row,
+  SearchField,
+  Table,
+  TableBody,
+  TableHeader,
+} from "@stacklok/ui-kit";
+import { Badge } from "@stacklok/ui-kit";
 import { useCallback, useEffect } from "react";
 import { BarChart } from "@/viz/BarChart";
 import { LineChart } from "@/viz/LineChart";
 import { useAlertsStore } from "@/hooks/useAlertsStore";
 import { Markdown } from "./Markdown";
 import { PieChart } from "@/viz/PieChart";
-import { Switch } from "./ui/switch";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { Switch } from "@stacklok/ui-kit";
+import { Tooltip, TooltipTrigger } from "@stacklok/ui-kit";
 import { useSearchParams } from "react-router-dom";
 import { AlertConversation } from "@/api/generated";
 import { getMaliciousPackage } from "@/lib/utils";
 import { CardCodegateStatus } from "@/features/dashboard/components/card-codegate-status";
+import { Search } from "lucide-react";
 
 const wrapObjectOutput = (input: AlertConversation["trigger_string"]) => {
   const data = getMaliciousPackage(input);
   if (data === null) return "N/A";
   if (typeof data === "string") {
     return (
-      <div className="bg-secondary rounded-lg overflow-auto w-fit p-1">
+      <div className="bg-gray-25 rounded-lg overflow-auto w-fit p-1">
         <Markdown>{data}</Markdown>
       </div>
     );
@@ -43,7 +46,7 @@ const wrapObjectOutput = (input: AlertConversation["trigger_string"]) => {
         href={`https://www.insight.stacklok.com/report/${data.type}/${data.name}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-blue-500 hover:underline"
+        className="text-brand-500 hover:underline"
       >
         {data.type}/{data.name}
       </a>
@@ -139,77 +142,62 @@ export function Dashboard() {
 
       <div className="flex mb-2 mx-2 justify-between w-[calc(100vw-20rem)]">
         <div className="flex gap-2 items-center">
-          <h2 className="font-bold font-lg">All Alerts</h2>
-          <Badge data-testid="alerts-count">{filteredAlerts.length}</Badge>
+          <h2 className="font-bold text-lg">All Alerts</h2>
+          <Badge size="sm" variant="inverted" data-testid="alerts-count">
+            {filteredAlerts.length}
+          </Badge>
         </div>
 
         <div className="flex items-center gap-8">
           <div className="flex items-center space-x-2">
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    id="airplane-mode"
-                    checked={isMaliciousFilterActive}
-                    onCheckedChange={handleToggleFilter}
-                  />
-                  <label htmlFor="airplane-mode" className="text-sm">
-                    Malicious Packages
-                  </label>
-                </div>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Filter by malicious packages</p>
-              </TooltipContent>
-            </Tooltip>
-          </div>
-          <Input
-            icon={
-              <svg
-                width="20px"
-                height="20px"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+            <TooltipTrigger>
+              <Switch
+                id="malicious-packages"
+                isSelected={isMaliciousFilterActive}
+                onChange={handleToggleFilter}
               >
-                <path
-                  d="M21 21L17.5001 17.5M20 11.5C20 16.1944 16.1944 20 11.5 20C6.80558 20 3 16.1944 3 11.5C3 6.80558 6.80558 3 11.5 3C16.1944 3 20 6.80558 20 11.5Z"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            }
+                Malicious Packages
+              </Switch>
+
+              <Tooltip>
+                <p>Filter by malicious packages</p>
+              </Tooltip>
+            </TooltipTrigger>
+          </div>
+          <SearchField
             type="text"
+            aria-label="Search alerts"
             value={search}
-            placeholder="Search..."
-            onChange={(e) => handleSearch(e.target.value.toLowerCase().trim())}
-          />
+            onChange={(value) => handleSearch(value.toLowerCase().trim())}
+          >
+            <Input type="search" placeholder="Search..." icon={<Search />} />
+          </SearchField>
         </div>
       </div>
       <div className="overflow-x-auto">
-        <Table data-testid="alerts-table">
+        <Table data-testid="alerts-table" aria-label="Alerts table">
           <TableHeader>
-            <TableRow>
-              <TableHead className="w-[150px]">Trigger Type</TableHead>
-              <TableHead className="w-[300px]">Trigger Token</TableHead>
-              <TableHead className="w-[150px]">File</TableHead>
-              <TableHead className="w-[250px]">Code</TableHead>
-              <TableHead className="w-[100px]">Timestamp</TableHead>
-            </TableRow>
+            <Row>
+              <Column isRowHeader width={150}>
+                Trigger Type
+              </Column>
+              <Column width={300}>Trigger Token</Column>
+              <Column width={150}>File</Column>
+              <Column width={250}>Code</Column>
+              <Column width={100}>Timestamp</Column>
+            </Row>
           </TableHeader>
           <TableBody>
             {filteredAlerts.map((alert) => (
-              <TableRow key={alert.alert_id} className="h-20">
-                <TableCell className="truncate">{alert.trigger_type}</TableCell>
-                <TableCell className="overflow-auto whitespace-nowrap max-w-80">
+              <Row key={alert.alert_id} className="h-20">
+                <Cell className="truncate">{alert.trigger_type}</Cell>
+                <Cell className="overflow-auto whitespace-nowrap max-w-80">
                   {wrapObjectOutput(alert.trigger_string)}
-                </TableCell>
-                <TableCell className="truncate">
+                </Cell>
+                <Cell className="truncate">
                   {alert.code_snippet?.filepath || "N/A"}
-                </TableCell>
-                <TableCell className="overflow-auto whitespace-nowrap max-w-80">
+                </Cell>
+                <Cell className="overflow-auto whitespace-nowrap max-w-80">
                   {alert.code_snippet?.code ? (
                     <pre className="max-h-40 overflow-auto bg-gray-100 p-2 whitespace-pre-wrap">
                       <code>{alert.code_snippet.code}</code>
@@ -217,16 +205,16 @@ export function Dashboard() {
                   ) : (
                     "N/A"
                   )}
-                </TableCell>
-                <TableCell className="truncate">
+                </Cell>
+                <Cell className="truncate">
                   <div data-testid="date">
                     {format(new Date(alert.timestamp ?? ""), "y/MM/dd")}
                   </div>
                   <div data-testid="time">
                     {format(new Date(alert.timestamp ?? ""), "hh:mm:ss a")}
                   </div>
-                </TableCell>
-              </TableRow>
+                </Cell>
+              </Row>
             ))}
           </TableBody>
         </Table>

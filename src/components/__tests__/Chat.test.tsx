@@ -3,6 +3,15 @@ import { Chat } from "../Chat";
 import { screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
+vi.mock("@stacklok/ui-kit", async (importOriginal) => {
+  return {
+    ...(await importOriginal<typeof import("@stacklok/ui-kit")>()),
+    Avatar: ({ "data-testid": dataTestId }: { "data-testid": string }) => (
+      <div data-testid={dataTestId} />
+    ),
+  };
+});
+
 vi.mock("@/hooks/usePromptsStore", () => ({
   usePromptsStore: () => ({
     ...vi.importActual("@/hooks/usePromptsStore"),
@@ -44,8 +53,8 @@ describe("Chat", () => {
     });
 
     expect(screen.getByText(/REDACTED</i)).toBeVisible();
-    expect(screen.getByText("User")).toBeVisible();
-    expect(screen.getByText("AI")).toBeVisible();
+    expect(screen.getByTestId("avatar-user")).toBeVisible();
+    expect(screen.getByTestId("avatar-ai")).toBeVisible();
     expect(
       screen.getByText(/do you see any security issue\?\./i),
     ).toBeVisible();

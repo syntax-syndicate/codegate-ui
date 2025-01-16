@@ -8,14 +8,14 @@ import {
   XAxis,
 } from "recharts";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardBody, CardHeader, CardTitle } from "@stacklok/ui-kit";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@stacklok/ui-kit";
 import { AlertConversation } from "@/api/generated/types.gen";
 
 const aggregateAlertsByDate = (alerts: { timestamp: string }[]) => {
@@ -47,7 +47,7 @@ const aggregateAlertsByDate = (alerts: { timestamp: string }[]) => {
 const chartConfig = {
   alerts: {
     label: "Alerts",
-    color: "hsl(var(--chart-1))",
+    color: "var(--brand-700)",
   },
 } satisfies ChartConfig;
 
@@ -66,7 +66,7 @@ export function LineChart({
         <CardHeader>
           <CardTitle>Alerts by date</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardBody>
           {Array.from({ length: 6 }).map((_, index) => (
             <div
               key={index}
@@ -75,7 +75,7 @@ export function LineChart({
               <Skeleton key={index} className="w-full h-3" />
             </div>
           ))}
-        </CardContent>
+        </CardBody>
       </Card>
     );
   }
@@ -85,8 +85,8 @@ export function LineChart({
       <CardHeader>
         <CardTitle>Alerts by date</CardTitle>
       </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="min-h-[10rem]">
+      <CardBody>
+        <ChartContainer config={chartConfig} className="min-h-40">
           <LineChartsUI
             accessibilityLayer
             data={chartData}
@@ -111,14 +111,16 @@ export function LineChart({
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent indicator="line" />}
+              
             />
             <Line
               dataKey="alerts"
               type="natural"
-              stroke="var(--color-alerts)"
+              stroke="var(--brand-700)"
               strokeWidth={2}
               dot={{
-                fill: "var(--color-alerts)",
+                fill: "var(--brand-700)",
+                stroke: "var(--brand-700)",
               }}
               activeDot={{
                 r: 6,
@@ -127,13 +129,13 @@ export function LineChart({
               <LabelList
                 position="top"
                 offset={12}
-                className="fill-foreground"
+                className="fill-gray-50"
                 fontSize={12}
               />
             </Line>
           </LineChartsUI>
         </ChartContainer>
-      </CardContent>
+      </CardBody>
     </Card>
   );
 }

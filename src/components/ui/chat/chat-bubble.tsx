@@ -1,9 +1,8 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import MessageLoading from "./message-loading";
-import { ButtonProps, Button } from "../button";
+import { Avatar, Button } from "@stacklok/ui-kit";
 
 // ChatBubble
 const chatBubbleVariant = cva(
@@ -54,7 +53,7 @@ const ChatBubble = React.forwardRef<HTMLDivElement, ChatBubbleProps>(
 ChatBubble.displayName = "ChatBubble";
 
 // ChatBubbleAvatar
-interface ChatBubbleAvatarProps {
+interface ChatBubbleAvatarProps extends React.ComponentProps<typeof Avatar> {
   src?: string;
   fallback?: string;
   className?: string;
@@ -64,20 +63,15 @@ const ChatBubbleAvatar: React.FC<ChatBubbleAvatarProps> = ({
   src,
   fallback,
   className,
-}) => (
-  <Avatar className={className}>
-    <AvatarImage src={src} alt="Avatar" />
-    <AvatarFallback>{fallback}</AvatarFallback>
-  </Avatar>
-);
+  ...rest
+}) => <Avatar src={src} name={fallback} className={className} {...rest} />;
 
 // ChatBubbleMessage
-const chatBubbleMessageVariants = cva("p-4", {
+const chatBubbleMessageVariants = cva("p-4 bg-gray-100 text-primary", {
   variants: {
     variant: {
-      received:
-        "bg-secondary text-secondary-foreground rounded-r-lg rounded-tl-lg",
-      sent: "bg-primary text-primary-foreground rounded-l-lg rounded-tr-lg",
+      received: "rounded-r-lg rounded-tl-lg",
+      sent: "rounded-l-lg rounded-tr-lg",
     },
     layout: {
       default: "",
@@ -141,23 +135,23 @@ const ChatBubbleTimestamp: React.FC<ChatBubbleTimestampProps> = ({
 );
 
 // ChatBubbleAction
-type ChatBubbleActionProps = ButtonProps & {
+type ChatBubbleActionProps = React.ComponentProps<typeof Button> & {
   icon: React.ReactNode;
 };
 
 const ChatBubbleAction: React.FC<ChatBubbleActionProps> = ({
   icon,
-  onClick,
+  onPress,
   className,
-  variant = "ghost",
-  size = "icon",
+  variant = "tertiary",
+  isIcon = true,
   ...props
 }) => (
   <Button
     variant={variant}
-    size={size}
+    isIcon={isIcon}
     className={className}
-    onClick={onClick}
+    onPress={onPress}
     {...props}
   >
     {icon}
