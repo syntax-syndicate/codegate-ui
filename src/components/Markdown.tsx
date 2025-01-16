@@ -82,7 +82,7 @@ export function Markdown({ children, isInverted = false }: Props) {
               {language && (
                 <CopyToClipboard
                   text={String(children).replace(/\n$/, "")}
-                  className="absolute top-4 right-8"
+                  className="absolute top-1 right-1"
                 />
               )}
             </div>
