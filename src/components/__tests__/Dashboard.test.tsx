@@ -268,9 +268,9 @@ describe("Dashboard", () => {
       }),
     ).toBeVisible();
 
-    userEvent.type(screen.getByRole("searchbox"), "codegate-secrets");
+    await userEvent.type(screen.getByRole("searchbox"), "codegate-secrets");
 
-    await waitFor(() =>
+    waitFor(() =>
       expect(screen.getByTestId(/alerts-count/i)).toHaveTextContent("1"),
     );
     const row = within(screen.getByTestId("alerts-table")).getAllByRole(
