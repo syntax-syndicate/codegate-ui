@@ -66,7 +66,7 @@ export function Markdown({ children, isInverted = false }: Props) {
           const language = match ? match[1] : detectedLanguage;
           return (
             <div
-              className="relative group w-full ml-0 my-4"
+              className="relative group w-full ml-0"
               data-testid="syntax-highlighter"
             >
               <SyntaxHighlighter
@@ -79,10 +79,10 @@ export function Markdown({ children, isInverted = false }: Props) {
               >
                 {String(children).replace(/\n$/, "")}
               </SyntaxHighlighter>
-              {match && (
+              {language && (
                 <CopyToClipboard
                   text={String(children).replace(/\n$/, "")}
-                  className="absolute top-4 right-8"
+                  className="absolute top-1 right-1"
                 />
               )}
             </div>
