@@ -270,7 +270,7 @@ describe("Dashboard", () => {
 
     await userEvent.type(screen.getByRole("searchbox"), "codegate-secrets");
 
-    waitFor(() =>
+    await waitFor(() =>
       expect(screen.getByTestId(/alerts-count/i)).toHaveTextContent("1"),
     );
     const row = within(screen.getByTestId("alerts-table")).getAllByRole(
