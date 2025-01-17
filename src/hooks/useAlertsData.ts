@@ -11,7 +11,7 @@ import { getAlertsDashboardAlertsGetQueryKey } from "@/api/generated/@tanstack/r
 const fetchAlerts = async (): Promise<AlertConversation[]> => {
   const { data } = await getAlertsDashboardAlertsGet();
 
-  return (data ?? [])
+  const results = (data ?? [])
     .filter((alert): alert is AlertConversation => alert !== null)
     .filter((alert) => alert.trigger_category === "critical")
     .filter((alert) =>
@@ -23,6 +23,8 @@ const fetchAlerts = async (): Promise<AlertConversation[]> => {
       (a, b) =>
         new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
     );
+
+  return results;
 };
 
 export const useAlertsData = ({ ...args } = {}) => {
@@ -39,8 +41,8 @@ export const useFilteredAlerts = () => {
   return useAlertsData({
     select: (
       data: Exclude<ReturnType<typeof useAlertsData>["data"], undefined>,
-    ) =>
-      data
+    ) => {
+      return data
         .filter((alert) => {
           const maliciousPkg = getMaliciousPackage(alert.trigger_string);
           const maliciousPkgName =
@@ -68,7 +70,8 @@ export const useFilteredAlerts = () => {
             typeof alert.trigger_string === "object" &&
             (alert.trigger_type as TriggerType) === "codegate-context-retriever"
           );
-        }),
+        });
+    },
   });
 };
 
