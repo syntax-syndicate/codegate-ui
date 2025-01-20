@@ -1,5 +1,8 @@
 import { useListWorkspaces } from "@/features/workspace/hooks/use-list-workspaces";
+import { BreadcrumbHome } from "@/components/BreadcrumbHome";
 import {
+  Breadcrumb,
+  Breadcrumbs,
   Cell,
   Column,
   Heading,
@@ -16,7 +19,12 @@ export function RouteWorkspaces() {
   const workspaces = result.data?.workspaces ?? [];
 
   return (
-    <div>
+    <>
+      <Breadcrumbs>
+        <BreadcrumbHome />
+        <Breadcrumb>Manage Workspaces</Breadcrumb>
+      </Breadcrumbs>
+
       <Heading level={1} className="mb-5">
         Manage Workspaces
       </Heading>
@@ -49,6 +57,6 @@ export function RouteWorkspaces() {
           ))}
         </TableBody>
       </Table>
-    </div>
+    </>
   );
 }
