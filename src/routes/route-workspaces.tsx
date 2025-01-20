@@ -1,3 +1,4 @@
+import { WorkspaceHeading } from "@/features/workspace/components/workspace-heading";
 import { useListWorkspaces } from "@/features/workspace/hooks/use-list-workspaces";
 import { BreadcrumbHome } from "@/components/BreadcrumbHome";
 import {
@@ -5,14 +6,13 @@ import {
   Breadcrumbs,
   Cell,
   Column,
-  Heading,
   LinkButton,
   Row,
   Table,
   TableBody,
   TableHeader,
 } from "@stacklok/ui-kit";
-import { Settings } from "lucide-react";
+import { Settings, SquarePlus } from "lucide-react";
 
 export function RouteWorkspaces() {
   const result = useListWorkspaces();
@@ -25,9 +25,11 @@ export function RouteWorkspaces() {
         <Breadcrumb>Manage Workspaces</Breadcrumb>
       </Breadcrumbs>
 
-      <Heading level={1} className="mb-5">
-        Manage Workspaces
-      </Heading>
+      <WorkspaceHeading title="Manage Workspaces">
+        <LinkButton href="/workspace/create" className="w-fit gap-2">
+          <SquarePlus /> Create Workspace
+        </LinkButton>
+      </WorkspaceHeading>
 
       <Table aria-label="List of workspaces">
         <Row>

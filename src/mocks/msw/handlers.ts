@@ -33,4 +33,7 @@ export const handlers = [
   http.get("*/api/v1/workspaces", () => {
     return HttpResponse.json(mockedWorkspaces);
   }),
+  http.post("*/api/v1/workspaces", () => {
+    return HttpResponse.json(mockedWorkspaces);
+  }),
 ];
