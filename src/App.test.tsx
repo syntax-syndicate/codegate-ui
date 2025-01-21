@@ -20,41 +20,79 @@ describe("App", () => {
     render(<App />);
     expect(screen.getByText(/toggle sidebar/i)).toBeVisible();
     expect(screen.getByText("Certificates")).toBeVisible();
-    expect(screen.getByText("Setup")).toBeVisible();
+    expect(screen.getByText("Help")).toBeVisible();
     expect(screen.getByRole("banner", { name: "App header" })).toBeVisible();
     expect(
-      screen.getByRole("heading", { name: /codeGate dashboard/i })
+      screen.getByRole("heading", { name: /codeGate dashboard/i }),
     ).toBeVisible();
+
+    await userEvent.click(screen.getByText("Certificates"));
+
     expect(
-      screen.getByRole("link", {
+      screen.getByRole("menuitem", {
         name: /certificate security/i,
-      })
+      }),
     ).toBeVisible();
     expect(
-      screen.getByRole("link", {
+      screen.getByRole("menuitem", {
+        name: /download/i,
+      }),
+    ).toBeVisible();
+
+    await userEvent.click(screen.getByText("Certificates"));
+    await userEvent.click(screen.getByText("Help"));
+
+    expect(
+      screen.getByRole("menuitem", {
         name: /set up in continue/i,
-      })
+      }),
     ).toBeVisible();
 
     expect(
-      screen.getByRole("link", {
+      screen.getByRole("menuitem", {
         name: /set up in copilot/i,
-      })
+      }),
     ).toBeVisible();
+
     expect(
-      screen.getByRole("link", {
-        name: /download/i,
-      })
-    ).toBeVisible();
-    expect(
-      screen.getByRole("link", {
+      screen.getByRole("menuitem", {
         name: /documentation/i,
-      })
+      }),
     ).toBeVisible();
+
+    const discordMenuItem = screen.getByRole("menuitem", {
+      name: /discord/i,
+    });
+    expect(discordMenuItem).toBeVisible();
+    expect(discordMenuItem).toHaveAttribute(
+      "href",
+      "https://discord.gg/stacklok",
+    );
+
+    const githubMenuItem = screen.getByRole("menuitem", {
+      name: /github/i,
+    });
+    expect(githubMenuItem).toBeVisible();
+    expect(githubMenuItem).toHaveAttribute(
+      "href",
+      "https://github.com/stacklok/codegate",
+    );
+
+    const youtubeMenuItem = screen.getByRole("menuitem", {
+      name: /youtube/i,
+    });
+    expect(youtubeMenuItem).toBeVisible();
+    expect(youtubeMenuItem).toHaveAttribute(
+      "href",
+      "https://www.youtube.com/@Stacklok",
+    );
+
+    await userEvent.click(screen.getByText("Help"));
+
     await waitFor(() =>
       expect(
-        screen.getByRole("link", { name: /codeGate dashboard/i })
-      ).toBeVisible()
+        screen.getByRole("link", { name: /codeGate dashboard/i }),
+      ).toBeVisible(),
     );
   });
 
@@ -63,8 +101,8 @@ describe("App", () => {
 
     await waitFor(() =>
       expect(
-        screen.getByRole("link", { name: "CodeGate Dashboard" })
-      ).toBeVisible()
+        screen.getByRole("link", { name: "CodeGate Dashboard" }),
+      ).toBeVisible(),
     );
 
     const workspaceSelectionButton = screen.getByRole("button", {
@@ -78,8 +116,8 @@ describe("App", () => {
       expect(
         screen.getByRole("option", {
           name: /anotherworkspae/i,
-        })
-      ).toBeVisible()
+        }),
+      ).toBeVisible(),
     );
   });
 });

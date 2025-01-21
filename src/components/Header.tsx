@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { SidebarTrigger } from "./ui/sidebar";
 import { HoverPopover } from "./HoverPopover";
-import { Separator, ButtonDarkMode } from "@stacklok/ui-kit";
+import { Separator, ButtonDarkMode, MenuItem } from "@stacklok/ui-kit";
 import { WorkspacesSelection } from "@/features/workspace/components/workspaces-selection";
+import { BookOpenText, Download, ShieldCheck } from "lucide-react";
+import { Continue, Copilot, Discord, Github, Youtube } from "./icons";
 
 export function Header({ hasError }: { hasError?: boolean }) {
   return (
@@ -30,46 +32,56 @@ export function Header({ hasError }: { hasError?: boolean }) {
       </div>
       <div className="flex items-center gap-4 mr-16">
         <HoverPopover title="Certificates">
-          <Link
-            to="/certificates"
-            className="block px-5 py-3 text-secondary hover:bg-brand-50"
-          >
-            Download
-          </Link>
-          <Link
-            to="/certificates/security"
-            className="block px-5 py-3 text-secondary hover:bg-brand-50"
-          >
-            Certificate Security
-          </Link>
+          <MenuItem href="/certificates/security" icon={<ShieldCheck />}>
+            About certificate security
+          </MenuItem>
+          <MenuItem icon={<Download />} href="/certificates">
+            Download certificates
+          </MenuItem>
         </HoverPopover>
 
-        <HoverPopover title="Setup">
-          <Link
-            to="/help/continue-setup"
-            className="block px-5 py-3 text-secondary hover:bg-brand-50"
-          >
+        <HoverPopover title="Help">
+          <MenuItem href="/help/continue-setup" icon={<Continue />}>
             Set up in <span className="font-bold">Continue</span>
-          </Link>
-          <Link
-            to="/help/copilot-setup"
-            className="block px-5 py-3 text-secondary hover:bg-brand-50"
-          >
+          </MenuItem>
+          <MenuItem icon={<Copilot />} href="/help/copilot-setup">
             Set up in <span className="font-bold">Copilot</span>
-          </Link>
-        </HoverPopover>
+          </MenuItem>
 
-        <div className="flex items-center relative group">
-          <div className="text-primary hover:text-secondary font-semibold cursor-pointer text-base px-2 py-1 rounded-md transition-colors">
-            <a
-              href="https://docs.codegate.ai/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Documentation
-            </a>
-          </div>
-        </div>
+          <MenuItem
+            href="https://docs.codegate.ai/"
+            target="_blank"
+            icon={<BookOpenText />}
+          >
+            Documentation
+          </MenuItem>
+
+          <Separator />
+
+          <MenuItem
+            href="https://discord.gg/stacklok"
+            target="_blank"
+            icon={<Discord />}
+          >
+            Discord
+          </MenuItem>
+
+          <MenuItem
+            href="https://github.com/stacklok/codegate"
+            target="_blank"
+            icon={<Github />}
+          >
+            GitHub
+          </MenuItem>
+
+          <MenuItem
+            href="https://www.youtube.com/@Stacklok"
+            target="_blank"
+            icon={<Youtube />}
+          >
+            YouTube
+          </MenuItem>
+        </HoverPopover>
 
         <ButtonDarkMode />
       </div>
