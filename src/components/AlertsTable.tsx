@@ -70,6 +70,7 @@ function IssueDetectedCellContent({ alert }: { alert: AlertConversation }) {
       return (
         <>
           <PackageX className="size-4 text-blue-700" />
+
           Blocked malicious package
         </>
       );
