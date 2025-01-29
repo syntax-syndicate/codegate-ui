@@ -213,7 +213,6 @@ export function WorkspaceCustomInstructions({
           isPending={isMutationPending}
           isDisabled={Boolean(isArchived ?? isCustomInstructionsPending)}
           onPress={() => handleSubmit(value)}
-          variant="secondary"
         >
           Save
         </Button>
