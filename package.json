@@ -15,11 +15,14 @@
     "prepare": "husky",
     "preview": "vite preview",
     "test": "vitest",
+    "playwright": "playwright test",
+    "playwright:ui": "playwright test --ui",
     "test:coverage": "vitest run --coverage",
     "type-check": "tsc --noEmit -p ./tsconfig.app.json",
     "generate-icons": "npx @svgr/cli --typescript --no-dimensions --replace-attr-values '#2E323A=currentColor' --jsx-runtime automatic --out-dir ./src/components/icons/ -- icons"
   },
   "dependencies": {
+    "@cucumber/cucumber": "^11.2.0",
     "@hey-api/client-fetch": "^0.7.1",
     "@monaco-editor/react": "^4.6.0",
     "@radix-ui/react-dialog": "^1.1.4",
@@ -51,6 +54,7 @@
     "@eslint/js": "^9.15.0",
     "@faker-js/faker": "^9.4.0",
     "@hey-api/openapi-ts": "^0.61.2",
+    "@playwright/test": "^1.50.0",
     "@tailwindcss/typography": "^0.5.16",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
