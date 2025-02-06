@@ -2,6 +2,7 @@ import { render, waitFor, within } from "@/lib/test-utils";
 import { test, expect, vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { RouteWorkspace } from "../route-workspace";
+import { useParams } from "react-router-dom";
 
 const mockNavigate = vi.fn();
 
@@ -27,6 +28,10 @@ vi.mock("@monaco-editor/react", () => {
   return { default: FakeEditor };
 });
 
+vi.mock("@/features/workspace/hooks/use-active-workspace-name", () => ({
+  useActiveWorkspaceName: vi.fn(() => ({ data: "baz" })),
+}));
+
 vi.mock("react-router-dom", async () => {
   const original =
     await vi.importActual<typeof import("react-router-dom")>(
@@ -35,6 +40,7 @@ vi.mock("react-router-dom", async () => {
   return {
     ...original,
     useNavigate: () => mockNavigate,
+    useParams: vi.fn(() => ({ name: "foo" })),
   };
 });
 
@@ -44,6 +50,31 @@ test("renders title", () => {
   expect(
     getByRole("heading", { name: "Workspace settings", level: 4 }),
   ).toBeVisible();
+});
+
+test("has a badge when editing the active workspace", () => {
+  (useParams as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+    name: "baz",
+  });
+
+  const { getByRole } = renderComponent();
+
+  const heading = getByRole("heading", {
+    name: /.*workspace settings.*/i,
+    level: 4,
+  });
+
+  expect(within(heading).getByText(/active workspace/i)).toBeVisible();
+});
+
+test("has no 'active workspace' badge when it's not the active workspace", () => {
+  (useParams as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+    name: "another",
+  });
+
+  const { queryByText } = renderComponent();
+
+  expect(queryByText(/active workspace/i)).toBeNull();
 });
 
 test("renders workspace name input", () => {
@@ -75,6 +106,9 @@ test("has breadcrumbs", () => {
 });
 
 test("rename workspace", async () => {
+  (useParams as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+    name: "foo",
+  });
   const { getByRole, getByTestId } = renderComponent();
 
   const workspaceName = getByRole("textbox", {
