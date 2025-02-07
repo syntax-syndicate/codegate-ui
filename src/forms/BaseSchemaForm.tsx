@@ -5,12 +5,16 @@ import type {
 } from "@jsonforms/react";
 import { JsonForms } from "@jsonforms/react";
 
-type FormProps = JsonFormsInitStateProps &
-  JsonFormsReactProps & {
-    validationMode?: ValidationMode;
-    schema: JsonSchema;
-  };
+type FormProps = Omit<
+  JsonFormsInitStateProps &
+    JsonFormsReactProps & {
+      validationMode?: ValidationMode;
+      schema: JsonSchema;
+      isDisabled?: boolean;
+    },
+  "readonly"
+>;
 
-export function BaseSchemaForm(props: FormProps) {
-  return <JsonForms {...props} />;
+export function BaseSchemaForm({ isDisabled = false, ...props }: FormProps) {
+  return <JsonForms {...props} readonly={isDisabled} />;
 }
