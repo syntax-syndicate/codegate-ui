@@ -4,6 +4,7 @@ import { ComponentProps, useState } from "react";
 import { SchemaForm } from "@/forms";
 import { Static, TSchema } from "@sinclair/typebox";
 import { isEqual } from "lodash";
+import { FlipBackward } from "@untitled-ui/icons-react";
 
 export function FormCard<T extends TSchema>({
   className,
@@ -48,6 +49,12 @@ export function FormCard<T extends TSchema>({
         </CardBody>
         <CardFooter className="justify-end gap-2">
           {formError && <div className="p-1 text-red-700">{formError}</div>}
+          {isDirty && (
+            <Button variant="tertiary" onPress={() => setData(initialData)}>
+              <FlipBackward />
+              Revert changes
+            </Button>
+          )}
           <Button
             isDisabled={isDisabled || !isDirty}
             isPending={isPending}

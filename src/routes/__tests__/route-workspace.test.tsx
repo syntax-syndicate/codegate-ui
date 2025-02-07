@@ -105,6 +105,54 @@ test("has breadcrumbs", () => {
   expect(within(breadcrumbs).getByText(/workspace settings/i)).toBeVisible();
 });
 
+test("revert changes button", async () => {
+  (useParams as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
+    name: "foo",
+  });
+  const { getByRole, getByTestId } = renderComponent();
+
+  const workspaceName = getByRole("textbox", {
+    name: /workspace name/i,
+  });
+  await userEvent.type(workspaceName, "_renamed");
+
+  await waitFor(() => {
+    expect(
+      within(getByTestId("workspace-name")).getByRole("button", {
+        name: /revert changes/i,
+      }),
+    ).toBeEnabled();
+  });
+
+  const revertButton = within(getByTestId("workspace-name")).getByRole(
+    "button",
+    {
+      name: /.*revert changes.*/i,
+    },
+  );
+  await userEvent.click(revertButton);
+
+  await waitFor(() => {
+    expect(
+      within(getByTestId("workspace-name")).getByRole("button", {
+        name: /save/i,
+      }),
+    ).toBeDisabled();
+  });
+
+  expect(
+    within(getByTestId("workspace-name")).queryByRole("button", {
+      name: /.*revert changes.*/i,
+    }),
+  ).toBe(null);
+
+  expect(
+    getByRole("textbox", {
+      name: /workspace name/i,
+    }),
+  ).toHaveValue("foo");
+});
+
 test("rename workspace", async () => {
   (useParams as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
     name: "foo",
