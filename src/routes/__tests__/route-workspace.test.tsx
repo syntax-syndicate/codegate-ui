@@ -48,7 +48,7 @@ test("renders title", () => {
   const { getByRole } = renderComponent();
 
   expect(
-    getByRole("heading", { name: "Workspace settings", level: 4 }),
+    getByRole("heading", { name: 'Workspace settings for "foo"', level: 4 }),
   ).toBeVisible();
 });
 
@@ -64,7 +64,7 @@ test("has a badge when editing the active workspace", () => {
     level: 4,
   });
 
-  expect(within(heading).getByText(/active workspace/i)).toBeVisible();
+  expect(within(heading).getByText(/active/i)).toBeVisible();
 });
 
 test("has no 'active workspace' badge when it's not the active workspace", () => {
@@ -74,7 +74,7 @@ test("has no 'active workspace' badge when it's not the active workspace", () =>
 
   const { queryByText } = renderComponent();
 
-  expect(queryByText(/active workspace/i)).toBeNull();
+  expect(queryByText(/active/i)).toBeNull();
 });
 
 test("renders workspace name input", () => {

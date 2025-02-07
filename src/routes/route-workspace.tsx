@@ -50,10 +50,10 @@ export function RouteWorkspace() {
       <WorkspaceHeading
         title={
           <div className="flex gap-2 items-center">
-            Workspace settings
+            Workspace settings for "{name}"
             {activeWorkspaceName === name && (
               <Badge size="sm" variant="inverted">
-                Active workspace
+                Active
               </Badge>
             )}
           </div>
