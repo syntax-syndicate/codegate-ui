@@ -33,6 +33,7 @@ export function WorkspaceName({
 
   return (
     <FormCard
+      data-testid="workspace-name"
       className={className}
       formError={errorMsg}
       schema={schema}
