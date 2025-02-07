@@ -5,6 +5,7 @@ import { Input, Label, TextField } from "@stacklok/ui-kit";
 
 import { getRACPropsFromJSONForms, JsonFormsDescription } from "../utils";
 
+// eslint-disable-next-line react-refresh/only-export-components
 const TextFieldControl = (props: ControlProps) => {
   const { label } = props;
   const mappedProps = getRACPropsFromJSONForms(props);
