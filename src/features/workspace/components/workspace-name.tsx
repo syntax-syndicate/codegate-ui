@@ -4,7 +4,10 @@ import { Static, Type } from "@sinclair/typebox";
 import { FormCard } from "@/forms/FormCard";
 
 const schema = Type.Object({
-  workspaceName: Type.String({ title: "Workspace name" }),
+  workspaceName: Type.String({
+    title: "Workspace name",
+    minLength: 1,
+  }),
 });
 
 export function WorkspaceName({
