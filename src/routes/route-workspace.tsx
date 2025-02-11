@@ -44,7 +44,13 @@ export function RouteWorkspace() {
         <Breadcrumb>Workspace Settings</Breadcrumb>
       </Breadcrumbs>
 
-      <WorkspaceHeading title="Workspace settings" />
+      <WorkspaceHeading
+        title={
+          <div className="flex gap-2 items-center">
+            Workspace settings for {name}
+          </div>
+        }
+      />
 
       {isArchived ? <WorkspaceArchivedBanner name={name} /> : null}
 

@@ -93,7 +93,7 @@ describe("App", () => {
     );
 
     const workspaceSelectionButton = screen.getByRole("button", {
-      name: "Workspace default",
+      name: "Active workspace default",
     });
     await waitFor(() => expect(workspaceSelectionButton).toBeVisible());
 

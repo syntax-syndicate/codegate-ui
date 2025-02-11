@@ -5,7 +5,7 @@ export function WorkspaceHeading({
   title,
   children,
 }: {
-  title: string;
+  title: React.ReactNode;
   children?: React.ReactNode;
 }) {
   return (
