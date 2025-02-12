@@ -12,16 +12,16 @@ it("only displays a limited number of items in the table", async () => {
   server.use(
     http.get(mswEndpoint("/api/v1/workspaces/:workspace_name/messages"), () => {
       return HttpResponse.json(
-        Array.from({ length: 30 }).map(() => mockConversation())
+        Array.from({ length: 30 }).map(() => mockConversation()),
       );
-    })
+    }),
   );
 
   render(<TableMessages />);
 
   await waitFor(() => {
     expect(
-      within(screen.getByTestId("messages-table")).getAllByRole("row")
+      within(screen.getByTestId("messages-table")).getAllByRole("row"),
     ).toHaveLength(16);
   });
 });
@@ -30,9 +30,9 @@ it("allows pagination", async () => {
   server.use(
     http.get(mswEndpoint("/api/v1/workspaces/:workspace_name/messages"), () => {
       return HttpResponse.json(
-        Array.from({ length: 35 }).map(() => mockConversation())
+        Array.from({ length: 35 }).map(() => mockConversation()),
       );
-    })
+    }),
   );
 
   render(<TableMessages />);
@@ -42,10 +42,10 @@ it("allows pagination", async () => {
       await userEvent.click(screen.getByRole("button", { name: /next/i }));
 
       expect(
-        within(screen.getByTestId("messages-table")).getAllByRole("row").length
+        within(screen.getByTestId("messages-table")).getAllByRole("row").length,
       ).toBeLessThan(16);
     },
-    { timeout: 5000 }
+    { timeout: 5000 },
   );
 
   // on the last page, we cannot go further
@@ -63,7 +63,7 @@ it("allows pagination", async () => {
     expect(screen.getByRole("button", { name: /next/i })).toBeEnabled();
 
     expect(
-      within(screen.getByTestId("messages-table")).getAllByRole("row").length
+      within(screen.getByTestId("messages-table")).getAllByRole("row").length,
     ).toEqual(16);
   });
 });

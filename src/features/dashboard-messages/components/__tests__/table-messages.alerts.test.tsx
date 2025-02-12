@@ -14,8 +14,8 @@ it("shows zero in alerts counts when no alerts", async () => {
         mockConversation({
           alertsConfig: { numAlerts: 0 },
         }),
-      ])
-    )
+      ]),
+    ),
   );
   render(<TableMessages />);
 
@@ -26,12 +26,12 @@ it("shows zero in alerts counts when no alerts", async () => {
   expect(
     screen.getByRole("button", {
       name: /malicious packages count/i,
-    })
+    }),
   ).toHaveTextContent("0");
   expect(
     screen.getByRole("button", {
       name: /secrets count/i,
-    })
+    }),
   ).toHaveTextContent("0");
 });
 
@@ -42,8 +42,8 @@ it("shows count of malicious alerts in row", async () => {
         mockConversation({
           alertsConfig: { numAlerts: 10, type: "malicious" },
         }),
-      ])
-    )
+      ]),
+    ),
   );
   render(<TableMessages />);
 
@@ -54,7 +54,7 @@ it("shows count of malicious alerts in row", async () => {
   expect(
     screen.getByRole("button", {
       name: /malicious packages count/i,
-    })
+    }),
   ).toHaveTextContent("10");
 });
 
@@ -65,8 +65,8 @@ it("shows count of secret alerts in row", async () => {
         mockConversation({
           alertsConfig: { numAlerts: 10, type: "secret" },
         }),
-      ])
-    )
+      ]),
+    ),
   );
   render(<TableMessages />);
 
@@ -77,6 +77,6 @@ it("shows count of secret alerts in row", async () => {
   expect(
     screen.getByRole("button", {
       name: /secrets count/i,
-    })
+    }),
   ).toHaveTextContent("10");
 });

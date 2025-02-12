@@ -12,7 +12,7 @@ it.each(TABLE_MESSAGES_COLUMNS)("contains $children header", async (column) => {
     expect(
       screen.getByRole("columnheader", {
         name: column.children as string,
-      })
+      }),
     ).toBeVisible();
   });
 });

@@ -22,7 +22,7 @@ vi.mock("@monaco-editor/react", () => {
 
 const renderComponent = () =>
   render(
-    <WorkspaceCustomInstructions isArchived={false} workspaceName="foo" />
+    <WorkspaceCustomInstructions isArchived={false} workspaceName="foo" />,
   );
 
 test("can update custom instructions", async () => {
@@ -31,8 +31,8 @@ test("can update custom instructions", async () => {
       mswEndpoint("/api/v1/workspaces/:workspace_name/custom-instructions"),
       () => {
         return HttpResponse.json({ prompt: "initial prompt from server" });
-      }
-    )
+      },
+    ),
   );
 
   const { getByRole, getByText } = renderComponent();
@@ -53,15 +53,15 @@ test("can update custom instructions", async () => {
       mswEndpoint("/api/v1/workspaces/:workspace_name/custom-instructions"),
       () => {
         return HttpResponse.json({ prompt: "new prompt from test" });
-      }
-    )
+      },
+    ),
   );
 
   await userEvent.click(getByRole("button", { name: /Save/i }));
 
   await waitFor(() => {
     expect(
-      getByText(/successfully updated custom instructions/i)
+      getByText(/successfully updated custom instructions/i),
     ).toBeVisible();
   });
 

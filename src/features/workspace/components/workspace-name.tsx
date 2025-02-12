@@ -1,14 +1,17 @@
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  Form,
+  Input,
+  Label,
+  TextField,
+} from "@stacklok/ui-kit";
 import { useMutationCreateWorkspace } from "../hooks/use-mutation-create-workspace";
 import { useNavigate } from "react-router-dom";
-import { Static, Type } from "@sinclair/typebox";
-import { FormCard } from "@/forms/FormCard";
-
-const schema = Type.Object({
-  workspaceName: Type.String({
-    title: "Workspace name",
-    minLength: 1,
-  }),
-});
+import { twMerge } from "tailwind-merge";
+import { useFormState } from "@/hooks/useFormState";
+import { FormButtons } from "@/components/FormButtons";
 
 export function WorkspaceName({
   className,
@@ -22,28 +25,57 @@ export function WorkspaceName({
   const navigate = useNavigate();
   const { mutateAsync, isPending, error } = useMutationCreateWorkspace();
   const errorMsg = error?.detail ? `${error?.detail}` : "";
+  const formState = useFormState({
+    workspaceName,
+  });
+  const { values, updateFormValues } = formState;
+  const isDefault = workspaceName === "default";
+  const isUneditable = isArchived || isPending || isDefault;
 
-  const initialData = { workspaceName };
+  const handleSubmit = (event: { preventDefault: () => void }) => {
+    event.preventDefault();
 
-  const handleSubmit = (data: Static<typeof schema>) => {
     mutateAsync(
-      { body: { name: workspaceName, rename_to: data.workspaceName } },
+      { body: { name: workspaceName, rename_to: values.workspaceName } },
       {
-        onSuccess: () => navigate(`/workspace/${data.workspaceName}`),
+        onSuccess: () => navigate(`/workspace/${values.workspaceName}`),
       },
     );
   };
 
   return (
-    <FormCard
-      data-testid="workspace-name"
-      className={className}
-      formError={errorMsg}
-      schema={schema}
-      isDisabled={isArchived}
-      isPending={isPending}
-      initialData={initialData}
+    <Form
       onSubmit={handleSubmit}
-    />
+      validationBehavior="aria"
+      data-testid="workspace-name"
+    >
+      <Card className={twMerge(className, "shrink-0")}>
+        <CardBody className="flex flex-col gap-6">
+          <TextField
+            isReadOnly={isUneditable}
+            key={workspaceName}
+            aria-label="Workspace name"
+            value={values.workspaceName}
+            name="Workspace name"
+            validationBehavior="aria"
+            isRequired
+            isDisabled={isUneditable}
+            onChange={(workspaceName) => updateFormValues({ workspaceName })}
+          >
+            <Label>Workspace name</Label>
+            <Input />
+          </TextField>
+        </CardBody>
+        <CardFooter className="justify-end">
+          <FormButtons
+            isPending={isPending}
+            formErrorMessage={errorMsg}
+            formSideNote="Cannot rename the default workspace"
+            formState={formState}
+            canSubmit={!isArchived}
+          />
+        </CardFooter>
+      </Card>
+    </Form>
   );
 }

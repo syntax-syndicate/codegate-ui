@@ -2,7 +2,7 @@ import { Conversation } from "@/api/generated";
 
 export function filterMessagesBySubstring(
   conversation: Conversation,
-  substring: string | null
+  substring: string | null,
 ): boolean {
   if (conversation == null) return false;
   if (substring === null) return true;
@@ -14,10 +14,10 @@ export function filterMessagesBySubstring(
       if (curr.answer) acc.push(curr.answer.message);
       return acc;
     },
-    [] as string[]
+    [] as string[],
   );
 
   return [...messages].some((i) =>
-    i?.toLowerCase().includes(substring.toLowerCase())
+    i?.toLowerCase().includes(substring.toLowerCase()),
   );
 }

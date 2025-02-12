@@ -15,7 +15,7 @@ test("shows correct count of all packages", async () => {
               type: "secret",
               numAlerts: 1,
             },
-          })
+          }),
         ),
         ...Array.from({ length: 13 }).map(() =>
           mockConversation({
@@ -23,16 +23,16 @@ test("shows correct count of all packages", async () => {
               type: "malicious",
               numAlerts: 1,
             },
-          })
+          }),
         ),
       ]);
-    })
+    }),
   );
 
   const { getByRole } = render(
     <TabsMessages>
       <div>foo</div>
-    </TabsMessages>
+    </TabsMessages>,
   );
 
   await waitFor(() => {
@@ -50,16 +50,16 @@ test("shows correct count of malicious packages", async () => {
               type: "malicious",
               numAlerts: 1,
             },
-          })
-        )
+          }),
+        ),
       );
-    })
+    }),
   );
 
   const { getByRole } = render(
     <TabsMessages>
       <div>foo</div>
-    </TabsMessages>
+    </TabsMessages>,
   );
 
   await waitFor(() => {
@@ -77,16 +77,16 @@ test("shows correct count of secret packages", async () => {
               type: "secret",
               numAlerts: 1,
             },
-          })
-        )
+          }),
+        ),
       );
-    })
+    }),
   );
 
   const { getByRole } = render(
     <TabsMessages>
       <div>foo</div>
-    </TabsMessages>
+    </TabsMessages>,
   );
 
   await waitFor(() => {

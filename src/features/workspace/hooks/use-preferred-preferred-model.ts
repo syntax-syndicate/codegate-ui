@@ -28,7 +28,7 @@ export const usePreferredModelWorkspace = (workspaceName: string) => {
     () => ({
       path: { workspace_name: workspaceName },
     }),
-    [workspaceName]
+    [workspaceName],
   );
   const { data, isPending } = usePreferredModel(options);
 
